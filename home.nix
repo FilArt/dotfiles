@@ -35,7 +35,6 @@
       gnumake
       rclone
       openfortivpn
-      wezterm
       nodePackages_latest.nodejs
       pinentry
       qbittorrent
@@ -55,4 +54,10 @@
   services.swaync.enable = true;
   services.network-manager-applet.enable = true;
   services.gnome-keyring.enable = true;
+  services.gammastep = {
+    enable = true;
+    tray = true;
+    latitude = 41.115696;
+    longitude = 1.249594;
+  };
 }
