@@ -11,10 +11,23 @@
         "col.shadow" = "rgba(00000099)";
       };
 
+      env = [
+        "GDK_BACKEND,wayland,x11,*"
+        "QT_QPA_PLATFORM,wayland;xcb"
+        "SDL_VIDEODRIVER,wayland"
+        "CLUTTER_BACKEND,wayland"
+        "XDG_SESSION_DESKTOP,Hyprland"
+        "QT_AUTO_SCREEN_SCALE_FACTOR,1"
+        "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
+        "QT_QPA_PLATFORMTHEME,qt5ct"
+      ];
+
       exec-once = [
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
-        "waybar"
+        "hyprctl dispatch exec waybar"
+        "${pkgs.pyprland}/bin/pypr"
+        "${pkgs.ianny}/bin/ianny"
       ];
 
       "$mod" = "SUPER";
@@ -23,11 +36,13 @@
         [
           ", Print, exec, grimblast copy area"
           "$mod, D, exec, fuzzel"
-          "$mod, E, exec, nemo"
+          "$mod, E, exec, pypr toggle filemanager"
+          "$mod, S, exec, pypr toggle musicplayer"
+          "$mod, T, exec, pypr toggle term"
+          "$mod, N, exec, pypr toggle volume"
           "$mod, V, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"
           "$mod, Return, exec, foot"
           "$mod, Q, killactive"
-          "$mod, T, setfloating"
           "$mod, F, fullscreen"
           "$mod + SHIFT, Q, exec, hyprctl dispatch exit"
         ]
@@ -66,5 +81,5 @@
     };
   };
 
-
+  wayland.windowManager.hyprland.systemd.variables = [ "--all" ];
 }

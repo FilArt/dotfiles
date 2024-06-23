@@ -1,12 +1,13 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   imports =
     [
-      ./programs.nix
       ./services.nix
       ./systemd.nix
+      ./desktop/hyprland.nix
+      ./desktop/waybar.nix
     ]
-    ++ import ./desktop
+    ++ import ./programs/default.nix
     ++ [
       <catppuccin/modules/home-manager>
     ];
@@ -46,13 +47,13 @@
       pinentry
       emojione
       qbittorrent
-      tela-circle-icon-theme
-      gnome.nautilus
       dmenu
       autorandr
       python3Packages.ipython
+      python3Packages.terminaltexteffects
       cinnamon.nemo
-      pop-gtk-theme
+      screenfetch
+      blanket
 
       # fonts
       open-sans
@@ -62,20 +63,34 @@
       openmoji-color
 
       # hyprland
-      cliphist
-      wl-clipboard-rs
+      cliphist # not working very well
+      wl-clipboard
       wofi
       grimblast
       emote
+      joypixels
+      pyprland
     ];
     pointerCursor = {
-      name = "Vanilla-DMZ";
-      package = pkgs.vanilla-dmz;
+      gtk.enable = true;
+      # x11.enable = true;
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Classic";
+      size = 16;
+      #name = "Vanilla-DMZ";
+      #package = pkgs.vanilla-dmz;
     };
   };
 
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (lib.getName pkg) [
+      "joypixels"
+    ];
+  nixpkgs.config.joypixels.acceptLicense = true;
+
   fonts.fontconfig.enable = true;
-  fonts.fontconfig.defaultFonts.emoji = [ "EmojiOne Color" "Noto Color Emoji" ];
+  fonts.fontconfig.defaultFonts.emoji = [ "JoyPixels" ];
 
   catppuccin = {
     enable = true;
@@ -93,13 +108,24 @@
 
   gtk = {
     enable = true;
-    theme.name = "Pop-dark";
-    iconTheme.name = "Tela-circle-dark";
+    theme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome.gnome-themes-extra;
+    };
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
+    };
     font = {
       name = "OpenSans";
       size = 11;
     };
+    #cursorTheme = {
+    #  name = "Vanilla-DMZ";
+    #  package = pkgs.vanilla-dmz;
+    #};
   };
+  home.sessionVariables.GTK_THEME = "Adwaita:dark";
 
   xdg.enable = true;
   xdg.userDirs.enable = true;

@@ -1,0 +1,13 @@
+[
+  ./pyprland/default.nix
+  ./ianny/default.nix
+  ./zsh.nix
+  ./borgmatic.nix
+  ./neovim.nix
+  ./vscode.nix
+  ./fuzzel.nix
+  ./foot.nix
+  ./ruff.nix
+  ./pass.nix
+  ./gpg.nix
+]
