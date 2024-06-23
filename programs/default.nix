@@ -10,4 +10,6 @@
   ./ruff.nix
   ./pass.nix
   ./gpg.nix
+  ./pasystray.nix
+  ./redshift.nix
 ]

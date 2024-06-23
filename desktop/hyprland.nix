@@ -1,4 +1,12 @@
 { pkgs, ... }: {
+  home.packages = with pkgs; [
+    cliphist # not working very well
+    wl-clipboard
+    wofi
+    grimblast
+    pyprland
+  ];
+
   wayland.windowManager.hyprland = {
     enable = true;
     package = pkgs.hyprland;
@@ -81,5 +89,5 @@
     };
   };
 
-  wayland.windowManager.hyprland.systemd.variables = [ "--all" ];
+  wayland.windowManager.hyprland.systemd.variables = [ "--all" ]; # do i need it?
 }
