@@ -20,10 +20,11 @@ size = "70% 70%"
 margin = 0
 
 [scratchpads.term]
-command = "foot -a foot-float"
-animation = "fromBottom"
+animation = "fromTop"
+command = "foot --app-id foot-dropterm"
+class = "foot-dropterm"
+size = "70% 60%"
 margin = 50
-unfocus = "hide"
 
 [scratchpads.volume]
 animation = "fromRight"

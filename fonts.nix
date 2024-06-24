@@ -1,25 +1,32 @@
 { pkgs, lib, ... }:
 {
-  nixpkgs.config.allowUnfreePredicate = pkg:
-    builtins.elem (lib.getName pkg) [
-      "joypixels"
-    ];
-  nixpkgs.config.joypixels.acceptLicense = true;
-
   home.packages = with pkgs; [
-    open-sans
-    cascadia-code
-    liberation_ttf
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+    (nerdfonts.override { fonts = [ "RobotoMono" ]; })
     font-awesome
+    source-han-sans
+    source-han-sans-japanese
+    source-han-serif-japanese
+    roboto
+    roboto-mono
+    roboto-serif
     openmoji-color
   ];
-
-  fonts.fontconfig.enable = true;
-  fonts.fontconfig.defaultFonts.emoji = [ "JoyPixels" ];
-
+  fonts = {
+    fontconfig = {
+      enable = true;
+      defaultFonts = {
+        serif = [ "Roboto Serif" "Liberation Serif" "DejaVu Serif" "Noto Serif" ];
+        sansSerif = [ "Roboto" "Libration Sans" "DejaVu Sans" "Noto Sans" ];
+        monospace = [ "RobotoMono" ];
+        emoji = [ "OpenMoji Color" "JoyPixels" "Noto Color Emoji" ];
+      };
+    };
+  };
   gtk.font = {
-    name = "OpenSans";
+    name = "Roboto";
     size = 11;
   };
-
 }

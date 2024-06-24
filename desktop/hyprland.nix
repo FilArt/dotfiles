@@ -3,8 +3,10 @@
     cliphist # not working very well
     wl-clipboard
     wofi
-    grimblast
     pyprland
+    grim
+    swappy
+    slurp
   ];
 
   wayland.windowManager.hyprland = {
@@ -42,7 +44,7 @@
 
       bind =
         [
-          ", Print, exec, grimblast copy area"
+          ", Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
           "$mod, D, exec, fuzzel"
           "$mod, E, exec, pypr toggle filemanager"
           "$mod, S, exec, pypr toggle musicplayer"

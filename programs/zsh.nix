@@ -4,7 +4,7 @@
     oh-my-zsh.enable = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
-    initExtraFirst = "screenfetch -N -E | tte --frame-rate 200 slide --merge";
+    initExtraFirst = "[ ! -f /tmp/sf ] && screenfetch -N -E > /tmp/sf; cat /tmp/sf | tte --frame-rate 300 slide --merge";
   };
   programs.starship = {
     enable = true;

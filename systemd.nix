@@ -13,7 +13,7 @@
     };
     Install.WantedBy = [ "graphical-session.target" ];
     Service = {
-      ExecStartPre = "/run/current-system/sw/bin/mkdir -p /home/art/mnt/gdrive";
+      ExecStartPre = "/run/wrappers/bin/umount /home/art/mnt/gdrive && /run/wrappers/bin/mkdir -p /home/art/mnt/gdrive";
       ExecStart = "${pkgs.rclone}/bin/rclone mount --vfs-cache-mode=writes --vfs-cache-max-age=12h gdrive: /home/art/mnt/gdrive";
       ExecStop = "/run/wrappers/bin/fusermount -u /home/art/mnt/gdrive";
       Restart = "always";
@@ -29,7 +29,7 @@
     };
     Install.WantedBy = [ "graphical-session.target" ];
     Service = {
-      ExecStartPre = "/run/current-system/sw/bin/mkdir -p /home/art/mnt/onedrive";
+      ExecStartPre = "/run/wrappers/bin/umount /home/art/mnt/onedrive && /run/wrappers/bin/mkdir -p /home/art/mnt/onedrive";
       ExecStart = "${pkgs.rclone}/bin/rclone mount --vfs-cache-mode=writes --vfs-cache-max-age=12h onedrive: /home/art/mnt/onedrive";
       ExecStop = "/run/wrappers/bin/fusermount -u /home/art/mnt/onedrive";
       Restart = "always";

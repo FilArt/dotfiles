@@ -12,7 +12,7 @@
       ms-python.vscode-pylance
     ];
     userSettings = {
-      "editor.fontFamily" = "Cascadia Code";
+      "editor.fontFamily" = "RobotoMono Nerd Font";
       "editor.formatOnSave" = true;
       "[python]" = {
         "editor.defaultFormatter" = null;

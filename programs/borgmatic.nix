@@ -18,7 +18,7 @@
             "- /home/art/.docker"
             "- /home/art/.tldrc"
           ];
-          repositories = [ "/home/art/mnt/onedrive/thinkpad_backup" ];
+          repositories = [ "/home/art/mnt/gdrive/backups/nix" ];
         };
         storage.encryptionPasscommand = "/run/current-system/sw/bin/cat /home/art/.borg-passphrase";
       };

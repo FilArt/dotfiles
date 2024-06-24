@@ -4,8 +4,7 @@
     settings = {
       main = {
         term = "xterm-256color";
-        font = "CascadiaMono:size=11";
-
+        font = "RobotoMono Nerd Font:size=11";
         dpi-aware = "yes";
       };
       mouse = {

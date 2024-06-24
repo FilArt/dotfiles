@@ -10,6 +10,8 @@
 
   programs.home-manager.enable = true;
 
+  nixpkgs.config.allowUnfree = true;
+
   home = {
     username = "art";
     homeDirectory = "/home/art";
@@ -22,9 +24,6 @@
       ncdu
       direnv
       blueman
-      actkbd
-      rofi
-      haskellPackages.greenclip
       pavucontrol
       jetbrains.pycharm-professional
       light
