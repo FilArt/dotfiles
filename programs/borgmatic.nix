@@ -18,7 +18,7 @@
             "- /home/art/.docker"
             "- /home/art/.tldrc"
           ];
-          repositories = [ "/home/art/mnt/gdrive/backups/nix" ];
+          repositories = [ "ssh://i82i6syt@i82i6syt.repo.borgbase.com/./repo" ];
         };
         storage.encryptionPasscommand = "/run/current-system/sw/bin/cat /home/art/.borg-passphrase";
       };
