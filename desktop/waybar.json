@@ -1,14 +1,6 @@
 {
-    "clock#1": {
-        "format": "{:%a}",
-        "tooltip": false
-    },
-    "clock#2": {
-        "format": "{:%H:%M}",
-        "tooltip-format": "{:%A}"
-    },
-    "clock#3": {
-        "format": "{:%b %d}",
+    "clock": {
+        "format": "{:%d/%m/%Y %H:%M %a}",
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
         "calendar": {
             "mode": "year",
@@ -34,16 +26,27 @@
     "wireplumber": {
         "format": "{icon} {volume}%",
         "format-muted": "",
-        "on-click": "nix-shell -p helvum --run helvum",
+        "on-click": "pamixer -t",
         "format-icons": [
             "",
             "",
             ""
         ]
     },
+    "pulseaudio#microphone": {
+        "format": "{format_source}",
+        "format-source": " {volume}%",
+        "format-source-muted": " ",
+        "on-click": "pamixer --default-source -t",
+        "on-click-right": "pavucontrol -t 4",
+        "on-scroll-up": "pamixer --default-source -i 5",
+        "on-scroll-down": "pamixer --default-source -d 5",
+        "tooltip-format": "{source_desc} | {source_volume}%",
+        "scroll-step": 5
+    },
     "memory": {
         "interval": 5,
-        "format": "Mem {}%"
+        "format": "RAM {}%"
     },
     "battery": {
         "states": {

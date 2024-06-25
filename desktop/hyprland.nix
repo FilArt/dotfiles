@@ -8,6 +8,7 @@
     swappy
     slurp
     hyprlock
+    pamixer
   ];
 
   wayland.windowManager.hyprland = {
