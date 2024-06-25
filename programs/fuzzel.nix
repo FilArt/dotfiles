@@ -3,16 +3,20 @@
     enable = true;
     settings = {
       main = {
-        terminal = "''${pkgs.foot}/bin/foot";
+        terminal = "${pkgs.foot}/bin/foot";
         layer = "overlay";
+        dpi-aware = true;
+        font = "RobotoMono Nerd Font";
+        icon-theme = "Papirus-Dark";
+        show-actions = true;
       };
-      colors.background = "1D1011ff";
-      colors.text = "F7DCDEff";
-      colors.selection = "574144ff";
+      colors.background = "1e1e2edd";
+      colors.text = "cdd6f4ff";
+      colors.selection = "585b70ff";
       colors.selection-text = "DEBFC2ff";
-      colors.border = "574144dd";
-      colors.match = "FFB2BCff";
-      colors.selection-match = "FFB2BCff";
+      colors.border = "b4befeff";
+      colors.match = "f38ba8ff";
+      colors.selection-match = "f38ba8ff";
     };
   };
 }

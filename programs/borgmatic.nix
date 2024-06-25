@@ -17,6 +17,7 @@
             "- /home/art/.docker"
             "- /home/art/.tldrc"
             "- /home/art/Games"
+            "- /home/art/.config/google-chrome"
           ];
           repositories = [ "ssh://i82i6syt@i82i6syt.repo.borgbase.com/./repo" ];
           extraConfig = {
