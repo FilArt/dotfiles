@@ -72,8 +72,9 @@
         padding-right: 3px;
         margin-left: 3px;
         margin-right: 3px;
-        border-radius: 5px;
         color: #e5d9f5;
+        border-radius: 10px;
+        border: 0.25px solid white;
       }
       #systemd-failed-units:hover, 
       #wireplumber:hover, 
@@ -88,6 +89,7 @@
       #custom-lock:hover 
       {
         background-color: #4B0082;
+        border-bottom: 1px solid white;
       }
 
       #custom-lock {
