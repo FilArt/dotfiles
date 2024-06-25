@@ -1,6 +1,5 @@
 [
   ./pyprland/default.nix
-  ./ianny/default.nix
   ./zsh.nix
   ./borgmatic.nix
   ./neovim.nix

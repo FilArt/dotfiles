@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
   home.packages = with pkgs; [
     cliphist # not working very well
     wl-clipboard
@@ -7,6 +7,7 @@
     grim
     swappy
     slurp
+    hyprlock
   ];
 
   wayland.windowManager.hyprland = {
@@ -15,12 +16,14 @@
     xwayland.enable = true;
     systemd.enable = true;
     settings = {
-      monitor = "eDP-1,disable";
+      monitor = [
+        "eDP-1,disable"
+        "HDMI-A-1,1920x1080@60,0x0,1,bitdepth,10"
+      ];
       decoration = {
         shadow_offset = "0 5";
         "col.shadow" = "rgba(00000099)";
       };
-
       env = [
         "GDK_BACKEND,wayland,x11,*"
         "QT_QPA_PLATFORM,wayland;xcb"
@@ -35,9 +38,8 @@
       exec-once = [
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
-        "hyprctl dispatch exec waybar"
         "${pkgs.pyprland}/bin/pypr"
-        "${pkgs.ianny}/bin/ianny"
+        "${pkgs.wpaperd}/bin/wpaperd &"
       ];
 
       "$mod" = "SUPER";
@@ -92,4 +94,47 @@
   };
 
   wayland.windowManager.hyprland.systemd.variables = [ "--all" ]; # do i need it?
+
+  programs.hyprlock = {
+    enable = true;
+    settings = {
+      background = [
+        {
+          monitor = "";
+          path = "${config.home.homeDirectory}/Pictures/wallpaper.png";
+          blur_passes = 3;
+          blur_size = 8;
+        }
+      ];
+      input-field = [
+        {
+          monitor = "";
+          size = "200, 50";
+          position = "0, -80";
+          dots_center = true;
+          fade_on_empty = false;
+          font_color = "rgb(202, 211, 245)";
+          inner_color = "rgb(91, 96, 120)";
+          outer_color = "rgb(24, 25, 38)";
+          outline_thickness = 5;
+          placeholder_text = "Password...";
+          shadow_passes = 2;
+        }
+      ];
+    };
+  };
+
+  programs.wpaperd = {
+    enable = true;
+    settings = {
+      default = {
+        duration = "30m";
+        mode = "center";
+        sorting = "ascending";
+      };
+      any = {
+        path = "${config.home.homeDirectory}/Pictures/wallpapers";
+      };
+    };
+  };
 }
