@@ -40,6 +40,7 @@
         "wl-paste --type image --watch cliphist store"
         "${pkgs.pyprland}/bin/pypr"
         "${pkgs.wpaperd}/bin/wpaperd &"
+        "pkill waybar && ${pkgs.waybar}/bin/waybar &"
       ];
 
       "$mod" = "SUPER";
@@ -101,9 +102,9 @@
       background = [
         {
           monitor = "";
-          path = "${config.home.homeDirectory}/Pictures/wallpaper.png";
+          path = "${config.home.homeDirectory}/Pictures/wallpapers/1.png";
           blur_passes = 3;
-          blur_size = 8;
+          blur_size = 4;
         }
       ];
       input-field = [
@@ -117,7 +118,7 @@
           inner_color = "rgb(91, 96, 120)";
           outer_color = "rgb(24, 25, 38)";
           outline_thickness = 5;
-          placeholder_text = "Password...";
+          placeholder_text = "say friend and enter";
           shadow_passes = 2;
         }
       ];

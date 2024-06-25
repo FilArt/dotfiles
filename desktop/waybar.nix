@@ -34,16 +34,16 @@
         };
         "custom/notification" = {
           tooltip = false;
-          format = "{} {icon} ";
+          format = "{} {icon}";
           "format-icons" = {
             notification = "󱅫";
             none = "";
-            "dnd-notification" = " ";
+            "dnd-notification" = "";
             "dnd-none" = "󰂛";
-            "inhibited-notification" = " ";
+            "inhibited-notification" = "";
             "inhibited-none" = "";
-            "dnd-inhibited-notification" = " ";
-            "dnd-inhibited-none" = " ";
+            "dnd-inhibited-notification" = "";
+            "dnd-inhibited-none" = "";
           };
           "return-type" = "json";
           "exec-if" = "which swaync-client";
