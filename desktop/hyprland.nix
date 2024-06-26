@@ -1,15 +1,23 @@
-{ config, pkgs, ... }: {
-  home.packages = with pkgs; [
-    cliphist # not working very well
-    wl-clipboard
-    wofi
-    pyprland
-    grim
-    swappy
-    slurp
-    hyprlock
-    pamixer
-  ];
+{ config, pkgs, ... }:
+
+let
+  hyprctl = "${pkgs.hyprland}/bin/hyprctl";
+  pkill = "${pkgs.procps}/bin/pkill";
+  pypr = "${pkgs.pyprland}/bin/pypr";
+in
+{
+  home.packages = with pkgs;
+    [
+      cliphist
+      wl-clipboard
+      wofi
+      pyprland
+      grim
+      swappy
+      slurp
+      hyprlock
+      pamixer
+    ];
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -17,14 +25,14 @@
     xwayland.enable = true;
     systemd.enable = true;
     settings = {
+      general = {
+        allow_tearing = true;
+      };
       monitor = [
         "eDP-1,disable"
-        "HDMI-A-1,1920x1080@60,0x0,1,bitdepth,10"
+        "HDMI-A-1,highresxhighrr,auto,1"
+        "HDMI-A-1,addreserved,0,0,0,0"
       ];
-      decoration = {
-        shadow_offset = "0 5";
-        "col.shadow" = "rgba(00000099)";
-      };
       env = [
         "GDK_BACKEND,wayland,x11,*"
         "QT_QPA_PLATFORM,wayland;xcb"
@@ -39,9 +47,12 @@
       exec-once = [
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
-        "${pkgs.pyprland}/bin/pypr"
-        "${pkgs.wpaperd}/bin/wpaperd &"
-        "pkill waybar && ${pkgs.waybar}/bin/waybar &"
+        "${pypr} --debug /tmp/pypr.log"
+      ];
+
+      exec = [
+        "${pkill} wpaperd && ${pkgs.wpaperd}/bin/wpaperd &"
+        "${pkill} waybar && ${hyprctl} dispatch exec ${pkgs.waybar}/bin/waybar &"
       ];
 
       "$mod" = "SUPER";
@@ -50,15 +61,25 @@
         [
           ", Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
           "$mod, D, exec, fuzzel"
-          "$mod, E, exec, pypr toggle filemanager"
-          "$mod, S, exec, pypr toggle musicplayer"
-          "$mod, T, exec, pypr toggle term"
-          "$mod, N, exec, pypr toggle volume"
+          "$mod, E, exec, ${pypr} toggle filemanager"
+          "$mod, S, exec, ${pypr} toggle musicplayer"
+          "$mod, T, exec, ${pypr} toggle term"
+          "$mod, N, exec, ${pypr} toggle volume"
           "$mod, V, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"
           "$mod, Return, exec, foot"
           "$mod, Q, killactive"
           "$mod, F, fullscreen"
-          "$mod + SHIFT, Q, exec, hyprctl dispatch exit"
+          "$mod + SHIFT, Q, exec, ${hyprctl} dispatch exit"
+          "$mod,Tab,cyclenext,"
+          "$mod,Tab,bringactivetotop,"
+          "$mod,l,movefocus,r"
+          "$mod,h,movefocus,l"
+          "$mod,j,movefocus,d"
+          "$mod,k,movefocus,u"
+          "$mod,right,movefocus,r"
+          "$mod,left,movefocus,l"
+          "$mod,down,movefocus,d"
+          "$mod,up,movefocus,u"
         ]
         ++ (
           # workspaces
@@ -86,6 +107,11 @@
         "$mod, mouse:272, movewindow"
         "$mod, mouse:273, resizewindow"
         "$mod ALT, mouse:272, resizewindow"
+      ];
+
+      bindl = [
+        ",switch:on:Lid Switch,exec,hyprctl keyword monitor \"eDP-1, disable\""
+        ",switch:off:Lid Switch,exec,hyprctl keyword monitor \"eDP-1, preferred, 0x0, 1\""
       ];
 
       input = {

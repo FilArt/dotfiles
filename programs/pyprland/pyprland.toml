@@ -1,6 +1,7 @@
 [pyprland]
 plugins = [
-  "scratchpads"
+  "scratchpads",
+  "system_notifier",
 ]
 
 [scratchpads.filemanager]
@@ -30,6 +31,12 @@ margin = 50
 animation = "fromRight"
 command = "pavucontrol"
 class = "org.pulseaudio.pavucontrol"
+lazy = "true"
 size = "40% 90%"
+max_size = "1080px 100%"
 unfocus = "hide"
-lazy = true
+preserve_aspect = true
+
+[system_notifier]
+command = "sudo journalctl -fx"
+parser = ["journal"]
