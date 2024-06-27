@@ -99,7 +99,6 @@
       window#waybar {
         border-bottom: 1px solid @unfocused_borders;
         background: #040406;
-        border-radius: 30px;
         color: #cba6f7;
       }
 

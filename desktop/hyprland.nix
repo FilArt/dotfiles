@@ -28,6 +28,12 @@ in
       general = {
         allow_tearing = true;
       };
+      decoration = {
+        rounding = 5;
+        blur = {
+          special = true;
+        };
+      };
       monitor = [
         "eDP-1,disable"
         "HDMI-A-1,highresxhighrr,auto,1"
