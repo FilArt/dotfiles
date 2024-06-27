@@ -1,11 +1,11 @@
 { pkgs, ... }: {
   qt = {
     enable = true;
+    platformTheme.name = "gtk";
     style = {
       name = "adwaita-dark";
       package = pkgs.adwaita-qt;
     };
-    platformTheme.name = "adwaita";
   };
 
   gtk = {
@@ -27,11 +27,12 @@
   home.sessionVariables.GTK_THEME = "Adwaita:dark";
   home.pointerCursor = {
     gtk.enable = true;
-    # x11.enable = true;
     package = pkgs.bibata-cursors;
     name = "Bibata-Modern-Classic";
-    size = 16;
-    #name = "Vanilla-DMZ";
-    #package = pkgs.vanilla-dmz;
+    size = 24;
+    x11 = {
+      enable = true;
+      defaultCursor = "Bibata-Modern-Classic";
+    };
   };
 }

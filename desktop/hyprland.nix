@@ -4,23 +4,18 @@ let
   hyprctl = "${pkgs.hyprland}/bin/hyprctl";
   pkill = "${pkgs.procps}/bin/pkill";
   pypr = "${pkgs.pyprland}/bin/pypr";
+  py3 = "${pkgs.python3}/bin/python";
 in
 {
   home.packages = with pkgs;
     [
-      cliphist
-      wl-clipboard
-      wofi
       pyprland
-      grim
-      swappy
-      slurp
       hyprlock
-      pamixer
+      python3
     ];
 
   wayland.windowManager.hyprland = {
-    enable = true;
+    enable = false;
     package = pkgs.hyprland;
     xwayland.enable = true;
     systemd.enable = true;
@@ -40,19 +35,11 @@ in
         "HDMI-A-1,addreserved,0,0,0,0"
       ];
       env = [
-        "GDK_BACKEND,wayland,x11,*"
-        "QT_QPA_PLATFORM,wayland;xcb"
-        "SDL_VIDEODRIVER,wayland"
-        "CLUTTER_BACKEND,wayland"
         "XDG_SESSION_DESKTOP,Hyprland"
-        "QT_AUTO_SCREEN_SCALE_FACTOR,1"
-        "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
-        "QT_QPA_PLATFORMTHEME,qt5ct"
       ];
 
       exec-once = [
-        "wl-paste --type text --watch cliphist store"
-        "wl-paste --type image --watch cliphist store"
+        "${py3} ${config.home.homeDirectory}/home-manager/desktop/autostart.py"
         "${pypr} --debug /tmp/pypr.log"
       ];
 

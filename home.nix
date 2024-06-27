@@ -43,6 +43,7 @@
       cinnamon.nemo
       screenfetch
       blanket
+      htop-vim
     ];
   };
 
