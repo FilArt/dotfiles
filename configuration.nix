@@ -87,10 +87,10 @@
 
   services.displayManager.sddm.enable = true;
 
-  # programs.gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
+  programs.gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
   programs.hyprland = {
     # or wayland.windowManager.hyprland
-    enable = true;
+    enable = false;
     xwayland.enable = true;
   };
 

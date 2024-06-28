@@ -1,3 +1,5 @@
+from libqtile.backend.wayland import InputConfig
+
 import os
 import subprocess
 from libqtile.config import Group, ScratchPad, DropDown, Match
@@ -16,7 +18,6 @@ from libqtile.utils import guess_terminal
 @hook.subscribe.startup
 def start():
     default_cmds = os.path.expanduser("~/.config/home-manager/desktop/autostart.py")
-
     subprocess.Popen(default_cmds)
 
 
@@ -78,7 +79,33 @@ scratchpad = ScratchPad(
             opacity=0.9,
             on_focus_lost_hide=False,
         ),
+        DropDown(
+            "spotify",
+            "spotify",
+            width=0.75,
+            height=0.8,
+            opacity=0.95,
+            on_focus_lost_hide=False,
+        ),
+        DropDown(
+            "nemo",
+            "nemo",
+            width=0.75,
+            height=0.8,
+            opacity=0.95,
+            on_focus_lost_hide=False,
+        ),
+        DropDown(
+            terminal,
+            terminal,
+            width=0.75,
+            height=0.8,
+            opacity=0.95,
+            on_focus_lost_hide=False,
+        ),
     ],
+    label="ScratchPad",
+    single=True,
 )
 
 groups.append(scratchpad)
@@ -127,10 +154,13 @@ keys = [
         lazy.window.toggle_fullscreen(),
         desc="Toggle fullscreen on the focused window",
     ),
-    Key([mod], "t", lazy.window.toggle_floating(), desc="Toggle floating on the focused window"),
+    Key([mod, "shift"], "t", lazy.window.toggle_floating(), desc="Toggle floating on the focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "d", lazy.spawn("fuzzel")),
+    Key([mod], "s", lazy.group["0"].dropdown_toggle("spotify")),
+    Key([mod], "e", lazy.group["0"].dropdown_toggle("nemo")),
+    Key([mod], "t", lazy.group["0"].dropdown_toggle(terminal)),
     Key(
         [mod],
         "v",
@@ -149,7 +179,6 @@ keys = [
             """
         ),
     ),
-    Key([mod], "e", lazy.spawn("nemo")),
 ]
 for i in groups:
     keys.extend(
@@ -213,6 +242,12 @@ memory = widget.Memory(
     mouse_callbacks={"Button1": lazy.group["0"].dropdown_toggle("htop")},
     decorations=[RectDecoration(colour="#600060", filled=True, padding=2)],
 )
+
+
+def get_notys():
+    return subprocess.run(["swaync-client", "-c"], capture_output=True).stdout.decode()
+
+
 bar_widgets = [
     # widget.CurrentLayout(),
     groupbox,
@@ -228,6 +263,9 @@ bar_widgets = [
     widget.Clock(
         format="%H:%M:%S %d/%m/%Y %a",
         mouse_callbacks={"Button1": lazy.spawn("bfcal")},
+    ),
+    widget.GenPollText(
+        func=get_notys, fmt="{} ", mouse_callbacks={"Button1": lazy.spawn("swaync-client -t")}, update_interval=3
     ),
 ]
 
@@ -272,7 +310,9 @@ reconfigure_screens = True
 auto_minimize = True
 
 # When using the Wayland backend, this can be used to configure input devices.
-wl_input_rules = None
+wl_input_rules = {
+    "type:keyboard": InputConfig(kb_layout="us,ru", kb_options="grp:caps_toggle"),
+}
 
 # XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
 # string besides java UI toolkits; you can see several discussions on the
