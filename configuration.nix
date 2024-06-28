@@ -55,8 +55,6 @@
     useXkbConfig = true; # use xkb.options in tty.
   };
 
-
-
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
@@ -74,12 +72,22 @@
     xkb.options = "grp:caps_toggle";
     windowManager.qtile = {
       enable = true;
-      extraPackages = python3Packages: with python3Packages; [ qtile-extras dbus-next dbus-python pyxdg xdg ];
+      extraPackages = python3Packages: with python3Packages; [
+        qtile-extras
+        dbus-next
+        pyxdg
+        pywlroots
+        pywayland
+        xkbcommon
+      ];
     };
-    displayManager.gdm.enable = true;
+    displayManager.gdm.enable = false;
     updateDbusEnvironment = true;
   };
 
+  services.displayManager.sddm.enable = true;
+
+  # programs.gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
   programs.hyprland = {
     # or wayland.windowManager.hyprland
     enable = true;

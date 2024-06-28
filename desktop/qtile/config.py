@@ -2,7 +2,6 @@ import os
 import subprocess
 from libqtile.config import Group, ScratchPad, DropDown, Match
 
-
 from libqtile import bar, layout, hook
 from libqtile.config import Click, Drag, Key, Screen
 from qtile_extras import widget
@@ -18,14 +17,7 @@ from libqtile.utils import guess_terminal
 def start():
     default_cmds = os.path.expanduser("~/.config/home-manager/desktop/autostart.py")
 
-    dbus = os.path.expanduser("~/.dbus-qtile-environment")
-    subprocess.Popen(
-        [
-            dbus,
-            "systemctl --user import-environment",
-            default_cmds,
-        ]
-    )
+    subprocess.Popen(default_cmds)
 
 
 mod = "mod4"
@@ -61,7 +53,7 @@ bright_white = nord6
 black = nord0
 bright_black = nord3
 
-layouts = [layout.Columns()]
+layouts = [layout.Bsp()]
 
 groups = [
     Group("1"),
@@ -202,6 +194,9 @@ groupbox = widget.GroupBox2(
         ),
         widget.groupbox2.GroupBoxRule(text_colour="bbff00").when(occupied=True),
         widget.groupbox2.GroupBoxRule(line_colour="00ff00").when(focused=True),
+        widget.groupbox2.GroupBoxRule(line_colour="ffffff").when(
+            screen=widget.groupbox2.ScreenRule.OTHER, focused=False, occupied=False, urgent=False
+        ),
     ]
 )
 
@@ -223,18 +218,16 @@ bar_widgets = [
     groupbox,
     widget.TaskList(rounded=True, stretch=True),
     chord,
-    widget.UnitStatus(),
-    widget.UnitStatus(unitname="docker.service", label="Docker"),
     memory,
     # widget.Battery(),
     widget.DF(visible_on_warn=False),
-    widget.PulseVolume(fmt="🔊{}"),
+    widget.Volume(fmt="🔊{}"),
     widget.WiFiIcon(interface="wlp45s0"),
-    # widget.StatusNotifier(),
-    widget.Systray(),
+    widget.StatusNotifier(),
+    # widget.Systray(),
     widget.Clock(
         format="%H:%M:%S %d/%m/%Y %a",
-        mouse_callbacks={"Button1": lazy.spawn("nix-shell -p bfcal --run bfcal")},
+        mouse_callbacks={"Button1": lazy.spawn("bfcal")},
     ),
 ]
 

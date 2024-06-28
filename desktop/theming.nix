@@ -18,10 +18,6 @@
       name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;
     };
-    #cursorTheme = {
-    #  name = "Vanilla-DMZ";
-    #  package = pkgs.vanilla-dmz;
-    #};
   };
 
   home.sessionVariables.GTK_THEME = "Adwaita:dark";
