@@ -59,4 +59,7 @@
     latitude = 41.115696;
     longitude = 1.249594;
   };
+  services.psd.enable = true;
+  services.home-manager.autoUpgrade.enable = true;
+  services.home-manager.autoUpgrade.frequency = "weekly";
 }

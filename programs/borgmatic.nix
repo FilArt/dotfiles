@@ -18,6 +18,13 @@
             "- /home/art/.tldrc"
             "- /home/art/Games"
             "- /home/art/.config/google-chrome"
+            "- /home/art/.config/Slack"
+            "- /home/art/.config/Code"
+            "- /home/art/.config/JetBrains"
+            "- /home/art/.cache"
+            "- /home/art/.ipython"
+            "- /home/art/Downloads"
+
           ];
           repositories = [ "ssh://i82i6syt@i82i6syt.repo.borgbase.com/./repo" ];
           extraConfig = {
@@ -41,5 +48,5 @@
       };
     };
   };
-  #services.borgmatic.enable = true;
+  services.borgmatic.enable = true;
 }

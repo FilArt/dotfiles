@@ -14,11 +14,16 @@ from libqtile.widget import backlight
 from qtile_extras.widget.decorations import BorderDecoration, RectDecoration
 from libqtile.utils import guess_terminal
 
+try:
+    from misc import widget_decor
+except ImportError:
+    widget_decor = {}
 
-@hook.subscribe.startup
-def start():
-    default_cmds = os.path.expanduser("~/.config/home-manager/desktop/autostart.py")
-    subprocess.Popen(default_cmds)
+
+@hook.subscribe.startup_once
+def autostart():
+    home = os.path.expanduser("~/.config/home-manager/desktop/autostart.sh")
+    subprocess.Popen([home])
 
 
 mod = "mod4"
@@ -256,13 +261,19 @@ bar_widgets = [
     memory,
     # widget.Battery(),
     widget.DF(visible_on_warn=False),
+    # widget.Battery(),
     widget.Volume(fmt="🔊{}"),
     widget.WiFiIcon(interface="wlp45s0"),
     widget.StatusNotifier(),
     # widget.Systray(),
     widget.Clock(
-        format="%H:%M:%S %d/%m/%Y %a",
+        format="%H:%M:%S",
+        **widget_decor,
+    ),
+    widget.Clock(
+        format="%d/%m/%Y %a",
         mouse_callbacks={"Button1": lazy.spawn("bfcal")},
+        **widget_decor,
     ),
     widget.GenPollText(
         func=get_notys, fmt="{} ", mouse_callbacks={"Button1": lazy.spawn("swaync-client -t")}, update_interval=3
