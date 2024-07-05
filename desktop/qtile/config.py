@@ -1,3 +1,6 @@
+from libqtile.log_utils import logger
+
+import random
 from libqtile.backend.wayland import InputConfig
 
 import os
@@ -11,7 +14,7 @@ from libqtile.lazy import lazy
 
 from libqtile.widget import backlight
 
-from qtile_extras.widget.decorations import BorderDecoration, RectDecoration
+from qtile_extras.widget.decorations import BorderDecoration
 from libqtile.utils import guess_terminal
 
 
@@ -241,9 +244,9 @@ chord = widget.Chord(
 
 memory = widget.Memory(
     measure_mem="G",
-    format="  {MemUsed:.0f}{mm}/{MemTotal:.0f}{mm} ({MemPercent}%)",
+    format="󰍛 {MemUsed:.0f}{mm}/{MemTotal:.0f}{mm} ({MemPercent}%)",
     mouse_callbacks={"Button1": lazy.group["0"].dropdown_toggle("htop")},
-    decorations=[RectDecoration(colour="#600060", filled=True, padding=2)],
+    # background="#600060",
 )
 
 battery = widget.Battery(
@@ -261,13 +264,22 @@ def get_notys():
     return subprocess.run(["swaync-client", "-c"], capture_output=True).stdout.decode()
 
 
+@lazy.function
+def wallpaper(qtile):
+    wp_dir = os.path.expanduser("~/Pictures/wallpapers/")
+    wallpapers = os.listdir(wp_dir)
+    next_wp = random.choice(wallpapers)
+    logger.warning(next_wp)
+    qtile.current_screen.set_wallpaper(os.path.join(wp_dir, next_wp), mode="fill")
+
+
 bar_widgets = [
     # widget.CurrentLayout(),
     groupbox,
     widget.TaskList(rounded=True, stretch=True),
     chord,
     memory,
-    widget.DF(fmt="  {}", visible_on_warn=False),
+    widget.DF(fmt="󰋊 {}", visible_on_warn=False),
     widget.Volume(fmt="  {}"),
     widget.WiFiIcon(interface="wlp45s0"),
     widget.StatusNotifier(),
@@ -281,7 +293,7 @@ bar_widgets = [
         **widget_decor,
     ),
     widget.TextBox(
-        fmt=" ",
+        fmt="󰹑 ",
         mouse_callbacks={"Button1": lazy.spawn('grim -g "$(slurp)" - | swappy -f -', shell=True)},
         padding=5,
     ),
@@ -292,16 +304,19 @@ bar_widgets = [
         mouse_callbacks={"Button1": lazy.spawn("swaync-client -t")},
         update_interval=10,
     ),
+    widget.TextBox(mouse_callbacks={"Button1": wallpaper}),
 ]
 
 screens = [
     Screen(
         bottom=bar.Bar(
             bar_widgets,
-            26,
-            # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
-            # border_color=["ff00ff", "000000", "ff00ff", "000000"],  # Borders are magenta
+            30,
+            margin=0,
+            background="#2E3440.5",
         ),
+        wallpaper="/home/art/Pictures/wallpapers/1.png",
+        wallpaper_mode="fill",
     ),
 ]
 
@@ -338,12 +353,4 @@ wl_input_rules = {
     "type:keyboard": InputConfig(kb_layout="us,ru", kb_options="grp:caps_toggle"),
 }
 
-# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
-# string besides java UI toolkits; you can see several discussions on the
-# mailing lists, GitHub issues, and other WM documentation that suggest setting
-# this string if your java app doesn't work correctly. We may as well just lie
-# and say that we're a working one by default.
-#
-# We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
-# java that happens to be on java's whitelist.
 wmname = "LG3D"

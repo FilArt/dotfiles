@@ -6,6 +6,7 @@
     noto-fonts-emoji
     (nerdfonts.override { fonts = [ "RobotoMono" ]; })
     font-awesome
+    material-design-icons
     source-han-sans
     source-han-sans-japanese
     source-han-serif-japanese

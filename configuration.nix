@@ -57,6 +57,23 @@
     useXkbConfig = true; # use xkb.options in tty.
   };
 
+  xdg.icons.enable = true;
+  xdg.mime.enable = true;
+
+  xdg.portal = {
+    enable = true;
+    config = {
+      qtile = {
+        default = [ "wlr" "gtk" ];
+      };
+    };
+    extraPortals = [
+      pkgs.xdg-desktop-portal-wlr
+      pkgs.xdg-desktop-portal-gtk
+    ];
+  };
+
+
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
@@ -75,11 +92,13 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd \"qtile -b wayland\" --theme border=magenta;text=cyan;prompt=green;time=red;action=blue;button=yellow;container=black;input=red";
+        #command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --theme border=magenta;text=cyan;prompt=green;time=red;action=blue;button=yellow;container=black;input=red";
+        #command = "cage -s -- regreet";
         user = "art";
       };
     };
   };
+  programs.regreet.enable = true;
 
   programs.gdk-pixbuf.modulePackages = [ pkgs.librsvg ]; # fix for qtile tray icons
   programs.hyprland = {
