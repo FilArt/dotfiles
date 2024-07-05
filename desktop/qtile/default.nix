@@ -9,28 +9,20 @@ in
     bfcal
     hicolor-icon-theme
     gnome-icon-theme
-    way-displays
   ];
   home.activation.createQtileConfigDir = ''mkdir -p $HOME/.config/qtile'';
-  home.file.".config/qtile/config.py".source = ./config.py;
+  home.file.".config/qtile/config.py".source = config.lib.file.mkOutOfStoreSymlink ./config.py;
 
-  xdg.portal.enable = true;
-  xdg.portal.extraPortals = [
-    pkgs.xdg-desktop-portal-gnome
-    (pkgs.xdg-desktop-portal-gtk.override {
-      # Do not build portals that we already have.
-      buildPortalsInGnome = false;
-    })
-    pkgs.gnome.gnome-shell
-  ];
-  xdg.portal.config = {
-    common = {
-      default = [
-        "gtk"
-      ];
-    };
-  };
-  xdg.portal.configPackages = [
-    pkgs.gnome.gnome-session
-  ];
+  home.file.".config/swappy/config".text = ''
+    [Default]
+    save_dir=$HOME/Pictures/Screenshots
+    save_filename_format=swappy-%Y%m%d-%H%M%S.png
+    show_panel=false
+    line_size=5
+    text_size=20
+    text_font=sans-serif
+    paint_mode=brush
+    early_exit=false
+    fill_shape=false
+  '';
 }

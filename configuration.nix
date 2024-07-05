@@ -7,6 +7,7 @@
 {
   imports =
     [
+      <nixos-hardware/common/cpu/intel>
       ./hardware-configuration.nix
     ];
 
@@ -18,6 +19,7 @@
     "mitigations=off"
     "nowatchdog"
     "nmi_watchdog=0"
+    "usbcore.autosuspend=120" # 2 minutes
   ];
   boot.blacklistedKernelModules = [ "iTCO_wdt" ];
   boot.tmp.cleanOnBoot = true;
@@ -59,42 +61,37 @@
   services.xserver = {
     enable = true;
     dpi = 96;
-    config = ''
-      Section "Device"
-        Identifier "Intel Graphics"
-        Driver "intel"
-
-        Option "TearFree" "true"
-        Option "TripleBuffer" "true"
-      EndSection
-    '';
     xkb.layout = "us,ru";
     xkb.options = "grp:caps_toggle";
     windowManager.qtile = {
       enable = true;
       extraPackages = python3Packages: with python3Packages; [
         qtile-extras
-        dbus-next
-        pyxdg
-        pywlroots
-        pywayland
-        xkbcommon
       ];
     };
-    displayManager.gdm.enable = false;
-    updateDbusEnvironment = true;
   };
 
-  services.displayManager.sddm.enable = true;
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd \"qtile -b wayland\" --theme border=magenta;text=cyan;prompt=green;time=red;action=blue;button=yellow;container=black;input=red";
+        user = "art";
+      };
+    };
+  };
 
-  programs.gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
+  programs.gdk-pixbuf.modulePackages = [ pkgs.librsvg ]; # fix for qtile tray icons
   programs.hyprland = {
     # or wayland.windowManager.hyprland
     enable = false;
     xwayland.enable = true;
   };
+  programs.gamemode.enable = true;
 
   services.gvfs.enable = true;
+
+  services.fstrim.enable = true;
 
   services.udev.extraRules = ''
     ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="intel_backlight", MODE="0666", RUN+="${pkgs.coreutils}/bin/chmod a+w /sys/class/backlight/%k/brightness"
@@ -119,15 +116,26 @@
       "8.8.4.4"
     ];
   };
-  services.auto-cpufreq.enable = true;
-  services.auto-cpufreq.settings = {
-    battery = {
-      governor = "powersave";
-      turbo = "never";
-    };
-    charger = {
-      governor = "performance";
-      turbo = "auto";
+
+  powerManagement.enable = true;
+  powerManagement.powertop.enable = true;
+  services.thermald.enable = true;
+  services.tlp = {
+    enable = true;
+    settings = {
+      CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+
+      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+
+      CPU_MIN_PERF_ON_AC = 0;
+      CPU_MAX_PERF_ON_AC = 100;
+      CPU_MIN_PERF_ON_BAT = 0;
+      CPU_MAX_PERF_ON_BAT = 20;
+
+      START_CHARGE_THRESH_BAT0 = 40;
+      STOP_CHARGE_THRESH_BAT0 = 60;
     };
   };
 
@@ -165,6 +173,7 @@
     sddm
     docker
   ];
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   system.copySystemConfiguration = true;
   system.autoUpgrade.enable = true;

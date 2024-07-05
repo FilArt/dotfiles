@@ -20,4 +20,33 @@
   };
 
   services.swaync.enable = true;
+  services.kanshi = {
+    enable = true;
+    systemdTarget = "";
+    settings = [
+      {
+        output.criteria = "eDP-1";
+      }
+      {
+        profile.name = "undocked";
+        profile.outputs = [
+          {
+            criteria = "eDP-1";
+          }
+        ];
+      }
+      {
+        profile.name = "docked";
+        profile.outputs = [
+          {
+            criteria = "eDP-1";
+            status = "disable";
+          }
+          {
+            criteria = "HDMI-A-1";
+          }
+        ];
+      }
+    ];
+  };
 }

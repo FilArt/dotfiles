@@ -14,11 +14,6 @@ from libqtile.widget import backlight
 from qtile_extras.widget.decorations import BorderDecoration, RectDecoration
 from libqtile.utils import guess_terminal
 
-try:
-    from misc import widget_decor
-except ImportError:
-    widget_decor = {}
-
 
 @hook.subscribe.startup_once
 def autostart():
@@ -184,6 +179,7 @@ keys = [
             """
         ),
     ),
+    Key([], "Print", lazy.spawn('grim -g "$(slurp)" - | swappy -f -', shell=True)),
 ]
 for i in groups:
     keys.extend(
@@ -215,8 +211,10 @@ decor = [
     ),
 ]
 
-widget_defaults = dict(font="Fira Code", fontsize=14, padding=3, decorations=decor)
+widget_defaults = dict(font="RobotoMono Nerd Font", fontsize=14, padding=3, decorations=decor)
 extension_defaults = widget_defaults.copy()
+
+widget_decor = {}
 
 groupbox = widget.GroupBox2(
     rules=[
@@ -243,9 +241,19 @@ chord = widget.Chord(
 
 memory = widget.Memory(
     measure_mem="G",
-    format="💾 {MemUsed:.0f}{mm}/{MemTotal:.0f}{mm} ({MemPercent}%)",
+    format="  {MemUsed:.0f}{mm}/{MemTotal:.0f}{mm} ({MemPercent}%)",
     mouse_callbacks={"Button1": lazy.group["0"].dropdown_toggle("htop")},
     decorations=[RectDecoration(colour="#600060", filled=True, padding=2)],
+)
+
+battery = widget.Battery(
+    format="{char} {percent:2.0%}",
+    charge_char="",
+    discharge_char="",
+    empty_char="",
+    full_char="",
+    not_charging_char="",
+    update_interval=10,
 )
 
 
@@ -259,13 +267,10 @@ bar_widgets = [
     widget.TaskList(rounded=True, stretch=True),
     chord,
     memory,
-    # widget.Battery(),
-    widget.DF(visible_on_warn=False),
-    # widget.Battery(),
-    widget.Volume(fmt="🔊{}"),
+    widget.DF(fmt="  {}", visible_on_warn=False),
+    widget.Volume(fmt="  {}"),
     widget.WiFiIcon(interface="wlp45s0"),
     widget.StatusNotifier(),
-    # widget.Systray(),
     widget.Clock(
         format="%H:%M:%S",
         **widget_decor,
@@ -275,11 +280,19 @@ bar_widgets = [
         mouse_callbacks={"Button1": lazy.spawn("bfcal")},
         **widget_decor,
     ),
+    widget.TextBox(
+        fmt=" ",
+        mouse_callbacks={"Button1": lazy.spawn('grim -g "$(slurp)" - | swappy -f -', shell=True)},
+        padding=5,
+    ),
+    battery,
     widget.GenPollText(
-        func=get_notys, fmt="{} ", mouse_callbacks={"Button1": lazy.spawn("swaync-client -t")}, update_interval=3
+        func=get_notys,
+        fmt="{}  ",
+        mouse_callbacks={"Button1": lazy.spawn("swaync-client -t")},
+        update_interval=10,
     ),
 ]
-
 
 screens = [
     Screen(
