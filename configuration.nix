@@ -14,6 +14,9 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernel.sysctl = {
+    "kernel.sysrq" = 1;
+  };
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
   boot.kernelParams = [
     "mitigations=off"
@@ -82,25 +85,24 @@
     xkb.options = "grp:caps_toggle";
     windowManager.qtile = {
       enable = true;
-      extraPackages = python3Packages: with python3Packages; [
+      extraPackages = p: with p; [
         qtile-extras
+        dbus-next
       ];
     };
+    updateDbusEnvironment = true;
   };
-
   services.greetd = {
     enable = true;
     settings = {
       default_session = {
-        #command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --theme border=magenta;text=cyan;prompt=green;time=red;action=blue;button=yellow;container=black;input=red";
-        #command = "cage -s -- regreet";
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd \"qtile start -b wayland\" --theme border=magenta;text=cyan;prompt=green;time=red;action=blue;button=yellow;container=black;input=red";
         user = "art";
       };
     };
   };
-  programs.regreet.enable = true;
+  programs.gdk-pixbuf.modulePackages = with pkgs; [ gdk-pixbuf librsvg ]; # fix qtile tray
 
-  programs.gdk-pixbuf.modulePackages = [ pkgs.librsvg ]; # fix for qtile tray icons
   programs.hyprland = {
     # or wayland.windowManager.hyprland
     enable = false;
@@ -109,18 +111,13 @@
   programs.gamemode.enable = true;
 
   services.gvfs.enable = true;
-
   services.fstrim.enable = true;
-
   services.udev.extraRules = ''
     ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="intel_backlight", MODE="0666", RUN+="${pkgs.coreutils}/bin/chmod a+w /sys/class/backlight/%k/brightness"
   '';
-
   services.printing.enable = false;
-
-  # Enable sound.
+  services.upower.enable = true;
   hardware.pulseaudio.enable = false;
-
   services.pipewire = {
     enable = true;
     pulse.enable = true;
@@ -135,7 +132,6 @@
       "8.8.4.4"
     ];
   };
-
   powerManagement.enable = true;
   powerManagement.powertop.enable = true;
   services.thermald.enable = true;
@@ -189,7 +185,6 @@
     home-manager
     wget
     networkmanager
-    sddm
     docker
   ];
   environment.sessionVariables.NIXOS_OZONE_WL = "1";

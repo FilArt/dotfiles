@@ -40,15 +40,19 @@
       autorandr
       python3Packages.ipython
       python3Packages.terminaltexteffects
+      mypy
       cinnamon.nemo
       screenfetch
       blanket
       htop-vim
+      vlc
+      wf-recorder
     ];
   };
 
   xdg.enable = true;
   xdg.userDirs.enable = true;
+  xdg.userDirs.createDirectories = true;
 
   services.blueman-applet.enable = true;
   services.network-manager-applet.enable = true;

@@ -23,7 +23,7 @@
   services.swaync.enable = true;
   services.kanshi = {
     enable = true;
-    systemdTarget = "graphical-session.target";
+    systemdTarget = "tray.target";
     settings = [
       {
         output.criteria = "eDP-1";

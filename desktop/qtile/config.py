@@ -1,21 +1,19 @@
-from libqtile.log_utils import logger
-
-import random
-from libqtile.backend.wayland import InputConfig
-
 import os
+import random
+import signal
+import string
 import subprocess
-from libqtile.config import Group, ScratchPad, DropDown, Match
 
-from libqtile import bar, layout, hook
-from libqtile.config import Click, Drag, Key, Screen
-from qtile_extras import widget
+from libqtile.widget import base
+from libqtile import bar, hook, layout
+from libqtile.backend.wayland import InputConfig
+from libqtile.config import Click, Drag, DropDown, Group, Key, Match, ScratchPad, Screen
 from libqtile.lazy import lazy
-
+from libqtile.log_utils import logger
+from libqtile.utils import guess_terminal, send_notification
 from libqtile.widget import backlight
-
+from qtile_extras import widget
 from qtile_extras.widget.decorations import BorderDecoration
-from libqtile.utils import guess_terminal
 
 
 @hook.subscribe.startup_once
@@ -163,6 +161,7 @@ keys = [
     Key([mod], "d", lazy.spawn("fuzzel")),
     Key([mod], "s", lazy.group["0"].dropdown_toggle("spotify")),
     Key([mod], "e", lazy.group["0"].dropdown_toggle("nemo")),
+    Key([mod], "c", lazy.spawn("swaync-client -t")),
     Key([mod], "t", lazy.group["0"].dropdown_toggle(terminal)),
     Key(
         [mod],
@@ -210,36 +209,32 @@ mouse = [
 decor = [
     BorderDecoration(
         colour=nord2,
-        border_width=[1, 1, 1, 1],
+        border_width=[0, 0, 2, 0],
     ),
 ]
 
-widget_defaults = dict(font="RobotoMono Nerd Font", fontsize=14, padding=3, decorations=decor)
+widget_defaults = dict(font="RobotoMono Nerd Font", fontsize=14, padding_x=5, decorations=decor)
 extension_defaults = widget_defaults.copy()
 
 widget_decor = {}
 
 groupbox = widget.GroupBox2(
-    rules=[
-        widget.groupbox2.GroupBoxRule().when(
-            screen=widget.groupbox2.ScreenRule.NONE, focused=False, occupied=False, urgent=False
+    active="#81A1C1",
+    inactive="#4C566A",
+    block_highlight_text_color="#FFFFFF",
+    highlight_method="line",
+    highlight_color="#3B4252",
+    this_current_screen_border="#81A1C1",
+    urgent_alert_method="line",
+    urgent_border="#BF616A",
+    decorations=[
+        BorderDecoration(
+            border_width=[0, 0, 2, 0],
+            colour="#4C566A",
+            padding_x=3,
+            padding_y=None,
         ),
-        widget.groupbox2.GroupBoxRule().when(
-            screen=widget.groupbox2.ScreenRule.NONE, focused=False, occupied=True, urgent=False
-        ),
-        widget.groupbox2.GroupBoxRule(text_colour="bbff00").when(occupied=True),
-        widget.groupbox2.GroupBoxRule(line_colour="00ff00").when(focused=True),
-        widget.groupbox2.GroupBoxRule(line_colour="ffffff").when(
-            screen=widget.groupbox2.ScreenRule.OTHER, focused=False, occupied=False, urgent=False
-        ),
-    ]
-)
-
-chord = widget.Chord(
-    chords_colors={
-        "launch": ("#ff0000", "#ffffff"),
-    },
-    name_transform=lambda name: name.upper(),
+    ],
 )
 
 memory = widget.Memory(
@@ -249,40 +244,112 @@ memory = widget.Memory(
     # background="#600060",
 )
 
-battery = widget.Battery(
-    format="{char} {percent:2.0%}",
-    charge_char="",
-    discharge_char="",
-    empty_char="",
-    full_char="",
-    not_charging_char="",
-    update_interval=10,
-)
-
-
-def get_notys():
-    return subprocess.run(["swaync-client", "-c"], capture_output=True).stdout.decode()
-
 
 @lazy.function
 def wallpaper(qtile):
     wp_dir = os.path.expanduser("~/Pictures/wallpapers/")
     wallpapers = os.listdir(wp_dir)
     next_wp = random.choice(wallpapers)
-    logger.warning(next_wp)
     qtile.current_screen.set_wallpaper(os.path.join(wp_dir, next_wp), mode="fill")
+
+
+def noty(**kwargs) -> int:
+    noty_id = send_notification(**kwargs, urgent=True)
+    lazy.widget["notys"].force_update()
+    logger.warning(vars(lazy.widget["notys"].force_update()))
+    # qtile.widgets_map["notys"].force_update()
+    return noty_id
+
+
+class NotysWidget(base.InLoopPollText):
+    def __init__(self):
+        super().__init__(
+            name="notys",
+            fmt="{}  ",
+            update_interval=5,
+            mouse_callbacks={"Button1": self.show_notys},
+        )
+
+    def show_notys(self):
+        pass
+        # subprocess.run(["swaync-client", "-t"])
+
+    def poll(self):
+        return subprocess.run(["swaync-client", "-c", "-sw"], capture_output=True).stdout.decode() or "0"
+
+
+class RecorderWidget(base._TextBox):
+    RECORDER_OFF = "   "
+    RECORDER_ON = "   "
+
+    def __init__(self, **config):
+        super().__init__("recorder", **config)
+        self.text = self.RECORDER_OFF
+        self.add_callbacks({"Button1": self.toggle_recording})
+        self.pid = None
+        self._last_noty_id = None
+
+    def toggle_recording(self):
+        recorder_pid = subprocess.run(["pgrep", "wf-recorder"], capture_output=True, text=True).stdout.strip()
+        if recorder_pid and recorder_pid.isdigit():
+            self.pid = int(recorder_pid)
+        else:
+            self.pid = 0
+
+        if recorder_pid:
+            self._off()
+        else:
+            self._on()
+
+    def _on(self):
+        self.foreground = "#ff0000"
+        self.update(self.RECORDER_ON)
+        name = "".join(random.choices(string.ascii_lowercase + string.digits, k=10))
+        #:wgeometry = os.popen("slurp").read().strip().split(" ")
+        cmd = [
+            "wf-recorder",
+            "-g",
+            "$(slurp)",
+            "-f",
+            os.path.expanduser(f"~/Videos/{name}.mkv"),
+            "-c",
+            "h264_vaapi",
+            "-d",
+            "/dev/dri/renderD128",
+        ]
+        self.pid = self.qtile.spawn(cmd)
+        # self.pid = int(subprocess.run(cmd, capture_output=True, text=True).stdout.strip())
+        self._last_noty_id = self._noty(f"Recording starte, pid: {self.pid}")
+
+    def _off(self):
+        os.kill(self.pid, signal.SIGTERM)
+        self.foreground = "#ffffff"
+        self.update(self.RECORDER_OFF)
+        self._noty("Recording stopped")
+        self._last_noty_id = None
+
+    def _noty(self, msg: str):
+        return noty(title="wf-recorder", message=msg, timeout=2, id_=self._last_noty_id)
 
 
 bar_widgets = [
     # widget.CurrentLayout(),
     groupbox,
     widget.TaskList(rounded=True, stretch=True),
-    chord,
     memory,
     widget.DF(fmt="󰋊 {}", visible_on_warn=False),
     widget.Volume(fmt="  {}"),
     widget.WiFiIcon(interface="wlp45s0"),
-    widget.StatusNotifier(),
+    widget.StatusNotifier(
+        decorations=[
+            BorderDecoration(
+                border_width=[0, 0, 2, 0],
+                colour="#5E81AC",
+                padding_x=None,
+                padding_y=None,
+            ),
+        ],
+    ),
     widget.Clock(
         format="%H:%M:%S",
         **widget_decor,
@@ -290,21 +357,33 @@ bar_widgets = [
     widget.Clock(
         format="%d/%m/%Y %a",
         mouse_callbacks={"Button1": lazy.spawn("bfcal")},
-        **widget_decor,
+        decorations=[
+            BorderDecoration(
+                border_width=[0, 0, 2, 0],
+                colour="#D08770",
+                padding_x=3,
+                padding_y=None,
+            ),
+        ],
     ),
     widget.TextBox(
-        fmt="󰹑 ",
+        fmt="",
         mouse_callbacks={"Button1": lazy.spawn('grim -g "$(slurp)" - | swappy -f -', shell=True)},
         padding=5,
+        width=26,
     ),
-    battery,
-    widget.GenPollText(
-        func=get_notys,
-        fmt="{}  ",
-        mouse_callbacks={"Button1": lazy.spawn("swaync-client -t")},
-        update_interval=10,
+    RecorderWidget(
+        padding=5,
+        width=46,
     ),
-    widget.TextBox(mouse_callbacks={"Button1": wallpaper}),
+    widget.UPowerWidget(),
+    NotysWidget(),
+    widget.TextBox(
+        fmt=" ",
+        mouse_callbacks={"Button1": wallpaper},
+        padding=5,
+        width=26,
+    ),
 ]
 
 screens = [
@@ -313,7 +392,7 @@ screens = [
             bar_widgets,
             30,
             margin=0,
-            background="#2E3440.5",
+            background="#2E3440",
         ),
         wallpaper="/home/art/Pictures/wallpapers/1.png",
         wallpaper_mode="fill",

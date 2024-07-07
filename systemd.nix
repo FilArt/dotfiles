@@ -7,7 +7,8 @@ in
   systemd.user.targets.tray = {
     Unit = {
       Description = "Home Manager System Tray";
-      Requires = [ "graphical-session-pre.target" ];
+      After = [ "display-manager.service" ];
+      # Requires = [ "graphical-session-pre.target" ];
     };
   };
 
