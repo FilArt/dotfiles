@@ -5,7 +5,7 @@ import string
 import subprocess
 
 from libqtile.widget import base
-from libqtile import bar, hook, layout
+from libqtile import bar, hook
 from libqtile.backend.wayland import InputConfig
 from libqtile.config import Click, Drag, DropDown, Group, Key, Match, ScratchPad, Screen
 from libqtile.lazy import lazy
@@ -14,6 +14,9 @@ from libqtile.utils import guess_terminal, send_notification
 from libqtile.widget import backlight
 from qtile_extras import widget
 from qtile_extras.widget.decorations import BorderDecoration
+
+from qtile_extras.widget import modify
+from qtile_extras import layout
 
 
 @hook.subscribe.startup_once
@@ -55,7 +58,13 @@ bright_white = nord6
 black = nord0
 bright_black = nord3
 
-layouts = [layout.Bsp()]
+layouts = [
+    layout.Bsp(
+        margin=5,
+        border_focus=nord15,
+        border_on_single=True,
+    )
+]
 
 groups = [
     Group("1"),
@@ -225,35 +234,8 @@ decor = [
     ),
 ]
 
-widget_defaults = dict(font="RobotoMono Nerd Font", fontsize=14, padding_x=5, decorations=decor)
+widget_defaults = dict(font="RobotoMono Nerd Font", fontsize=14, padding_x=5)  # , decorations=decor)
 extension_defaults = widget_defaults.copy()
-
-
-groupbox = widget.GroupBox2(
-    active="#81A1C1",
-    inactive="#4C566A",
-    block_highlight_text_color="#FFFFFF",
-    highlight_method="line",
-    highlight_color="#3B4252",
-    this_current_screen_border="#81A1C1",
-    urgent_alert_method="line",
-    urgent_border="#BF616A",
-    decorations=[
-        BorderDecoration(
-            border_width=[0, 0, 2, 0],
-            colour="#4C566A",
-            padding_x=3,
-            padding_y=None,
-        ),
-    ],
-)
-
-memory = widget.Memory(
-    measure_mem="G",
-    format="󰍛 {MemUsed:.0f}{mm}/{MemTotal:.0f}{mm} ({MemPercent}%)",
-    mouse_callbacks={"Button1": lazy.group["0"].dropdown_toggle("htop")},
-    # background="#600060",
-)
 
 
 @lazy.function
@@ -346,51 +328,75 @@ class RecorderWidget(base._TextBox):
 
 bottom_border = BorderDecoration(
     border_width=[0, 0, 2, 0],
-    colour="#5E81AC",
-    padding_x=None,
-    padding_y=None,
+    colour=nord13,
 )
+
+spacer = widget.Spacer(length=5, background="#ffffff.0")
 
 bar_widgets = [
     # widget.CurrentLayout(),
-    groupbox,
-    widget.TaskList(rounded=True, stretch=True),
-    memory,
-    widget.Spacer(length=5, background="#ffffff.0"),
-    widget.DF(fmt="󰋊 {}", visible_on_warn=False),
-    widget.Spacer(length=5, background="#ffffff.0"),
-    widget.Volume(fmt="  {}"),
-    widget.Spacer(length=5, background="#ffffff.0"),
-    widget.WiFiIcon(interface="wlp45s0"),
-    widget.Spacer(length=5, background="#ffffff.0"),
+    widget.GroupBox(
+        active="#81A1C1",
+        inactive="#4C566A",
+        block_highlight_text_color="#FFFFFF",
+        highlight_method="line",
+        highlight_color="#3B4252",
+        this_current_screen_border="#81A1C1",
+        urgent_alert_method="line",
+        urgent_border="#BF616A",
+        decorations=[bottom_border],
+    ),
+    spacer,
+    widget.TaskList(
+        rounded=True,
+        stretch=True,
+        highlight_method="block",
+        padding=2,
+        margin=2.5,
+        title_width_method="uniform",
+        decorations=[bottom_border],
+    ),
+    spacer,
+    widget.Memory(
+        measure_mem="G",
+        format="󰍛 {MemUsed:.0f}{mm}/{MemTotal:.0f}{mm} ({MemPercent}%)",
+        mouse_callbacks={"Button1": lazy.group["0"].dropdown_toggle("htop")},
+        decorations=[bottom_border],
+    ),
+    spacer,
+    widget.DF(fmt="󰋊 {}", visible_on_warn=False, decorations=[bottom_border]),
+    spacer,
+    widget.Volume(fmt="  {}", decorations=[bottom_border]),
+    spacer,
+    widget.WiFiIcon(interface="wlp45s0", decorations=[bottom_border]),
+    spacer,
     widget.StatusNotifier(decorations=[bottom_border]),
-    widget.Spacer(length=5, background="#ffffff.0"),
+    spacer,
     widget.Clock(
         format="%H:%M:%S",
         decorations=[bottom_border],
     ),
-    widget.Spacer(length=5, background="#ffffff.0"),
+    spacer,
     widget.Clock(
         format="%d/%m/%Y %a",
         mouse_callbacks={"Button1": lazy.spawn("bfcal")},
         decorations=[bottom_border],
     ),
-    widget.Spacer(length=5, background="#ffffff.0"),
+    spacer,
     widget.TextBox(
         fmt="",
         mouse_callbacks={"Button1": lazy.spawn('grim -g "$(slurp)" - | swappy -f -', shell=True)},
         padding=5,
         width=26,
+        decorations=[bottom_border],
     ),
-    widget.Spacer(length=5, background="#ffffff.0"),
-    RecorderWidget(
-        padding=5,
-        width=46,
-    ),
-    widget.Spacer(length=5, background="#ffffff.0"),
-    widget.UPowerWidget(),
-    widget.Spacer(length=5, background="#ffffff.0"),
-    NotysWidget(decorations=[bottom_border]),
+    spacer,
+    modify(RecorderWidget, padding=5, width=46, decorations=[bottom_border]),
+    spacer,
+    widget.UPowerWidget(decorations=[bottom_border]),
+    spacer,
+    modify(NotysWidget, decorations=[bottom_border]),
+    spacer,
     widget.TextBox(
         fmt=" ",
         mouse_callbacks={"Button1": wallpaper},
@@ -405,12 +411,13 @@ screens = [
         bottom=bar.Bar(
             bar_widgets,
             30,
-            margin=[0, 0, 2, 0],
+            margin=[2, 0, 2, 0],
             background="#2E3440",
         ),
         wallpaper="/home/art/Pictures/wallpapers/1.png",
         wallpaper_mode="fill",
     ),
+    Screen(),
 ]
 
 dgroups_key_binder = None

@@ -88,6 +88,7 @@
       extraPackages = p: with p; [
         qtile-extras
         dbus-next
+        pyxdg
       ];
     };
     updateDbusEnvironment = true;

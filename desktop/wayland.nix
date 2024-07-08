@@ -26,11 +26,23 @@
     systemdTarget = "tray.target";
     settings = [
       {
-        output.criteria = "eDP-1";
+        output = {
+          criteria = "eDP-1";
+          position = "1920,0";
+        };
+      }
+      {
+        output = {
+          criteria = "HDMI-A-1";
+          position = "0,0";
+        };
       }
       {
         profile.name = "undocked";
         profile.outputs = [
+          {
+            criteria = "HDMI-A-1";
+          }
           {
             criteria = "eDP-1";
           }
