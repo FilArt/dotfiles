@@ -158,7 +158,7 @@ keys = [
     Key([mod, "shift"], "t", lazy.window.toggle_floating(), desc="Toggle floating on the focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "d", lazy.spawn("fuzzel")),
+    Key([mod], "d", lazy.spawn("rofi -show drun -show-icons", shell=True)),
     Key([mod], "s", lazy.group["0"].dropdown_toggle("spotify")),
     Key([mod], "e", lazy.group["0"].dropdown_toggle("nemo")),
     Key([mod], "c", lazy.spawn("swaync-client -t")),
@@ -166,7 +166,7 @@ keys = [
     Key(
         [mod],
         "v",
-        lazy.spawn('sh -c "pkill wofi; cliphist list | wofi --dmenu --prompt clip | cliphist decode | wl-copy"'),
+        lazy.spawn("cliphist list | rofi -dmenu | cliphist decode | wl-copy", shell=True),
     ),
     Key([], "XF86MonBrightnessUp", lazy.widget["backlight"].change_backlight(backlight.ChangeDirection.UP)),
     Key([], "XF86MonBrightnessDown", lazy.widget["backlight"].change_backlight(backlight.ChangeDirection.DOWN)),
@@ -181,7 +181,19 @@ keys = [
             """
         ),
     ),
-    Key([], "Print", lazy.spawn('grim -g "$(slurp)" - | swappy -f -', shell=True)),
+    # Key([], "Print", lazy.spawn('grim -g "$(slurp)" - | swappy -f -', shell=True)),
+    Key(
+        [],
+        "Print",
+        lazy.spawn(
+            """
+            grim -g "$(slurp -o -r -c '#ff0000ff')" - | \
+            satty --filename - \
+            --output-filename ~/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png
+            """,
+            shell=True,
+        ),
+    ),
 ]
 for i in groups:
     keys.extend(
@@ -216,7 +228,6 @@ decor = [
 widget_defaults = dict(font="RobotoMono Nerd Font", fontsize=14, padding_x=5, decorations=decor)
 extension_defaults = widget_defaults.copy()
 
-widget_decor = {}
 
 groupbox = widget.GroupBox2(
     active="#81A1C1",
@@ -262,12 +273,13 @@ def noty(**kwargs) -> int:
 
 
 class NotysWidget(base.InLoopPollText):
-    def __init__(self):
+    def __init__(self, **kwargs):
         super().__init__(
             name="notys",
             fmt="{}  ",
             update_interval=5,
             mouse_callbacks={"Button1": self.show_notys},
+            **kwargs,
         )
 
     def show_notys(self):
@@ -332,57 +344,59 @@ class RecorderWidget(base._TextBox):
         return noty(title="wf-recorder", message=msg, timeout=2, id_=self._last_noty_id)
 
 
+bottom_border = BorderDecoration(
+    border_width=[0, 0, 2, 0],
+    colour="#5E81AC",
+    padding_x=None,
+    padding_y=None,
+)
+
 bar_widgets = [
     # widget.CurrentLayout(),
     groupbox,
     widget.TaskList(rounded=True, stretch=True),
     memory,
+    widget.Spacer(length=5, background="#ffffff.0"),
     widget.DF(fmt="󰋊 {}", visible_on_warn=False),
+    widget.Spacer(length=5, background="#ffffff.0"),
     widget.Volume(fmt="  {}"),
+    widget.Spacer(length=5, background="#ffffff.0"),
     widget.WiFiIcon(interface="wlp45s0"),
-    widget.StatusNotifier(
-        decorations=[
-            BorderDecoration(
-                border_width=[0, 0, 2, 0],
-                colour="#5E81AC",
-                padding_x=None,
-                padding_y=None,
-            ),
-        ],
-    ),
+    widget.Spacer(length=5, background="#ffffff.0"),
+    widget.StatusNotifier(decorations=[bottom_border]),
+    widget.Spacer(length=5, background="#ffffff.0"),
     widget.Clock(
         format="%H:%M:%S",
-        **widget_decor,
+        decorations=[bottom_border],
     ),
+    widget.Spacer(length=5, background="#ffffff.0"),
     widget.Clock(
         format="%d/%m/%Y %a",
         mouse_callbacks={"Button1": lazy.spawn("bfcal")},
-        decorations=[
-            BorderDecoration(
-                border_width=[0, 0, 2, 0],
-                colour="#D08770",
-                padding_x=3,
-                padding_y=None,
-            ),
-        ],
+        decorations=[bottom_border],
     ),
+    widget.Spacer(length=5, background="#ffffff.0"),
     widget.TextBox(
         fmt="",
         mouse_callbacks={"Button1": lazy.spawn('grim -g "$(slurp)" - | swappy -f -', shell=True)},
         padding=5,
         width=26,
     ),
+    widget.Spacer(length=5, background="#ffffff.0"),
     RecorderWidget(
         padding=5,
         width=46,
     ),
+    widget.Spacer(length=5, background="#ffffff.0"),
     widget.UPowerWidget(),
-    NotysWidget(),
+    widget.Spacer(length=5, background="#ffffff.0"),
+    NotysWidget(decorations=[bottom_border]),
     widget.TextBox(
         fmt=" ",
         mouse_callbacks={"Button1": wallpaper},
         padding=5,
         width=26,
+        decorations=[bottom_border],
     ),
 ]
 
@@ -391,7 +405,7 @@ screens = [
         bottom=bar.Bar(
             bar_widgets,
             30,
-            margin=0,
+            margin=[0, 0, 2, 0],
             background="#2E3440",
         ),
         wallpaper="/home/art/Pictures/wallpapers/1.png",

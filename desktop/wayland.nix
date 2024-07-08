@@ -2,11 +2,11 @@
   home.packages = with pkgs;  [
     cliphist
     wl-clipboard
-    wofi
     grim
     swappy
     slurp
     pamixer
+    rofi-wayland-unwrapped
   ];
 
   home.sessionVariables = {

@@ -41,12 +41,14 @@
       python3Packages.ipython
       python3Packages.terminaltexteffects
       mypy
-      cinnamon.nemo
+      cinnamon.nemo-with-extensions
       screenfetch
       blanket
       htop-vim
       vlc
       wf-recorder
+      lazydocker
+      peazip
     ];
   };
 

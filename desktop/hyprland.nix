@@ -53,12 +53,12 @@ in
       bind =
         [
           ", Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
-          "$mod, D, exec, fuzzel"
+          "$mod, D, exec, rofi -show drun -show-icons"
           "$mod, E, exec, ${pypr} toggle filemanager"
           "$mod, S, exec, ${pypr} toggle musicplayer"
           "$mod, T, exec, ${pypr} toggle term"
           "$mod, N, exec, ${pypr} toggle volume"
-          "$mod, V, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"
+          "$mod, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
           "$mod, Return, exec, foot"
           "$mod, Q, killactive"
           "$mod, F, fullscreen"
