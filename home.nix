@@ -49,6 +49,7 @@
       wf-recorder
       lazydocker
       peazip
+      satty
     ];
   };
 

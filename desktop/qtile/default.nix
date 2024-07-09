@@ -10,8 +10,7 @@ in
     hicolor-icon-theme
     gnome-icon-theme
   ];
-  home.activation.createQtileConfigDir = ''mkdir -p $HOME/.config/qtile'';
-  home.file.".config/qtile/config.py".source = config.lib.file.mkOutOfStoreSymlink ./config.py;
+  home.file.".config/qtile".source = config.lib.file.mkOutOfStoreSymlink ./config;
 
   home.file.".config/swappy/config".text = ''
     [Default]
