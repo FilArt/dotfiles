@@ -27,6 +27,14 @@ def autostart():
     subprocess.Popen([home])
 
 
+@hook.subscribe.client_new
+def dialogs(window):
+    if not hasattr(window, "window"):
+        return
+    if window.window.get_wm_type() == "dialog" or window.window.get_wm_transient_for():
+        window.floating = True
+
+
 mod = "mod4"
 
 terminal = guess_terminal()
@@ -113,7 +121,6 @@ screens = [
         wallpaper="/home/art/Pictures/wallpapers/1.png",
         wallpaper_mode="fill",
     ),
-    Screen(),
 ]
 
 dgroups_key_binder = None
@@ -134,8 +141,14 @@ floating_layout = layout.Floating(
         Match(title="pinentry"),  # GPG key password entry
         Match(wm_class=".blueman-manager-wrapped"),  # GPG key password entry
         Match(title="Google Password Manager"),
-        Match(wm_class="io.github.seadve.Kooha"),
-        Match(wm_class="kooha"),
+        Match(wm_class="org.qbittorrent.qBittorrent"),
+        Match(func=lambda c: c.has_fixed_ratio()),
+        # pycharm #
+        Match(title="Confirm Exit"),
+        Match(title="Push Commits"),
+        Match(title="<no name>", wm_class="jetbrains-pycharm"),
+        Match(wm_class="JetBrains Toolbox"),
+        # end pycharm #
     ]
 )
 auto_fullscreen = True

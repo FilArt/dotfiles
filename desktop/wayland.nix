@@ -28,21 +28,19 @@
       {
         output = {
           criteria = "eDP-1";
-          position = "1920,0";
+          position = "0,0";
         };
       }
       {
         output = {
           criteria = "HDMI-A-1";
-          position = "0,0";
+          #position = "1920,0";
+          scale = 2.0;
         };
       }
       {
         profile.name = "undocked";
         profile.outputs = [
-          {
-            criteria = "HDMI-A-1";
-          }
           {
             criteria = "eDP-1";
           }

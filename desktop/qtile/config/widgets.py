@@ -180,6 +180,15 @@ def init_widgets():
         widget.WiFiIcon(interface="wlp45s0", decorations=[bottom_border]),
         spacer,
         widget.StatusNotifier(decorations=[bottom_border]),
+        widget.TextBox(
+            text=" ",
+            padding=5,
+            width=26,
+            mouse_callbacks={
+                "Button1": lazy.spawn("qtile cmd-obj -o widget statusnotifier -f eval -a 'host.items = []'")
+            },
+            decorations=[bottom_border],
+        ),
         spacer,
         widget.Clock(
             format="%H:%M:%S",

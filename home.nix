@@ -25,7 +25,6 @@
       direnv
       blueman
       pavucontrol
-      jetbrains.pycharm-professional
       light
       slack
       nixpkgs-fmt
@@ -50,12 +49,23 @@
       lazydocker
       peazip
       satty
+      jetbrains-toolbox
     ];
   };
 
   xdg.enable = true;
   xdg.userDirs.enable = true;
   xdg.userDirs.createDirectories = true;
+
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+      scaling-factor = 2;
+    };
+    "org/gnome/mutter" = {
+      experimental-features = [ "scale-monitor-framebuffer" ];
+    };
+  };
 
   services.blueman-applet.enable = true;
   services.network-manager-applet.enable = true;
