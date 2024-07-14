@@ -169,7 +169,7 @@ def init_widgets():
         widget.Memory(
             measure_mem="G",
             format="󰍛 {MemUsed:.0f}{mm}/{MemTotal:.0f}{mm} ({MemPercent}%)",
-            mouse_callbacks={"Button1": lazy.group["0"].dropdown_toggle("htop")},
+            mouse_callbacks={"Button1": lazy.group["0"].dropdown_toggle("btop")},
             decorations=[bottom_border],
         ),
         spacer,

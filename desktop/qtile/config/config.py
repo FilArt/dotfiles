@@ -63,8 +63,8 @@ scratchpad = ScratchPad(
     "0",
     [
         DropDown(
-            "htop",
-            f"{terminal} htop",
+            "btop",
+            f"{terminal} btop",
             width=0.8,
             height=0.7,
             opacity=0.9,
@@ -89,6 +89,14 @@ scratchpad = ScratchPad(
         DropDown(
             terminal,
             terminal,
+            width=0.75,
+            height=0.8,
+            opacity=0.95,
+            on_focus_lost_hide=False,
+        ),
+        DropDown(
+            "slack",
+            "slack",
             width=0.75,
             height=0.8,
             opacity=0.95,

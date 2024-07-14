@@ -43,13 +43,14 @@
       cinnamon.nemo-with-extensions
       screenfetch
       blanket
-      htop-vim
+      btop
       vlc
       wf-recorder
       lazydocker
       peazip
       satty
       jetbrains-toolbox
+      bottles
     ];
   };
 

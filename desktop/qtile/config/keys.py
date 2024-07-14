@@ -53,11 +53,12 @@ def init_keys(mod: str, terminal: str, groups: list[Group]):
         Key([mod, "shift"], "t", lazy.window.toggle_floating(), desc="Toggle floating on the focused window"),
         Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
         Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-        Key([mod], "d", lazy.spawn("rofi -show drun -show-icons", shell=True)),
+        Key([mod], "d", lazy.spawn('bash -c "rofi -show drun -show-icons"', shell=True)),
         Key([mod], "s", lazy.group["0"].dropdown_toggle("spotify")),
         Key([mod], "e", lazy.group["0"].dropdown_toggle("nemo")),
         Key([mod], "c", lazy.spawn("swaync-client -t")),
         Key([mod], "t", lazy.group["0"].dropdown_toggle(terminal)),
+        Key([mod], "w", lazy.group["0"].dropdown_toggle("slack")),
         Key(
             [mod],
             "v",
