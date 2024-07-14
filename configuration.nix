@@ -194,7 +194,19 @@
     "/home/art/mnt/hdd" = {
       device = "/dev/disk/by-uuid/7423da92-0ea2-430d-bb30-8d02f438679c";
       fsType = "btrfs";
-      options = [ "defaults" "rw" "user" "nofail" "compress=zstd" ];
+      options = [
+        "defaults"
+        "rw"
+        "user"
+        "nofail"
+        "compress=zstd"
+        "suid"
+        "dev"
+        "exec"
+        "auto"
+        "nouser"
+        "async"
+      ];
     };
   };
 
