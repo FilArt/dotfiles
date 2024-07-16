@@ -197,7 +197,7 @@ def init_widgets():
         spacer,
         widget.Clock(
             format="%d/%m/%Y %a",
-            mouse_callbacks={"Button1": lazy.spawn("bfcal")},
+            mouse_callbacks={"Button1": lazy.spawn("gsimplecal")},
             decorations=[bottom_border],
         ),
         spacer,
