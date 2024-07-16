@@ -44,8 +44,6 @@
     };
   };
 
-  sound.enable = true;
-
   # Set your time zone.
   time.timeZone = "Europe/Madrid";
   # Configure network proxy if necessary
@@ -54,6 +52,7 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
+  i18n.supportedLocales = [ "en_US.UTF-8/UTF-8" "ru_RU.UTF-8/UTF-8" ];
   console = {
     font = "Lat2-Terminus16";
     #keyMap = "us";
@@ -124,6 +123,15 @@
     pulse.enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
+    jack.enable = true;
+    extraConfig.pipewire."92-low-latency" = {
+      context.properties = {
+        default.clock.rate = 48000;
+        default.clock.quantum = 32;
+        default.clock.min-quantum = 32;
+        default.clock.max-quantum = 32;
+      };
+    };
   };
   services.fwupd.enable = true;
   services.dnsmasq = {
