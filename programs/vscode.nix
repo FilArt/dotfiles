@@ -16,17 +16,19 @@
       {
         name = "codeium";
         publisher = "codeium";
-        version = "1.9.71";
-        sha256 = "fcaa24610a9b4ec4e9d6648e1d07821de203184a63d712f647ec81b048e72fda";
+        version = "1.9.84";
+        sha256 = "f62b5c73d1f50e98d49ed66488d6c959f1f447c5a74789ac6b93f2465fdaf673";
       }
     ];
     userSettings = {
       "editor.fontFamily" = "RobotoMono Nerd Font";
       "editor.formatOnSave" = true;
       "[python]" = {
-        "editor.defaultFormatter" = null;
+        "editor.formatOnSave" = true;
+        "editor.defaultFormatter" = "charliermarsh.ruff";
         "editor.codeActionsOnSave" = {
           "source.fixAll" = "explicit";
+          "source.organizeImports" = "explicit";
         };
       };
       "codeium.enableConfig" = {

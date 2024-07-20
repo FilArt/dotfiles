@@ -33,6 +33,7 @@ def dialogs(window):
         return
     if window.window.get_wm_type() == "dialog" or window.window.get_wm_transient_for():
         window.floating = True
+        window.focus()
 
 
 mod = "mod4"
