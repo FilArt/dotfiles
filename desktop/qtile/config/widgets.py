@@ -8,11 +8,9 @@ from libqtile.lazy import lazy
 from libqtile.utils import send_notification
 from libqtile.widget import base
 from qtile_extras import widget
+from qtile_extras.popup.menu import PopupGridLayout, PopupText
 from qtile_extras.widget import modify
 from qtile_extras.widget.decorations import BorderDecoration
-
-
-from qtile_extras.popup.menu import PopupGridLayout, PopupText
 
 
 def noty(**kwargs) -> int:
@@ -175,7 +173,11 @@ def init_widgets():
         spacer,
         widget.DF(fmt="󰋊 {}", visible_on_warn=False, decorations=[bottom_border]),
         spacer,
-        widget.Volume(fmt="  {}", decorations=[bottom_border]),
+        widget.Volume(
+            fmt="  {}",
+            mouse_callbacks={"Button3": lazy.group["0"].dropdown_toggle("pavucontrol")},
+            decorations=[bottom_border],
+        ),
         spacer,
         widget.WiFiIcon(interface="wlp45s0", decorations=[bottom_border]),
         spacer,

@@ -1,4 +1,16 @@
 { pkgs, lib, ... }:
+let
+  pkgs = import <nixpkgs> { };
+
+  tte = pkgs.callPackage
+    (pkgs.fetchFromGitHub {
+      owner = "ChrisBuilds";
+      repo = "terminaltexteffects";
+      rev = "main";
+      hash = "sha256-1JWDpdlwV1QCzGtDkSC9+rQvTqKbTnQ//8phLGhHHKo=";
+    })
+    { };
+in
 {
   imports =
     [
@@ -38,9 +50,9 @@
       qbittorrent
       autorandr
       python3Packages.ipython
-      python3Packages.terminaltexteffects
+      tte
       mypy
-      cinnamon.nemo-with-extensions
+      nemo-with-extensions
       screenfetch
       blanket
       btop
@@ -51,6 +63,8 @@
       satty
       jetbrains-toolbox
       bottles
+      devenv
+      python312Packages.qtile-extras
     ];
   };
 

@@ -24,7 +24,13 @@
             "- /home/art/.cache"
             "- /home/art/.ipython"
             "- /home/art/Downloads"
-
+            "- /home/art/.local"
+            "- /home/art/.wine"
+            "- /home/art/.codeium"
+            "- /home/art/.vscode"
+            "- /home/art/.bun"
+            "- /home/art/.npm"
+            "+ /home/art/.local/share/Trash"
           ];
           repositories = [ "ssh://i82i6syt@i82i6syt.repo.borgbase.com/./repo" ];
           extraConfig = {

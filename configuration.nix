@@ -11,13 +11,14 @@
       ./hardware-configuration.nix
     ];
 
-  # Use the systemd-boot EFI boot loader.
+  nix.settings.trusted-users = [ "root" "@wheel" ];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernel.sysctl = {
     "kernel.sysrq" = 1;
   };
-  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
   boot.kernelParams = [
     "mitigations=off"
     "nowatchdog"
@@ -26,6 +27,7 @@
   ];
   boot.blacklistedKernelModules = [ "iTCO_wdt" ];
   boot.tmp.cleanOnBoot = true;
+  boot.tmp.useTmpfs = true;
   boot.consoleLogLevel = 3;
   boot.initrd.verbose = false;
 
@@ -44,11 +46,7 @@
     };
   };
 
-  # Set your time zone.
   time.timeZone = "Europe/Madrid";
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -75,7 +73,6 @@
     ];
   };
 
-
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
@@ -92,24 +89,14 @@
     };
     updateDbusEnvironment = true;
   };
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd \"qtile start -b wayland\" --theme border=magenta;text=cyan;prompt=green;time=red;action=blue;button=yellow;container=black;input=red";
-        user = "art";
-      };
-    };
-  };
-  programs.gdk-pixbuf.modulePackages = with pkgs; [ gdk-pixbuf librsvg ]; # fix qtile tray
 
+  programs.gdk-pixbuf.modulePackages = with pkgs; [ gdk-pixbuf librsvg ]; # fix qtile tray
   programs.hyprland = {
     # or wayland.windowManager.hyprland
     enable = false;
     xwayland.enable = true;
   };
   programs.gamemode.enable = true;
-
   services.gvfs.enable = true;
   services.fstrim.enable = true;
   services.udev.extraRules = ''
@@ -118,20 +105,13 @@
   services.printing.enable = false;
   services.upower.enable = true;
   hardware.pulseaudio.enable = false;
+  security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     pulse.enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     jack.enable = true;
-    extraConfig.pipewire."92-low-latency" = {
-      context.properties = {
-        default.clock.rate = 48000;
-        default.clock.quantum = 32;
-        default.clock.min-quantum = 32;
-        default.clock.max-quantum = 32;
-      };
-    };
   };
   services.fwupd.enable = true;
   services.dnsmasq = {
@@ -141,11 +121,11 @@
       "8.8.4.4"
     ];
   };
-  powerManagement.enable = true;
-  powerManagement.powertop.enable = true;
+  powerManagement.enable = false;
+  powerManagement.powertop.enable = false;
   services.thermald.enable = true;
   services.tlp = {
-    enable = true;
+    enable = false;
     settings = {
       CPU_SCALING_GOVERNOR_ON_AC = "performance";
       CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
@@ -162,6 +142,20 @@
       STOP_CHARGE_THRESH_BAT0 = 60;
     };
   };
+  services.auto-cpufreq = {
+    enable = true;
+
+    settings = {
+      battery = {
+        enable_thresholds = true;
+        start_threshold = 20;
+        stop_threshold = 60;
+      };
+    };
+  };
+  services.ananicy.enable = false;
+  services.ananicy.package = pkgs.ananicy-cpp;
+  services.ananicy.rulesProvider = pkgs.ananicy-rules-cachyos;
 
   security.pam.services.hyprlock = { };
 
@@ -231,4 +225,3 @@
   nix.settings.auto-optimise-store = true;
   system.stateVersion = "24.05";
 }
-

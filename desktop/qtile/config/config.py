@@ -1,17 +1,13 @@
 import os
 import subprocess
 
+from keys import init_keys, init_mouse
 from libqtile import bar, hook
 from libqtile.backend.wayland import InputConfig
 from libqtile.config import DropDown, Group, Match, ScratchPad, Screen
 from libqtile.utils import guess_terminal
-
-
 from qtile_extras import layout
-
-from keys import init_keys, init_mouse
 from widgets import init_widgets
-
 
 info = "#54B4D3"
 success = "#14A44D"
@@ -96,8 +92,16 @@ scratchpad = ScratchPad(
             on_focus_lost_hide=False,
         ),
         DropDown(
-            "slack",
-            "slack",
+            "telegram",
+            "telegram-desktop",
+            width=0.75,
+            height=0.8,
+            opacity=0.95,
+            on_focus_lost_hide=False,
+        ),
+        DropDown(
+            "pavucontrol",
+            "pavucontrol",
             width=0.75,
             height=0.8,
             opacity=0.95,

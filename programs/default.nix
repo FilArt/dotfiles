@@ -10,4 +10,5 @@
   ./pass.nix
   ./gpg.nix
   ./pasystray.nix
+  ./git.nix
 ]

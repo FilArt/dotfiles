@@ -58,7 +58,7 @@ def init_keys(mod: str, terminal: str, groups: list[Group]):
         Key([mod], "e", lazy.group["0"].dropdown_toggle("nemo")),
         Key([mod], "c", lazy.spawn("swaync-client -t")),
         Key([mod], "t", lazy.group["0"].dropdown_toggle(terminal)),
-        Key([mod], "w", lazy.group["0"].dropdown_toggle("slack")),
+        Key([mod], "w", lazy.group["0"].dropdown_toggle("telegram")),
         Key(
             [mod],
             "v",
