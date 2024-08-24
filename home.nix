@@ -56,6 +56,7 @@ in
       screenfetch
       blanket
       btop
+      htop-vim
       vlc
       wf-recorder
       lazydocker

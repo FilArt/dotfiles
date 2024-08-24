@@ -62,6 +62,14 @@ scratchpad = ScratchPad(
         DropDown(
             "btop",
             f"{terminal} btop",
+            width=0.9,
+            height=0.9,
+            opacity=0.9,
+            on_focus_lost_hide=False,
+        ),
+       DropDown(
+            "htop",
+            f"{terminal} htop",
             width=0.8,
             height=0.7,
             opacity=0.9,

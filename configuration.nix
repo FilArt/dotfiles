@@ -76,6 +76,7 @@
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
+    videoDrivers = [ "i915" "intel" ];
     dpi = 96;
     xkb.layout = "us,ru";
     xkb.options = "grp:caps_toggle";
@@ -88,6 +89,7 @@
       ];
     };
     updateDbusEnvironment = true;
+    displayManager.lightdm.enable = false;
   };
 
   programs.gdk-pixbuf.modulePackages = with pkgs; [ gdk-pixbuf librsvg ]; # fix qtile tray
@@ -142,20 +144,6 @@
       STOP_CHARGE_THRESH_BAT0 = 60;
     };
   };
-  services.auto-cpufreq = {
-    enable = true;
-
-    settings = {
-      battery = {
-        enable_thresholds = true;
-        start_threshold = 20;
-        stop_threshold = 60;
-      };
-    };
-  };
-  services.ananicy.enable = false;
-  services.ananicy.package = pkgs.ananicy-cpp;
-  services.ananicy.rulesProvider = pkgs.ananicy-rules-cachyos;
 
   security.pam.services.hyprlock = { };
 
