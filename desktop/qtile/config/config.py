@@ -169,6 +169,7 @@ floating_layout = layout.Floating(
         Match(title="Push Commits"),
         Match(title="<no name>", wm_class="jetbrains-pycharm"),
         Match(wm_class="JetBrains Toolbox"),
+        Match(title="meet.google.com is sharing a window."),
         # end pycharm #
     ]
 )

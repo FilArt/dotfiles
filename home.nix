@@ -16,6 +16,7 @@ in
     [
       ./systemd.nix
       ./fonts.nix
+      ./xdg.nix
     ]
     ++ import ./desktop
     ++ import ./programs;
@@ -65,13 +66,11 @@ in
       jetbrains-toolbox
       bottles
       devenv
-      python312Packages.qtile-extras
+      #python312Packages.qtile-extras
     ];
   };
 
-  xdg.enable = true;
-  xdg.userDirs.enable = true;
-  xdg.userDirs.createDirectories = true;
+
 
   dconf.settings = {
     "org/gnome/desktop/interface" = {
@@ -92,7 +91,7 @@ in
     latitude = 41.115696;
     longitude = 1.249594;
   };
-  services.psd.enable = true;
+  #services.psd.enable = true;
   services.home-manager.autoUpgrade.enable = true;
   services.home-manager.autoUpgrade.frequency = "weekly";
 }

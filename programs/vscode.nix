@@ -11,14 +11,6 @@
       pkief.material-icon-theme
       ms-python.debugpy
       ms-python.vscode-pylance
-    ]
-    ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-      {
-        name = "codeium";
-        publisher = "codeium";
-        version = "1.9.84";
-        sha256 = "f62b5c73d1f50e98d49ed66488d6c959f1f447c5a74789ac6b93f2465fdaf673";
-      }
     ];
     userSettings = {
       "editor.fontFamily" = "RobotoMono Nerd Font";

@@ -6,6 +6,8 @@ dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 
 systemctl --user stop pipewire wireplumber xdg-desktop-portal xdg-desktop-portal-wlr
 systemctl --user start wireplumber
+#systemctl --user restart xdg-desktop-portal xdg-desktop-portal-wlr
+#systemctl --user start pulseaudio
 
 # kanshi workaround
 if ! systemctl --user is-active --quiet kanshi; then

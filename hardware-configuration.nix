@@ -10,10 +10,10 @@
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "uas" "sd_mod" ];
-  boot.initrd.kernelModules = [ "i915" ];
-  boot.kernelModules = [ "kvm-intel" ];
-  #boot.extraModulePackages = [ config.boot.kernelPackages.rtw89_8852be ];
-  boot.extraModulePackages = [ ];
+  boot.initrd.kernelModules = [ "amdgpu" ];
+  hardware.cpu.amd.updateMicrocode = true;
+
+  boot.kernelParams = [ "idle=nomwait" "rcu_nocbs=0-11" "iommu=pt" "amd_iommu=on" ];
 
   fileSystems."/" =
     {
@@ -44,13 +44,17 @@
   hardware.bluetooth.powerOnBoot = true; # powers up the default 
   hardware.graphics = {
     enable = true;
+    enable32Bit = true;
+
     extraPackages = with pkgs; [
       intel-media-driver
       vaapiVdpau
       libvdpau-va-gl
+      amdvlk
+
     ];
   };
   environment.sessionVariables = {
-    LIBVA_DRIVER_NAME = "iHD";
+    #LIBVA_DRIVER_NAME = "iHD";
   };
 }

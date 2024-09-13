@@ -3,17 +3,20 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 { config, lib, pkgs, ... }:
-
 {
   imports =
     [
       <nixos-hardware/common/cpu/intel>
       ./hardware-configuration.nix
+      ./audio.nix
+      ./gamescope.nix
     ];
 
   nix.settings.trusted-users = [ "root" "@wheel" ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernel.sysctl = {
@@ -76,7 +79,7 @@
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
-    videoDrivers = [ "i915" "intel" ];
+    videoDrivers = [ "i915" "intel" "amdgpu" ];
     dpi = 96;
     xkb.layout = "us,ru";
     xkb.options = "grp:caps_toggle";
@@ -106,15 +109,7 @@
   '';
   services.printing.enable = false;
   services.upower.enable = true;
-  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    pulse.enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    jack.enable = true;
-  };
   services.fwupd.enable = true;
   services.dnsmasq = {
     enable = true;
@@ -157,7 +152,7 @@
   users.users.art = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = [ "wheel" "networkmanager" "docker" "video" ];
+    extraGroups = [ "wheel" "networkmanager" "docker" "video" "audio" ];
   };
   programs.zsh.enable = true;
   programs.dconf.enable = true;
@@ -166,7 +161,7 @@
     enableSSHSupport = true;
   };
   programs.steam.enable = true;
-  programs.steam.gamescopeSession.enable = true;
+  #programs.steam.gamescopeSession.enable = true;
 
   services.blueman.enable = true;
   services.throttled.enable = false;
@@ -177,7 +172,14 @@
     wget
     networkmanager
     docker
+
+    linuxKernel.packages.linux_xanmod_latest.rtl88x2bu
+    lact
+
   ];
+
+  systemd.packages = with pkgs; [ lact ];
+  systemd.services.lactd.wantedBy = [ "multi-user.target" ];
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   fileSystems = {
