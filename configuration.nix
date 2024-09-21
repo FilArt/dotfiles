@@ -79,7 +79,6 @@
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
-    videoDrivers = [ "i915" "intel" "amdgpu" ];
     dpi = 96;
     xkb.layout = "us,ru";
     xkb.options = "grp:caps_toggle";
@@ -165,6 +164,7 @@
 
   services.blueman.enable = true;
   services.throttled.enable = false;
+  services.libinput.enable = true;
 
   environment.systemPackages = with pkgs; [
     git
@@ -172,14 +172,7 @@
     wget
     networkmanager
     docker
-
-    linuxKernel.packages.linux_xanmod_latest.rtl88x2bu
-    lact
-
   ];
-
-  systemd.packages = with pkgs; [ lact ];
-  systemd.services.lactd.wantedBy = [ "multi-user.target" ];
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   fileSystems = {

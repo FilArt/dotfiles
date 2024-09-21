@@ -10,11 +10,6 @@
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "uas" "sd_mod" ];
-  boot.initrd.kernelModules = [ "amdgpu" ];
-  hardware.cpu.amd.updateMicrocode = true;
-
-  boot.kernelParams = [ "idle=nomwait" "rcu_nocbs=0-11" "iommu=pt" "amd_iommu=on" ];
-
   fileSystems."/" =
     {
       device = "/dev/disk/by-uuid/fa529b92-2db0-41d9-b446-0e6caea97a4b";
@@ -39,19 +34,18 @@
   # networking.interfaces.wlp45s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-  hardware.bluetooth.enable = true; # enables support for Bluetooth
-  hardware.bluetooth.powerOnBoot = true; # powers up the default 
+  hardware.cpu.intel.updateMicrocode = true;
+  hardware.cpu.amd.updateMicrocode = true;
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
-
     extraPackages = with pkgs; [
       intel-media-driver
       vaapiVdpau
       libvdpau-va-gl
       amdvlk
-
     ];
   };
   environment.sessionVariables = {

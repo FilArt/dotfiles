@@ -39,6 +39,14 @@
         };
       }
       {
+        profile.name = "desktop";
+        profile.outputs = [
+          {
+            criteria = "HDMI-A-1";
+          }
+        ];
+      }
+      {
         profile.name = "undocked";
         profile.outputs = [
           {
