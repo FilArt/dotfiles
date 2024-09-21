@@ -54,5 +54,4 @@
       };
     };
   };
-  services.borgmatic.enable = true;
 }
