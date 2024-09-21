@@ -12,14 +12,7 @@ let
     { };
 in
 {
-  imports =
-    [
-      ./systemd.nix
-      ./fonts.nix
-      ./xdg.nix
-    ]
-    ++ import ./desktop
-    ++ import ./programs;
+  imports = [ ./home ];
 
   programs.home-manager.enable = true;
 

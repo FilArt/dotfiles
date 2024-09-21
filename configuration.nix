@@ -7,47 +7,12 @@
   imports =
     [
       <nixos-hardware/common/cpu/intel>
-      ./hardware-configuration.nix
-      ./audio.nix
-      ./gamescope.nix
-    ];
+    ]
+    ++ import ./options
+  ;
 
   nix.settings.trusted-users = [ "root" "@wheel" ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  #boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernel.sysctl = {
-    "kernel.sysrq" = 1;
-  };
-  boot.kernelParams = [
-    "mitigations=off"
-    "nowatchdog"
-    "nmi_watchdog=0"
-    "usbcore.autosuspend=120" # 2 minutes
-  ];
-  boot.blacklistedKernelModules = [ "iTCO_wdt" ];
-  boot.tmp.cleanOnBoot = true;
-  boot.tmp.useTmpfs = true;
-  boot.consoleLogLevel = 3;
-  boot.initrd.verbose = false;
-
-  networking = {
-    hostName = "nixos";
-    networkmanager = {
-      enable = true;
-      wifi.powersave = false;
-    };
-    wireless.enable = false; # disable wpa_supplicant
-
-    firewall = {
-      enable = false; # pycharm docker debug not working with firewall
-      allowPing = false;
-      allowedTCPPorts = [ 42971 ];
-    };
-  };
 
   time.timeZone = "Europe/Madrid";
 
