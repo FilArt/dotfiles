@@ -5,6 +5,7 @@ import string
 import subprocess
 
 from libqtile.lazy import lazy
+from libqtile.log_utils import logger
 from libqtile.utils import send_notification
 from libqtile.widget import base
 from qtile_extras import widget
@@ -112,16 +113,12 @@ class RecorderWidget(base._TextBox):
             '"$(slurp)"',
             "-f",
             os.path.expanduser(f"~/Videos/{name}.mkv"),
-            "-c",
-            "h264_vaapi",
-            "-d",
-            "/dev/dri/renderD128",
             "--output",
             self.selected_screen,
         ]
-        print(" ".join(cmd))
+        # logger.warning(" ".join(cmd))
         self.pid = self.qtile.spawn(cmd, shell=True)
-        self._last_noty_id = self._noty(f"Recording starte, pid: {self.pid}")
+        self._last_noty_id = self._noty(f"Recording started, pid: {self.pid}")
 
     def _off(self):
         os.kill(self.pid, signal.SIGTERM)
@@ -133,6 +130,14 @@ class RecorderWidget(base._TextBox):
 
     def _noty(self, msg: str):
         return noty(title="wf-recorder", message=msg, timeout=2, id_=self._last_noty_id)
+
+
+def get_wifi_interface() -> str:
+    try:
+        return subprocess.check_output("ls /sys/class/ieee80211/*/device/net/", shell=True, text=True).strip()
+    except Exception as e:
+        logger.exception(e)
+    return ""
 
 
 spacer = widget.Spacer(length=5, background="#ffffff.0")
@@ -182,7 +187,7 @@ def init_widgets():
             decorations=[bottom_border],
         ),
         spacer,
-        widget.WiFiIcon(interface="wlp45s0", decorations=[bottom_border]),
+        widget.WiFiIcon(interface=get_wifi_interface(), decorations=[bottom_border]),
         spacer,
         widget.StatusNotifier(decorations=[bottom_border]),
         widget.TextBox(
