@@ -27,6 +27,7 @@
         "*" = true;
         "nix" = true;
       };
+      "git.confirmSync" = false;
     };
   };
 }
