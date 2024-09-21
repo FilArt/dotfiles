@@ -121,7 +121,7 @@ class RecorderWidget(base._TextBox):
         self._last_noty_id = self._noty(f"Recording started, pid: {self.pid}")
 
     def _off(self):
-        os.kill(self.pid, signal.SIGTERM)
+        os.kill(self.pid, signal.SIGKILL)
         self.foreground = "#ffffff"
         self.update(self.RECORDER_OFF)
         self._noty("Recording stopped")

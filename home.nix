@@ -1,16 +1,4 @@
 { pkgs, lib, ... }:
-let
-  pkgs = import <nixpkgs> { };
-
-  tte = pkgs.callPackage
-    (pkgs.fetchFromGitHub {
-      owner = "ChrisBuilds";
-      repo = "terminaltexteffects";
-      rev = "main";
-      hash = "sha256-1JWDpdlwV1QCzGtDkSC9+rQvTqKbTnQ//8phLGhHHKo=";
-    })
-    { };
-in
 {
   imports = [ ./home ];
 
@@ -44,7 +32,6 @@ in
       qbittorrent
       autorandr
       python3Packages.ipython
-      tte
       mypy
       nemo-with-extensions
       screenfetch
@@ -55,11 +42,11 @@ in
       wf-recorder
       lazydocker
       peazip
+      p7zip
       satty
       jetbrains-toolbox
       bottles
       devenv
-      #python312Packages.qtile-extras
     ];
   };
 
