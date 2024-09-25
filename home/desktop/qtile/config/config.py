@@ -19,7 +19,7 @@ secondary = "#2E3440"
 
 @hook.subscribe.startup_once
 def autostart():
-    home = os.path.expanduser("~/.config/home-manager/desktop/autostart.sh")
+    home = os.path.expanduser("~/.config/home-manager/desktop/home/autostart.sh")
     subprocess.Popen([home])
 
 
@@ -170,8 +170,9 @@ floating_layout = layout.Floating(
         Match(title="<no name>", wm_class="jetbrains-pycharm"),
         Match(wm_class="JetBrains Toolbox"),
         Match(title="meet.google.com is sharing a window."),
+        Match(title="<no name>"),
         # end pycharm #
-    ]
+    ],
 )
 auto_fullscreen = True
 focus_on_window_activation = "smart"

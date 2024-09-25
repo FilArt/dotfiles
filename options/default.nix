@@ -5,4 +5,5 @@
   ./network.nix
   ./hardware-configuration.nix
   ./gamescope.nix
+  ./docker.nix
 ]

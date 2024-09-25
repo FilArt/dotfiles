@@ -108,11 +108,6 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  virtualisation.docker = {
-    enable = true;
-    enableOnBoot = false;
-  };
-
   users.users.art = {
     isNormalUser = true;
     shell = pkgs.zsh;

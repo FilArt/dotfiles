@@ -47,6 +47,7 @@
       jetbrains-toolbox
       bottles
       devenv
+      tmux
     ];
   };
 
