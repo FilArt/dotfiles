@@ -1,13 +1,13 @@
 import os
 import subprocess
 
-from keys import init_keys, init_mouse
 from libqtile import bar, hook
 from libqtile.backend.wayland import InputConfig
 from libqtile.config import DropDown, Group, Match, ScratchPad, Screen
 from libqtile.utils import guess_terminal
+from myqtile.keys import init_keys, init_mouse
+from myqtile.widgets import init_widgets
 from qtile_extras import layout
-from widgets import init_widgets
 
 info = "#54B4D3"
 success = "#14A44D"
