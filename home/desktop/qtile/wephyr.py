@@ -14,8 +14,11 @@ import sys
 import time
 from pathlib import Path
 
-BASE_DIR = Path("/nix/store/v2vf7j0fz3ifnfb1cvzrif6jjfax37qs-python3.11-qtile-0.26.0")
-sys.path.insert(0, BASE_DIR)
+_qtile_path = subprocess.check_output("which qtile", shell=True, text=True).strip()
+
+BASE_DIR = (Path(_qtile_path) / "../..").resolve()
+
+sys.path.insert(0, str(BASE_DIR))
 
 
 scriptpath = Path(

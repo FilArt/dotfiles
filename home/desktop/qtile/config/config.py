@@ -19,7 +19,7 @@ secondary = "#2E3440"
 
 @hook.subscribe.startup_once
 def autostart():
-    home = os.path.expanduser("~/.config/home-manager/desktop/home/autostart.sh")
+    home = os.path.expanduser("~/.config/qtile/autostart.sh")
     subprocess.Popen([home])
 
 
@@ -110,6 +110,14 @@ scratchpad = ScratchPad(
         DropDown(
             "pavucontrol",
             "pavucontrol",
+            width=0.75,
+            height=0.8,
+            opacity=0.95,
+            on_focus_lost_hide=False,
+        ),
+        DropDown(
+            "ncdu",
+            "foot ncdu",
             width=0.75,
             height=0.8,
             opacity=0.95,
