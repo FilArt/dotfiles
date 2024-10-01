@@ -179,7 +179,14 @@ def init_widgets():
             decorations=[bottom_border],
         ),
         spacer,
-        widget.DF(fmt="󰋊 {}", visible_on_warn=False, decorations=[bottom_border]),
+        widget.DF(
+            fmt="󰋊 {}",
+            visible_on_warn=False,
+            decorations=[bottom_border],
+            mouse_callbacks={
+                "Button1": lazy.group["0"].dropdown_toggle("ncdu"),
+            },
+        ),
         spacer,
         widget.Volume(
             fmt="  {}",
