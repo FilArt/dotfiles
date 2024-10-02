@@ -47,11 +47,8 @@
       jetbrains-toolbox
       bottles
       devenv
-      tmux
     ];
   };
-
-
 
   dconf.settings = {
     "org/gnome/desktop/interface" = {

@@ -1,9 +1,13 @@
-{ pkgs, ... }: {
+{ pkgs, config, ... }: {
   programs.zsh = {
     enable = true;
     oh-my-zsh.enable = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
+    history = {
+      size = 100000;
+      path = "${config.xdg.dataHome}/zsh/history";
+    };
   };
   programs.starship = {
     enable = true;
