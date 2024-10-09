@@ -1,9 +1,5 @@
 { pkgs, ... }: {
-
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  #boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
   boot.kernel.sysctl = {
     "kernel.sysrq" = 1;
   };
@@ -19,4 +15,14 @@
   boot.tmp.useTmpfs = true;
   boot.consoleLogLevel = 3;
   boot.initrd.verbose = false;
+  boot.loader = {
+    efi.canTouchEfiVariables = true;
+    grub = {
+      enable = true;
+      devices = [ "nodev" ];
+      efiSupport = true;
+      useOSProber = true;
+    };
+  };
+  time.hardwareClockInLocalTime = true;
 }
