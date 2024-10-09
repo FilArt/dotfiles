@@ -29,9 +29,12 @@ def wallpaper(qtile):
     qtile.current_screen.set_wallpaper(os.path.join(wp_dir, next_wp), mode="fill")
 
 
-bottom_border = BorderDecoration(
-    border_width=[0, 0, 2, 0],
-    colour="#EBCB8B",
+border_colour = "#5946B1"
+border_width = 2
+border_decor = BorderDecoration(
+    border_width=[border_width, border_width, border_width, border_width],
+    colour=border_colour,
+    group=True,
 )
 
 
@@ -132,6 +135,28 @@ class RecorderWidget(base._TextBox):
         return noty(title="wf-recorder", message=msg, timeout=2, id_=self._last_noty_id)
 
 
+class MicrophoneWidget(widget.Volume):
+    def __init__(self):
+        super().__init__(
+            name="micro",
+            fmt=" {}",
+            channel="Capture",
+            mouse_callbacks={"Button1": lazy.spawn("wpctl set-mute @DEFAULT_SOURCE@ toggle")},
+            decorations=[border_decor],
+        )
+
+    # when microphone is unplugged builtin widget uses output device as input device, bruh
+    # this implementation checks for "card 2" which is usually a microphone, but ofc not 100% sure
+    def calculate_length(self):
+        if not self._micro_is_present():
+            return 0
+        return super().calculate_length()
+
+    def _micro_is_present(self) -> bool:
+        output = subprocess.check_output("arecord -l", shell=True, text=True)
+        return "card 2" in output
+
+
 def get_wifi_interface() -> str:
     try:
         return subprocess.check_output("ls /sys/class/ieee80211/*/device/net/", shell=True, text=True).strip()
@@ -156,7 +181,7 @@ def init_widgets():
             this_current_screen_border="#81A1C1",
             urgent_alert_method="line",
             urgent_border="#BF616A",
-            decorations=[bottom_border],
+            decorations=[border_decor],
         ),
         spacer,
         widget.TaskList(
@@ -166,7 +191,7 @@ def init_widgets():
             padding=2,
             margin=2.5,
             title_width_method="uniform",
-            decorations=[bottom_border],
+            decorations=[border_decor],
         ),
         spacer,
         widget.Memory(
@@ -176,13 +201,13 @@ def init_widgets():
                 "Button1": lazy.group["0"].dropdown_toggle("btop"),
                 "Button3": lazy.group["0"].dropdown_toggle("htop"),
             },
-            decorations=[bottom_border],
+            decorations=[border_decor],
         ),
         spacer,
         widget.DF(
             fmt="󰋊 {}",
             visible_on_warn=False,
-            decorations=[bottom_border],
+            decorations=[border_decor],
             mouse_callbacks={
                 "Button1": lazy.group["0"].dropdown_toggle("ncdu"),
             },
@@ -191,12 +216,13 @@ def init_widgets():
         widget.Volume(
             fmt="  {}",
             mouse_callbacks={"Button3": lazy.group["0"].dropdown_toggle("pavucontrol")},
-            decorations=[bottom_border],
+            decorations=[border_decor],
         ),
+        MicrophoneWidget(),
         spacer,
-        widget.WiFiIcon(interface=get_wifi_interface(), decorations=[bottom_border]),
+        widget.WiFiIcon(interface=get_wifi_interface(), decorations=[border_decor]),
         spacer,
-        widget.StatusNotifier(decorations=[bottom_border]),
+        widget.StatusNotifier(decorations=[border_decor]),
         widget.TextBox(
             text=" ",
             padding=5,
@@ -204,18 +230,18 @@ def init_widgets():
             mouse_callbacks={
                 "Button1": lazy.spawn("qtile cmd-obj -o widget statusnotifier -f eval -a 'host.items = []'")
             },
-            decorations=[bottom_border],
+            decorations=[border_decor],
         ),
         spacer,
         widget.Clock(
             format="%H:%M:%S",
-            decorations=[bottom_border],
+            decorations=[border_decor],
         ),
         spacer,
         widget.Clock(
             format="%d/%m/%Y %a",
             mouse_callbacks={"Button1": lazy.spawn("gsimplecal")},
-            decorations=[bottom_border],
+            decorations=[border_decor],
         ),
         spacer,
         widget.TextBox(
@@ -223,20 +249,20 @@ def init_widgets():
             mouse_callbacks={"Button1": lazy.spawn('grim -g "$(slurp)" - | swappy -f -', shell=True)},
             padding=5,
             width=26,
-            decorations=[bottom_border],
+            decorations=[border_decor],
         ),
         spacer,
-        modify(RecorderWidget, padding=5, width=46, decorations=[bottom_border]),
+        modify(RecorderWidget, padding=5, width=46, decorations=[border_decor]),
         # spacer,
         # widget.UPowerWidget(decorations=[bottom_border]),
         spacer,
-        modify(NotysWidget, decorations=[bottom_border]),
+        modify(NotysWidget, decorations=[border_decor]),
         spacer,
         widget.TextBox(
             fmt=" ",
             mouse_callbacks={"Button1": wallpaper},
             padding=5,
             width=26,
-            decorations=[bottom_border],
+            decorations=[border_decor],
         ),
     ]

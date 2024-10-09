@@ -145,7 +145,6 @@ screens = [
         bottom=bar.Bar(
             bar_widgets,
             30,
-            margin=[2, 0, 2, 0],
         ),
         wallpaper="/home/art/Pictures/wallpapers/1.png",
         wallpaper_mode="fill",

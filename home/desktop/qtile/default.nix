@@ -9,6 +9,7 @@ in
     hicolor-icon-theme
     gnome-icon-theme
     gsimplecal
+    playerctl
   ];
   home.file.".config/qtile".source = config.lib.file.mkOutOfStoreSymlink ./config;
 

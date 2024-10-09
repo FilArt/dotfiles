@@ -72,6 +72,8 @@ def init_keys(mod: str, terminal: str, groups: list[Group]):
         ),
         Key([], "XF86AudioLowerVolume", lazy.widget["volume"].decrease_vol()),
         Key([], "XF86AudioRaiseVolume", lazy.widget["volume"].increase_vol()),
+        Key([], "XF86AudioMute", lazy.spawn("wpctl set-mute @DEFAULT_SINK@ toggle")),
+        Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause")),
         # Key([], "Print", lazy.spawn('grim -g "$(slurp)" - | swappy -f -', shell=True)),
         Key(
             [],
