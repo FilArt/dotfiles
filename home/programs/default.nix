@@ -12,4 +12,5 @@
   ./pasystray.nix
   ./git.nix
   ./tmux.nix
+  ./browser.nix
 ]

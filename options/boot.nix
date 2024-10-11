@@ -1,4 +1,5 @@
 { pkgs, ... }: {
+  boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "uas" "sd_mod" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernel.sysctl = {
     "kernel.sysrq" = 1;

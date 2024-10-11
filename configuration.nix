@@ -6,7 +6,8 @@
 {
   imports =
     [
-      <nixos-hardware/common/cpu/intel>
+      <nixos-hardware/common/cpu/amd>
+      <nixos-hardware/common/gpu/amd>
     ]
     ++ import ./options
   ;

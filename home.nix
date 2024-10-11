@@ -13,7 +13,6 @@
     packages = with pkgs; [
       vulkan-tools
       telegram-desktop
-      google-chrome
       tree
       ncdu
       direnv
