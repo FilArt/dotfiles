@@ -136,26 +136,6 @@
   ];
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  fileSystems = {
-    "/home/art/mnt/hdd" = {
-      device = "/dev/disk/by-uuid/7423da92-0ea2-430d-bb30-8d02f438679c";
-      fsType = "btrfs";
-      options = [
-        "defaults"
-        "rw"
-        "user"
-        "nofail"
-        "compress=zstd"
-        "suid"
-        "dev"
-        "exec"
-        "auto"
-        "nouser"
-        "async"
-      ];
-    };
-  };
-
   services.btrfs.autoScrub.enable = true;
 
   system.copySystemConfiguration = true;

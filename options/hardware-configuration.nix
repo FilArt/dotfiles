@@ -9,18 +9,41 @@
       (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  fileSystems."/" =
-    {
+  fileSystems = {
+    "/" = {
       device = "/dev/disk/by-uuid/fa529b92-2db0-41d9-b446-0e6caea97a4b";
       fsType = "ext4";
     };
 
-  fileSystems."/boot" =
-    {
+    "/boot" = {
       device = "/dev/disk/by-uuid/28DE-F378";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
+
+    "/home/art/mnt/hdd" = {
+      device = "/dev/disk/by-uuid/7423da92-0ea2-430d-bb30-8d02f438679c";
+      fsType = "btrfs";
+      options = [
+        "defaults"
+        "rw"
+        "user"
+        "nofail"
+        "compress=zstd"
+        "suid"
+        "dev"
+        "exec"
+        "auto"
+        "nouser"
+        "async"
+      ];
+    };
+
+    "/home/art/mnt/ssd" = {
+      device = "/dev/disk/by-uuid/60F220E9F220C55E";
+      fsType = "ntfs";
+    };
+  };
 
   networking.useDHCP = lib.mkDefault true;
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
