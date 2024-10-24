@@ -2,6 +2,15 @@ from libqtile.config import Click, Drag, Group, Key
 from libqtile.lazy import lazy
 from libqtile.widget import backlight
 
+capture_screen = lazy.spawn(
+    """
+        grim -g "$(slurp -o -r -c '#ff0000ff')" - | \
+        satty --filename - \
+        --output-filename /home/art/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png
+    """,
+    shell=True,
+)
+
 
 def init_keys(mod: str, terminal: str, groups: list[Group]):
     keys = [
@@ -53,7 +62,7 @@ def init_keys(mod: str, terminal: str, groups: list[Group]):
         Key([mod, "shift"], "t", lazy.window.toggle_floating(), desc="Toggle floating on the focused window"),
         Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
         Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-        Key([mod], "d", lazy.spawn('bash -c "rofi -show drun -show-icons"', shell=True)),
+        Key([mod], "d", lazy.spawn('bash -c "rofi -show drun -show-icons" &> /tmp/rofi_menu.log', shell=True)),
         Key([mod], "s", lazy.group["0"].dropdown_toggle("spotify")),
         Key([mod], "e", lazy.group["0"].dropdown_toggle("nemo")),
         Key([mod], "c", lazy.spawn("swaync-client -t")),
@@ -74,20 +83,8 @@ def init_keys(mod: str, terminal: str, groups: list[Group]):
         Key([], "XF86AudioRaiseVolume", lazy.widget["volume"].increase_vol()),
         Key([], "XF86AudioMute", lazy.spawn("wpctl set-mute @DEFAULT_SINK@ toggle")),
         Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause")),
-        # Key([], "Print", lazy.spawn('grim -g "$(slurp)" - | swappy -f -', shell=True)),
-        Key(
-            [],
-            "Print",
-            lazy.spawn(
-                """
-                grim -g "$(slurp -o -r -c '#ff0000ff')" - | \
-                satty --filename - \
-                --output-filename /home/art/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png
-                """,
-                shell=True,
-            ),
-        ),
-        Key(["control"], "Print", lazy.spawn("kooha")),
+        Key([], "XF86AudioNext", lazy.spawn("playerctl next")),
+        Key([], "Print", capture_screen),
     ]
     for i in groups:
         keys.extend(

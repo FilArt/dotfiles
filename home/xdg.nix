@@ -1,6 +1,6 @@
 { config, ... }:
 let
-  gamesDir = "${config.home.homeDirectory}/mnt/hdd/Games";
+  gamesDir = "${config.home.homeDirectory}/Games";
   runner = "${gamesDir}/runner.sh";
 in
 {

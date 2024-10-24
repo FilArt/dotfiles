@@ -220,18 +220,9 @@ def init_widgets():
         ),
         MicrophoneWidget(),
         spacer,
-        widget.WiFiIcon(interface=get_wifi_interface(), decorations=[border_decor]),
+        widget.WiFiIcon(interface=get_wifi_interface(), decorations=[border_decor], padding_y=7),
         spacer,
         widget.StatusNotifier(decorations=[border_decor]),
-        widget.TextBox(
-            text=" ",
-            padding=5,
-            width=26,
-            mouse_callbacks={
-                "Button1": lazy.spawn("qtile cmd-obj -o widget statusnotifier -f eval -a 'host.items = []'")
-            },
-            decorations=[border_decor],
-        ),
         spacer,
         widget.Clock(
             format="%H:%M:%S",

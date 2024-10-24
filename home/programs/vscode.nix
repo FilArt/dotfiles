@@ -35,9 +35,7 @@
     {
       "editor.fontFamily": "'RobotoMono Nerd Font', 'Font Awesome 6 Free', 'Material Design Icons'",
       "python.analysis.extraPaths": [
-        "${pkgs.python3Packages.qtile}/lib/python3.12/site-packages",
-        "${pkgs.python3Packages.qtile-extras}/lib/python3.12/site-packages"
-      ]
+              ]
     }
   '';
 }
