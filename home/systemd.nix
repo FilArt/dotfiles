@@ -19,7 +19,8 @@ in
     };
     Install.WantedBy = [ "graphical-session.target" ];
     Service = {
-      ExecStart = "${pkgs.rclone}/bin/rclone mount ${rcloneParams}  gdrive: ${mountPath}/gdrive";
+      ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p ${mountPath}/gdrive";
+      ExecStart = "${pkgs.rclone}/bin/rclone mount ${rcloneParams} gdrive: ${mountPath}/gdrive";
       ExecStop = "fusermount -u ${mountPath}/gdrive";
       Restart = "always";
       RestartSec = "10s";
@@ -34,6 +35,7 @@ in
     };
     Install.WantedBy = [ "graphical-session.target" ];
     Service = {
+      ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p ${mountPath}/onedrive";
       ExecStart = "${pkgs.rclone}/bin/rclone mount ${rcloneParams} onedrive: ${mountPath}/onedrive";
       ExecStop = "fusermount -u ${mountPath}/onedrive";
       Restart = "always";
