@@ -61,6 +61,11 @@
     wget
     networkmanager
     docker
+    nvtopPackages.full
+    pciutils
+    lshw
+    mesa-demos
+    inxi
   ];
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
