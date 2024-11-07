@@ -49,4 +49,8 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   zramSwap.enable = true;
   hardware.cpu.amd.updateMicrocode = true;
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
 }

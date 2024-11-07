@@ -10,6 +10,7 @@ in
     gnome-icon-theme
     gsimplecal
     playerctl
+    dunst
   ];
   home.file.".config/qtile".source = config.lib.file.mkOutOfStoreSymlink ./config;
 

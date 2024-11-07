@@ -4,11 +4,9 @@
 
 { config, lib, pkgs, ... }:
 {
-  imports =
-    [
-      <nixos-hardware/common/gpu/amd>
-    ]
-    ++ import ./options
+  imports = [
+  ]
+  ++ import ./options
   ;
 
   nix.settings.trusted-users = [ "root" "@wheel" ];
@@ -20,8 +18,7 @@
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.supportedLocales = [ "en_US.UTF-8/UTF-8" "ru_RU.UTF-8/UTF-8" ];
   console = {
-    font = "Lat2-Terminus16";
-    #keyMap = "us";
+    font = "${pkgs.terminus_font}/share/consolefonts/ter-u28n.psf.gz";
     useXkbConfig = true; # use xkb.options in tty.
   };
 
@@ -52,8 +49,17 @@
     enable = true;
     enableSSHSupport = true;
   };
-  programs.steam.enable = true;
-  #programs.steam.gamescopeSession.enable = true;
+
+  programs = {
+    gamescope = {
+      enable = true;
+      capSysNice = true;
+    };
+    steam = {
+      enable = true;
+      gamescopeSession.enable = true;
+    };
+  };
 
   environment.systemPackages = with pkgs; [
     git

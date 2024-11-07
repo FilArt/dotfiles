@@ -1,7 +1,5 @@
-import os
-import subprocess
-
-from libqtile import bar, hook
+import myqtile.hooks  # noqa
+from libqtile import bar
 from libqtile.backend.wayland import InputConfig
 from libqtile.config import DropDown, Group, Match, ScratchPad, Screen
 from libqtile.utils import guess_terminal
@@ -15,21 +13,6 @@ primary = "#3B71CA"
 danger = "#DC4C64"
 warning = "#E4A11B"
 secondary = "#2E3440"
-
-
-@hook.subscribe.startup_once
-def autostart():
-    home = os.path.expanduser("~/.config/qtile/autostart.sh")
-    subprocess.Popen([home])
-
-
-@hook.subscribe.client_new
-def dialogs(window):
-    if not hasattr(window, "window"):
-        return
-    if window.window.get_wm_type() == "dialog" or window.window.get_wm_transient_for():
-        window.floating = True
-        window.focus()
 
 
 mod = "mod4"

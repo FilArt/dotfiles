@@ -16,7 +16,6 @@
       tree
       ncdu
       direnv
-      blueman
       pavucontrol
       light
       slack
@@ -29,7 +28,6 @@
       nodePackages_latest.nodejs
       pinentry
       qbittorrent
-      autorandr
       python3Packages.ipython
       mypy
       nemo-with-extensions
@@ -38,14 +36,13 @@
       btop
       htop-vim
       vlc
-      wf-recorder
+      # wf-recorder
       lazydocker
-      peazip
-      p7zip
       satty
       jetbrains-toolbox
       bottles
       devenv
+      alacritty
     ];
   };
 
@@ -59,15 +56,8 @@
     };
   };
 
-  services.blueman-applet.enable = true;
   services.network-manager-applet.enable = true;
   services.gnome-keyring.enable = true;
-  services.gammastep = {
-    enable = true;
-    tray = true;
-    latitude = 41.115696;
-    longitude = 1.249594;
-  };
   #services.psd.enable = true;
   services.home-manager.autoUpgrade.enable = true;
   services.home-manager.autoUpgrade.frequency = "weekly";

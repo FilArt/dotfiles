@@ -3,6 +3,7 @@ import random
 import signal
 import string
 import subprocess
+from itertools import cycle
 
 from libqtile.lazy import lazy
 from libqtile.log_utils import logger
@@ -12,6 +13,9 @@ from qtile_extras import widget
 from qtile_extras.popup.menu import PopupGridLayout, PopupText
 from qtile_extras.widget import modify
 from qtile_extras.widget.decorations import BorderDecoration
+
+WP_DIR = os.path.expanduser("~/Pictures/wallpapers/")
+_wallpapers = cycle(os.listdir(WP_DIR))
 
 
 def noty(**kwargs) -> int:
@@ -23,10 +27,9 @@ def noty(**kwargs) -> int:
 
 @lazy.function
 def wallpaper(qtile):
-    wp_dir = os.path.expanduser("~/Pictures/wallpapers/")
-    wallpapers = os.listdir(wp_dir)
-    next_wp = random.choice(wallpapers)
-    qtile.current_screen.set_wallpaper(os.path.join(wp_dir, next_wp), mode="fill")
+    next_wp = next(_wallpapers)
+    noty(title="wallpaper", message=next_wp)
+    qtile.current_screen.set_wallpaper(os.path.join(WP_DIR, next_wp), mode="fill")
 
 
 border_colour = "#5946B1"
@@ -243,7 +246,7 @@ def init_widgets():
             decorations=[border_decor],
         ),
         spacer,
-        modify(RecorderWidget, padding=5, width=46, decorations=[border_decor]),
+        # modify(RecorderWidget, padding=5, width=46, decorations=[border_decor]),
         # spacer,
         # widget.UPowerWidget(decorations=[bottom_border]),
         spacer,

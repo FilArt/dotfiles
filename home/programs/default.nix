@@ -1,10 +1,9 @@
 [
-  ./pyprland/default.nix
+  # ./pyprland/default.nix
   ./zsh.nix
   ./borgmatic.nix
   ./neovim.nix
   ./vscode.nix
-  ./fuzzel.nix
   ./foot.nix
   ./ruff.nix
   ./pass.nix
