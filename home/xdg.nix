@@ -5,7 +5,7 @@ let
   steam-run = "${pkgs.steam}/bin/steam-run";
   gamemoderun = "${pkgs.steam}/bin/gamemoderun";
   gamescope = "${pkgs.steam}/bin/gamescope";
-  launchArgs = "${steam-run} ${gamemoderun} ${gamescope} --prefer-output HDMI-A-1 --output-width 1920 --output-height 1080 	--nested-width 1920 --nested-height 1080 	--adaptive-sync 	 ${@}";
+  # launchArgs = "${steam-run} ${gamemoderun} ${gamescope} --prefer-output HDMI-A-1 --output-width 1920 --output-height 1080 	--nested-width 1920 --nested-height 1080 	--adaptive-sync 	 ${@}";
 in
 {
   xdg.enable = true;
