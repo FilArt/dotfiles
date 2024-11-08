@@ -50,6 +50,7 @@
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
       scaling-factor = 2;
+      text-scaling-factor = 1;
     };
     "org/gnome/mutter" = {
       experimental-features = [ "scale-monitor-framebuffer" ];

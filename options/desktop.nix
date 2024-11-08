@@ -1,4 +1,4 @@
-{ pkgs, fetchFromGitHub, ... }:
+{ pkgs, fetchFromGitHub, lib, ... }:
 {
   services.xserver = {
     enable = true;
@@ -26,9 +26,8 @@
         }))
       ];
     };
-    updateDbusEnvironment = true;
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
+    autorun = false;
+    displayManager.lightdm.enable = lib.mkForce false;
   };
 
   xdg.icons.enable = true;

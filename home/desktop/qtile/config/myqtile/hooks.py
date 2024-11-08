@@ -1,15 +1,9 @@
+import asyncio
 import os
 import subprocess
 
 from libqtile import hook
 from libqtile.log_utils import logger
-from libqtile.utils import send_notification
-
-logger.warning("hooks loaded")
-
-
-def is_wayland():
-    return os.environ.get("WAYLAND_DISPLAY") is not None
 
 
 @hook.subscribe.startup_once
@@ -27,28 +21,50 @@ def autostart():
             "GDK_BACKEND": "wayland",
         }
 
-        cmds = [
-            [
-                "dbus-update-activation-environment",
-                "--systemd",
-                "WAYLAND_DISPLAY",
-                "XDG_CURRENT_DESKTOP=$XDG_CURRENT_DESKTOP",
-            ],
-            ["systemctl", "--user", "stop", "pipewire", "wireplumber", "xdg-desktop-portal", "xdg-desktop-portal-wlr"],
-            ["systemctl", "--user", "start", "wireplumber"],
-            ["wl-paste", "--type", "text", "--watch", "cliphist", "store"],
-            ["wl-paste", "--type", "image", "--watch", "cliphist", "store"],
-            ["nix-shell", "-p", "kanshi", "--run", "kanshi"],
-        ]
     else:
         update_env_with = {}
-        cmds = [
-            # ["xrandr", "--output", "HDMI-0", "--scale", "1.25x1.25", "--panning", "3840x2160"],
-        ]
-
     os.environ |= update_env_with
-    for cmd in cmds:
-        subprocess.Popen(cmd)
+
+
+@hook.subscribe.startup
+async def on_reload():
+    cmds = []
+    if not is_running("dunst"):
+        cmds.append(["dunst"])
+
+    if is_wayland():
+        cmds.extend(
+            [
+                [
+                    "dbus-update-activation-environment",
+                    "--systemd",
+                    "WAYLAND_DISPLAY",
+                    "XDG_CURRENT_DESKTOP=$XDG_CURRENT_DESKTOP",
+                ],
+                [
+                    "systemctl",
+                    "--user",
+                    "stop",
+                    "pipewire",
+                    "wireplumber",
+                    "xdg-desktop-portal",
+                    "xdg-desktop-portal-wlr",
+                ],
+                ["systemctl", "--user", "start", "wireplumber"],
+                ["wl-paste", "--type", "text", "--watch", "cliphist", "store"],
+                ["wl-paste", "--type", "image", "--watch", "cliphist", "store"],
+                ["nix-shell", "-p", "kanshi", "--run", "kanshi"],
+            ]
+        )
+    else:
+        cmds.extend(
+            [
+                ["autorandr"],
+            ]
+        )
+
+    tasks = [run_cmd_with_log(subprocess.list2cmdline(cmd)) for cmd in cmds]
+    await asyncio.gather(*tasks)
 
 
 @hook.subscribe.client_new
@@ -68,20 +84,15 @@ def is_running(process_name):
         return False
 
 
-def restart_cmd(process_name, *args):
-    if is_running(process_name):
-        subprocess.run(["pkill", "-SIGTERM", process_name])
-
-    try:
-        subprocess.Popen([process_name, *args])
-        send_notification(title="succesfully started", message=f"{process_name} {' '.join(args)}")  # eliminate...
-    except subprocess.SubprocessError:
-        send_notification(title="Restart cmd failed", message=f"{process_name} {' '.join(args)}")
+def is_wayland() -> bool:
+    return os.environ.get("WAYLAND_DISPLAY") is not None
 
 
-@hook.subscribe.startup
-def on_restart():
-    if is_wayland():
-        pass
-    else:
-        restart_cmd("dunst")
+async def run_cmd_with_log(cmd: str) -> None:
+    proc = await asyncio.create_subprocess_shell(cmd, stderr=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.PIPE)
+
+    stdout, stderr = await proc.communicate()
+    if stdout:
+        logger.warning(f"[stdout][{cmd}]\n{stdout.decode()}")
+    if stderr:
+        logger.warning(f"[stderr][{cmd}]\n{stderr.decode()}")

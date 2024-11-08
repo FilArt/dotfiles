@@ -246,7 +246,7 @@ def init_widgets():
             decorations=[border_decor],
         ),
         spacer,
-        # modify(RecorderWidget, padding=5, width=46, decorations=[border_decor]),
+        modify(RecorderWidget, padding=5, width=46, decorations=[border_decor]),
         # spacer,
         # widget.UPowerWidget(decorations=[bottom_border]),
         spacer,
