@@ -29,42 +29,28 @@ def autostart():
 @hook.subscribe.startup
 async def on_reload():
     cmds = []
-    if not is_running("dunst"):
-        cmds.append(["dunst"])
-
     if is_wayland():
         cmds.extend(
             [
-                [
-                    "dbus-update-activation-environment",
-                    "--systemd",
-                    "WAYLAND_DISPLAY",
-                    "XDG_CURRENT_DESKTOP=$XDG_CURRENT_DESKTOP",
-                ],
-                [
-                    "systemctl",
-                    "--user",
-                    "stop",
-                    "pipewire",
-                    "wireplumber",
-                    "xdg-desktop-portal",
-                    "xdg-desktop-portal-wlr",
-                ],
-                ["systemctl", "--user", "start", "wireplumber"],
-                ["wl-paste", "--type", "text", "--watch", "cliphist", "store"],
-                ["wl-paste", "--type", "image", "--watch", "cliphist", "store"],
-                ["nix-shell", "-p", "kanshi", "--run", "kanshi"],
+                "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=$XDG_CURRENT_DESKTOP",
+                "systemctl --user stop pipewire wireplumber xdg-desktop-portal xdg-desktop-portal-wlr",
+                "systemctl --user start wireplumber swaync kanshi &",
+                "pkill wl-paste",
+                "wl-paste --type text --watch cliphist store &",
+                "wl-paste --type image --watch cliphist store &",
             ]
         )
     else:
         cmds.extend(
             [
+                ["dunst"],
                 ["autorandr"],
             ]
         )
 
-    tasks = [run_cmd_with_log(subprocess.list2cmdline(cmd)) for cmd in cmds]
-    await asyncio.gather(*tasks)
+    for cmd in cmds:
+        process = subprocess.Popen(cmd, shell=True)
+        process.wait(2)
 
 
 @hook.subscribe.client_new
