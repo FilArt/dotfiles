@@ -45,6 +45,7 @@
       alacritty
       minigalaxy
       wineWowPackages.stable
+      nh
     ];
   };
 
