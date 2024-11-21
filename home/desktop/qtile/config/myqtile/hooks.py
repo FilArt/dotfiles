@@ -1,4 +1,3 @@
-import asyncio
 import os
 import subprocess
 
@@ -21,20 +20,20 @@ def autostart():
             "GDK_BACKEND": "wayland",
         }
 
-    else:
-        update_env_with = {}
     os.environ |= update_env_with
 
-
-@hook.subscribe.startup
-async def on_reload():
     cmds = []
     if is_wayland():
         cmds.extend(
             [
+                """
+                if [ "$(wlr-randr | grep Scale | cut -d: -f2 | xargs)" != "2.000000" ]; then
+                    wlr-randr --output HDMI-A-1 --scale 2 --adaptive-sync enabled
+                fi
+                """,
                 "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=$XDG_CURRENT_DESKTOP",
                 "systemctl --user stop pipewire wireplumber xdg-desktop-portal xdg-desktop-portal-wlr",
-                "systemctl --user start wireplumber swaync kanshi &",
+                "systemctl --user start wireplumber swaync &",
                 "pkill wl-paste",
                 "wl-paste --type text --watch cliphist store &",
                 "wl-paste --type image --watch cliphist store &",
@@ -43,14 +42,19 @@ async def on_reload():
     else:
         cmds.extend(
             [
-                ["dunst"],
-                ["autorandr"],
+                "nix-shell -p xorg.xset --run 'xset s off'",
+                "dunst",
+                "autorandr",
             ]
         )
 
     for cmd in cmds:
+        # qtile.spawn(cmd)
         process = subprocess.Popen(cmd, shell=True)
-        process.wait(2)
+        try:
+            process.wait(2)
+        except subprocess.TimeoutExpired as e:
+            logger.exception(e)
 
 
 @hook.subscribe.client_new
@@ -72,13 +76,3 @@ def is_running(process_name):
 
 def is_wayland() -> bool:
     return os.environ.get("WAYLAND_DISPLAY") is not None
-
-
-async def run_cmd_with_log(cmd: str) -> None:
-    proc = await asyncio.create_subprocess_shell(cmd, stderr=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.PIPE)
-
-    stdout, stderr = await proc.communicate()
-    if stdout:
-        logger.warning(f"[stdout][{cmd}]\n{stdout.decode()}")
-    if stderr:
-        logger.warning(f"[stderr][{cmd}]\n{stderr.decode()}")

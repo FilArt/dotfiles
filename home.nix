@@ -43,6 +43,8 @@
       bottles
       devenv
       alacritty
+      minigalaxy
+      wineWowPackages.stable
     ];
   };
 

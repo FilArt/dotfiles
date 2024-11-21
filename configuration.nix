@@ -72,7 +72,10 @@
     lshw
     mesa-demos
     inxi
+    xorg.xinit
+    power-profiles-daemon
   ];
+  services.power-profiles-daemon.enable = true;
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   system.copySystemConfiguration = true;

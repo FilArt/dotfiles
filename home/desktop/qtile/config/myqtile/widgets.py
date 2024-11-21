@@ -223,7 +223,7 @@ def init_widgets():
         ),
         MicrophoneWidget(),
         spacer,
-        widget.WiFiIcon(interface=get_wifi_interface(), decorations=[border_decor], padding_y=7),
+        widget.WiFiIcon(interface=get_wifi_interface(), decorations=[border_decor], padding_y=8),
         spacer,
         widget.StatusNotifier(decorations=[border_decor]),
         spacer,
