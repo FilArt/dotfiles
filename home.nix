@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 {
   imports = [ ./home ];
 
@@ -43,8 +43,6 @@
       bottles
       devenv
       alacritty
-      minigalaxy
-      wineWowPackages.stable
       nh
     ];
   };

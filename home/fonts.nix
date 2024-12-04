@@ -4,14 +4,13 @@
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-emoji
-    (nerdfonts.override { fonts = [ "RobotoMono" ]; })
+    nerd-fonts.roboto-mono
     font-awesome
     material-design-icons
     source-han-sans
     source-han-sans-japanese
     source-han-serif-japanese
     roboto
-    roboto-mono
     roboto-serif
     openmoji-color
   ];

@@ -12,7 +12,7 @@ in
     playerctl
     dunst
   ];
-  home.file.".config/qtile".source = config.lib.file.mkOutOfStoreSymlink ./config;
+  home.file.".config/qtile".source = config.lib.file.mkOutOfStoreSymlink /home/art/.config/home-manager/home/desktop/qtile/config;
 
   home.file.".config/swappy/config".text = ''
     [Default]
