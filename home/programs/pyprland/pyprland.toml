@@ -1,8 +1,5 @@
 [pyprland]
-plugins = [
-  "scratchpads",
-  "system_notifier",
-]
+plugins = ["scratchpads", "system_notifier"]
 
 [scratchpads.filemanager]
 animation = ""
@@ -36,6 +33,14 @@ size = "40% 90%"
 max_size = "1080px 100%"
 unfocus = "hide"
 preserve_aspect = true
+
+[scratchpads.telegram]
+animation = ""
+command = "telegram-desktop"
+class = "TelegramDesktop"
+lazy = true
+size = "70% 70%"
+margin = 0
 
 [system_notifier]
 command = "sudo journalctl -fx"

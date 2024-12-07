@@ -45,4 +45,10 @@
       pkgs.xdg-desktop-portal-gtk
     ];
   };
+
+  # hyprland
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
+  };
 }

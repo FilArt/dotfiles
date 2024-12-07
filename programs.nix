@@ -16,5 +16,10 @@
       enable = true;
       enableSSHSupport = true;
     };
+
+    hyprland = {
+      enable = true;
+      xwayland.enable = true;
+    };
   };
 }
