@@ -3,7 +3,7 @@
     ./fonts.nix
     ./systemd.nix
     ./xdg.nix
+    ./desktop/default.nix
   ]
-  ++ import ./desktop
   ++ import ./programs;
 }

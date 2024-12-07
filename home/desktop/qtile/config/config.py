@@ -85,6 +85,7 @@ scratchpad = ScratchPad(
         DropDown(
             "telegram",
             "telegram-desktop",
+            match="org.telegram.desktop",
             width=0.75,
             height=0.8,
             opacity=0.95,
