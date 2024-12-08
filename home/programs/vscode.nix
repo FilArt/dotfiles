@@ -28,6 +28,9 @@
         "nix" = true;
       };
       "git.confirmSync" = false;
+      "[css]" = {
+        "editor.defaultFormatter" = "vscode.css-language-features";
+      };
     };
   };
 

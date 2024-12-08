@@ -19,15 +19,6 @@ in
   home.file.".config/hypr/pyprland.toml".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/home/programs/pyprland/pyprland.toml";
   home.file.".config/hypr/hyprland.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/home/desktop/hyprland/hyprland.conf";
 
-  wayland.windowManager.hyprland = {
-    enable = true;
-    package = pkgs.hyprland;
-    xwayland.enable = true;
-    systemd.enable = false;
-  };
-
-  wayland.windowManager.hyprland.systemd.variables = [ "--all" ]; # do i need it?
-
   programs.hyprlock = {
     enable = true;
     settings = {

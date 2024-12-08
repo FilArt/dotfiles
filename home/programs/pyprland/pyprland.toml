@@ -19,9 +19,10 @@ margin = 0
 
 [scratchpads.term]
 animation = "fromTop"
-command = "kitty --class=kitty-dropterm"
+command = "kitty --class kitty-dropterm"
 class = "kitty-dropterm"
-size = "70% 60%"
+size = "75% 60%"
+max_size = "1920px 100%"
 margin = 50
 
 [scratchpads.volume]
