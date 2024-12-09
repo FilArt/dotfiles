@@ -18,34 +18,23 @@
   ],
 
   "modules-right": [
-    "cpu",
-
-    "custom/left3",
-    "memory",      
-
-    "custom/left4",
-    "custom/cpu",           // cpu
-
     "clock#time",           // time
-    "custom/right3",
+    "custom/right1",
 
     "clock#date",           // date
-    "custom/right4",
+    "custom/right1",
 
-    "custom/wifi",          // wi-fi
-    "custom/right5",
-
-    "custom/left6",
     "wireplumber",
+    "custom/right1",
 
     "pulseaudio#microphone",
+    "custom/right1",
 
     "custom/language",    // language
 
     "tray",
 
-    "custom/lock",
-
+    "custom/lock"
   ],
 
   // === Modules ===
@@ -233,7 +222,6 @@
     "tooltip": false
   },
 
-
   // == Left Arrows ==
 
   "custom/left1": {
@@ -311,8 +299,8 @@
   },
 
   "custom/language": {
-       "format": "{}",
+       "format": " {} ",
         "exec": "bash ~/.config/home-manager/home/desktop/waybar/keymap.sh",
-        "interval": 1,
+        "interval": 1
   }
 }

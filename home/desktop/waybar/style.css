@@ -33,7 +33,7 @@
 @define-color date #1e1e2e;
 @define-color tray #181825;
 
-@define-color pulseaudio #181825;
+@define-color wireplumber #181825;
 @define-color backlight #1e1e2e;
 @define-color battery #313244;
 @define-color power #9399b2;
@@ -125,7 +125,7 @@ tooltip label {
 #bluetooth,
 #custom-update,
 #custom-media,
-#pulseaudio,
+#wireplumber,
 #custom-backlight,
 #battery,
 #custom-power,
@@ -362,16 +362,16 @@ tooltip label {
 /* == Output Device == */
 
 #custom-left6 {
-    color: @pulseaudio;
+    color: @wireplumber;
     background: @main-bg;
     padding-left: 3px;
 }
 
-#pulseaudio {
-    background: @pulseaudio;
+#wireplumber {
+    background: @wireplumber;
 }
 
-#pulseaudio:hover {
+#wireplumber:hover {
     color: @hover-fg;
     text-shadow: none;
     box-shadow: none;
@@ -381,44 +381,12 @@ tooltip label {
 
 #custom-left7 {
     color: @backlight;
-    background: @pulseaudio;
+    background: @wireplumber;
     padding-left: 2px;
 }
 
 #custom-backlight {
     background: @backlight;
-}
-
-/* == Battery == */
-
-#custom-left8 {
-    color: @battery;
-    background: @backlight;
-    padding-left: 2px;
-}
-
-#battery {
-    background: @battery;
-}
-
-#battery.full {
-    color: @full;
-}
-
-#battery.good {
-    color: @module-fg;
-}
-
-#battery.warning {
-    color: @warning;
-}
-
-#battery.critical {
-    color: @critical;
-}
-
-#battery.charging {
-    color: @charging;
 }
 
 /* == Power Button == */
