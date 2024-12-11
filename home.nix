@@ -42,14 +42,9 @@
       jetbrains-toolbox
       bottles
       devenv
-      alacritty
-      nh
     ];
   };
 
   services.network-manager-applet.enable = true;
   services.gnome-keyring.enable = true;
-  #services.psd.enable = true;
-  services.home-manager.autoUpgrade.enable = true;
-  services.home-manager.autoUpgrade.frequency = "weekly";
 }

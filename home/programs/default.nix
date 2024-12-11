@@ -12,4 +12,5 @@
   ./git.nix
   ./tmux.nix
   ./browser.nix
+  ./hyprlandProgs.nix
 ]

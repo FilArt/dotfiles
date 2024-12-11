@@ -7,4 +7,5 @@
   ./docker.nix
   ./desktop.nix
   ./nvidia.nix
+  ./hyprland.nix
 ]
