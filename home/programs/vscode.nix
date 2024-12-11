@@ -33,12 +33,4 @@
       };
     };
   };
-
-  home.file.".config/home-manager/.vscode/settings.json".text = ''
-    {
-      "editor.fontFamily": "'RobotoMono Nerd Font', 'Font Awesome 6 Free', 'Material Design Icons'",
-      "python.analysis.extraPaths": [
-              ]
-    }
-  '';
 }

@@ -35,7 +35,7 @@
 * {
     font-family: "RobotoMono Nerd Font";
     font-weight: bold;
-    font-size: 12px;
+    font-size: 14px;
     min-height: 0;
 }
 
@@ -114,6 +114,11 @@ tooltip label {
 }
 
 #custom-separator {
+    background: @main-bg;
+    padding: 0;
+}
+
+#custom-thin_separator {
     background: @main-bg;
     padding: 0;
 }

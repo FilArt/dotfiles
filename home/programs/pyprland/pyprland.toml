@@ -43,6 +43,24 @@ lazy = true
 size = "70% 70%"
 margin = 0
 
+[scratchpads.btop]
+animation = "fromTop"
+command = "kitty --class btop btop"
+class = "btop"
+size = "80% 90%"
+max_size = "1920px 100%"
+margin = 50
+
+
+[scratchpads.htop]
+animation = "fromTop"
+command = "kitty --class htop htop"
+class = "htop"
+size = "80% 90%"
+max_size = "1920px 100%"
+margin = 50
+
+
 [system_notifier]
 command = "sudo journalctl -fx"
 parser = ["journal"]

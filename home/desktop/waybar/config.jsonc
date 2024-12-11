@@ -23,7 +23,11 @@
     "tray",
     "custom/separator",
     "custom/screenshot",
+    "custom/thin_separator",
+    "custom/video",
+    "custom/thin_separator",
     "custom/hyprsunset",
+    "custom/thin_separator",
     "custom/lock",
   ],
   "hyprland/workspaces": {
@@ -72,9 +76,16 @@
     "format": " ",
     "tooltip": false
   },
+  "custom/thin_separator": {
+    "format": " ",
+    "tooltip": false
+  },
   "custom/video": {
-    "format": "  ",
+    "exec": "~/.config/home-manager/home/desktop/hyprland/scripts/recorder.py readonly",
+    "on-click": "~/.config/home-manager/home/desktop/hyprland/scripts/recorder.py on-click",
+    "format": " {} ",
     "tooltip": false,
+    "restart-interval": 1,
   },
   "custom/screenshot": {
     "format": "  ",
@@ -86,22 +97,23 @@
     "show-passive-items": true
   },
   "custom/lock": {
-    "format": " 󰍁 ",
+    "format": "  ",
     "tooltip": false,
     "on-click": "hyprlock"
-  },
-  "hyprland/language": {
-    "format": "󰌌 { }"
   },
   "wireplumber": {
     "format": "{icon} {volume}%",
     "format-muted": "",
     "format-icons": [
       "",
-      "",
-      ""
+      " ",
+      " "
     ],
-    "on-click": "wpctl set-mute @DEFAULT_SOURCE@ toggle",
+    "states": {
+      "warning": 33,
+      "critical": 66
+    },
+    "on-click": "wpctl set-mute @DEFAULT_SINK@ toggle",
     "on-click-right": "hyprctl dispatch exec [floating] pavucontrol",
   },
   "pulseaudio#microphone": {
@@ -116,6 +128,8 @@
     "scroll-step": 5
   },
   "memory": {
+    "on-click": "pypr toggle btop",
+    "on-click-right": "pypr toggle htop",
     "states": {
       "warning": 75,
       "critical": 90
@@ -141,10 +155,15 @@
   },
   "custom/language": {
     "exec": "bash ~/.config/home-manager/home/desktop/waybar/keymap.sh",
+    "format": "󰌌  {}",
     "interval": 1
   },
   "custom/hyprsunset": {
-    "on-click": "~/.config/home-manager/home/desktop/hyprland/scripts/sunset.sh",
-    "format": "  "
+    "tooltip": false,
+    "exec": "~/.config/home-manager/home/desktop/hyprland/scripts/sunset.py readonly",
+    "on-scroll-up": "~/.config/home-manager/home/desktop/hyprland/scripts/sunset.py up",
+    "on-scroll-down": "~/.config/home-manager/home/desktop/hyprland/scripts/sunset.py down",
+    "format": "{}°C 󰛨 ",
+    "restart-interval": 1,
   }
 }
