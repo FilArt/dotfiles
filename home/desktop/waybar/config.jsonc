@@ -15,7 +15,6 @@
   "modules-right": [
     "memory",
     "custom/separator",
-    "custom/separator",
     "wireplumber",
     "custom/separator",
     "pulseaudio#microphone",
@@ -75,37 +74,34 @@
       "Authenticate": "  Authenticate"
     }
   },
-  "custom/separator": {
-    "format": " ",
-    "tooltip": false
-  },
-  "custom/thin_separator": {
-    "format": " ",
-    "tooltip": false
-  },
-  "custom/video": {
-    "exec": "~/.config/home-manager/home/desktop/hyprland/scripts/recorder.py readonly",
-    "on-click": "~/.config/home-manager/home/desktop/hyprland/scripts/recorder.py on-click",
-    "format": " {} ",
+  "clock#time": {
+    "format": "󱑂 {:%H:%M}",
     "tooltip": false,
-    "restart-interval": 1,
+    "min-length": 8,
+    "max-length": 8
   },
-  "custom/screenshot": {
-    "format": "  ",
-    "on-click": "grim -g \"$(slurp)\" - | swappy -f -",
+  "clock#date": {
+    "format": "󰨳 {:%m/%d/%Y}",
     "tooltip": false,
+    "on-click": "hyprctl dispatch exec gsimplecal"
   },
-  "tray": {
-    "icon-size": 16,
-    "show-passive-items": true
-  },
-  "custom/lock": {
-    "format": "  ",
-    "tooltip": false,
-    "on-click": "hyprlock"
+  "memory": {
+    "on-click": "pypr toggle btop",
+    "on-click-right": "pypr toggle htop",
+    "states": {
+      "warning": 75,
+      "critical": 90
+    },
+    "format": "󰘚 {percentage}%",
+    "format-critical": "󰀦 {percentage}%",
+    "tooltip": true,
+    "tooltip-format": "Memory Used: {used:0.1f} GB / {total:0.1f} GB",
+    "interval": 5,
+    "min-length": 7,
+    "max-length": 7
   },
   "wireplumber": {
-    "format": "{icon} {volume}%",
+    "format": "{icon}{volume}%",
     "format-muted": "",
     "format-icons": [
       "",
@@ -130,43 +126,47 @@
     "tooltip-format": "{source_desc} | {source_volume}%",
     "scroll-step": 5
   },
-  "memory": {
-    "on-click": "pypr toggle btop",
-    "on-click-right": "pypr toggle htop",
-    "states": {
-      "warning": 75,
-      "critical": 90
-    },
-    "format": "󰘚 {percentage}%",
-    "format-critical": "󰀦 {percentage}%",
-    "tooltip": true,
-    "tooltip-format": "Memory Used: {used:0.1f} GB / {total:0.1f} GB",
-    "interval": 5,
-    "min-length": 7,
-    "max-length": 7
-  },
-  "clock#time": {
-    "format": "󱑂 {:%H:%M}",
-    "tooltip": false,
-    "min-length": 8,
-    "max-length": 8
-  },
-  "clock#date": {
-    "format": "󰨳 {:%m/%d/%Y}",
-    "tooltip": false,
-    "on-click": "hyprctl dispatch exec gsimplecal"
-  },
   "custom/language": {
     "exec": "bash ~/.config/home-manager/home/desktop/waybar/keymap.sh",
-    "format": "󰌌  {}",
+    "format": "󰌌 {}",
     "interval": 1
+  },
+  "tray": {
+    "icon-size": 16,
+    "show-passive-items": true
+  },
+  "custom/screenshot": {
+    "format": " 󰄀 ",
+    "on-click": "grim -g \"$(slurp)\" - | swappy -f -",
+    "tooltip": false,
+  },
+  "custom/video": {
+    "exec": "~/.config/home-manager/home/desktop/hyprland/scripts/recorder.py readonly",
+    "on-click": "~/.config/home-manager/home/desktop/hyprland/scripts/recorder.py on-click",
+    "format": " {} ",
+    "tooltip": false,
+    "restart-interval": 1,
   },
   "custom/hyprsunset": {
     "tooltip": false,
     "exec": "~/.config/home-manager/home/desktop/hyprland/scripts/sunset.py readonly",
     "on-scroll-up": "~/.config/home-manager/home/desktop/hyprland/scripts/sunset.py up",
     "on-scroll-down": "~/.config/home-manager/home/desktop/hyprland/scripts/sunset.py down",
-    "format": "{}°C 󰛨 ",
+    "format": "{}°C 󰛨",
     "restart-interval": 1,
-  }
+  },
+  "custom/lock": {
+    "format": " 󰌾 ",
+    "tooltip": false,
+    "on-click": "hyprlock"
+  },
+  // misc
+  "custom/separator": {
+    "format": " ",
+    "tooltip": false
+  },
+  "custom/thin_separator": {
+    "format": " ",
+    "tooltip": false
+  },
 }

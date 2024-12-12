@@ -5,6 +5,8 @@
     noto-fonts-cjk-sans
     noto-fonts-emoji
     nerd-fonts.roboto-mono
+    nerd-fonts.jetbrains-mono
+    inter-nerdfont
     font-awesome
     material-design-icons
     source-han-sans

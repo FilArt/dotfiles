@@ -41,7 +41,7 @@
       xorg.xinit
       power-profiles-daemon
     ];
-    # sessionVariables.NIXOS_OZONE_WL = "1";
+    sessionVariables.NIXOS_OZONE_WL = "1";
   };
 
   system = {
