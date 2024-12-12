@@ -8,11 +8,13 @@
     "hyprland/workspaces",
     "hyprland/window"
   ],
+  "modules-center": [
+    "clock#time",
+    "clock#date",
+  ],
   "modules-right": [
     "memory",
     "custom/separator",
-    "clock#time",
-    "clock#date",
     "custom/separator",
     "wireplumber",
     "custom/separator",
@@ -44,6 +46,7 @@
   "hyprland/window": {
     "format": "{}",
     "min-length": 5,
+    "max-length": 50,
     "rewrite": {
       "": "<span foreground='#89b4fa'> </span> Hyprland",
       "~": "  Terminal",

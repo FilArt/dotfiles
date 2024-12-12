@@ -29,7 +29,7 @@ def main(action):
     if recording:
         print("󰑋")
     else:
-        print("󰕧")
+        print("󰨜")
     
     if action == "on-click":
         if recording:

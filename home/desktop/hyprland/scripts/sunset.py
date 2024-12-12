@@ -7,9 +7,9 @@ import subprocess
 
 TEMP_FILE = "/tmp/.temp"
 DEFAULT_TEMP = 7000
-TEMP_LOW = 1000
+TEMP_LOW = 3000
 TEMP_HIGH = 10000
-TEMP_STEP = 1000
+TEMP_STEP = 500
 
 def read_current_temp():
     """Читает текущую температуру из временного файла."""
