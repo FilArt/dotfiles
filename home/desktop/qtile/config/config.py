@@ -17,7 +17,7 @@ secondary = "#2E3440"
 
 mod = "mod4"
 
-terminal = guess_terminal()
+terminal: str = guess_terminal() or "kitty"
 
 layouts = [
     layout.Bsp(
@@ -135,7 +135,7 @@ screens = [
     ),
 ]
 
-dgroups_key_binder = None
+dgroups_key_binder: None = None
 dgroups_app_rules = []  # type: list
 follow_mouse_focus = True
 bring_front_click = False

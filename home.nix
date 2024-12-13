@@ -42,6 +42,7 @@
       jetbrains-toolbox
       bottles
       devenv
+      uv
     ];
   };
 

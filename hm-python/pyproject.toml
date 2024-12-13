@@ -1,0 +1,13 @@
+[project]
+name = "hm-python"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "click>=8.1.7",
+    "mypy>=1.13.0",
+    "qtile>=0.29.0",
+    "qtile-extras>=0.29.0",
+    "ruff>=0.8.3",
+]

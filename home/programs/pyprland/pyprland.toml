@@ -10,7 +10,7 @@ size = "60% 60%"
 margin = 0
 
 [scratchpads.musicplayer]
-animation = ""
+animation = "fromLeft"
 command = "spotify"
 class = "Spotify"
 lazy = true
@@ -51,7 +51,6 @@ size = "80% 90%"
 max_size = "1920px 100%"
 margin = 50
 
-
 [scratchpads.htop]
 animation = "fromTop"
 command = "kitty --class htop htop"
@@ -59,7 +58,6 @@ class = "htop"
 size = "80% 90%"
 max_size = "1920px 100%"
 margin = 50
-
 
 [system_notifier]
 command = "sudo journalctl -fx"

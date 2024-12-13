@@ -38,7 +38,7 @@ QTILE = BASE_DIR / "bin" / "qtile"
 
 # This script can be configured with environmental variables and arguments:
 outputs = os.environ.get("OUTPUTS", 1)
-app = os.environ.get("APP", guess_terminal())
+app = os.environ.get("APP", guess_terminal()) or "kitty"
 log_level = os.environ.get("LOG_LEVEL", "INFO")
 
 cmd = [QTILE.as_posix(), "start", "-b", "wayland", "-l", log_level]

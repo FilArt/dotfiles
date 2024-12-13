@@ -1,24 +1,26 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p python3Packages.click
+#!/home/art/.config/home-manager/hm-python/.venv/bin/python
 
-from pathlib import Path
-import click
 import subprocess
+
+import click
 
 TEMP_FILE = "/tmp/.temp"
 
+
 def recording_on():
-    cmd = 'pgrep -x wf-recorder'
+    cmd = "pgrep -x wf-recorder"
     return subprocess.run(cmd, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode == 0
 
 
 def start_recording():
-    cmd = '''wf-recorder --geometry "$(slurp)" -f ~/Videos/"$(date +'%Y-%m-%d_%H-%M-%S')".mkv'''
+    cmd = """wf-recorder --geometry "$(slurp)" -f ~/Videos/"$(date +'%Y-%m-%d_%H-%M-%S')".mkv"""
     subprocess.run(cmd, shell=True)
 
+
 def stop_recording():
-    cmd = 'pkill wf-recorder'
+    cmd = "pkill wf-recorder"
     subprocess.run(cmd, shell=True)
+
 
 @click.command()
 @click.argument("action", type=click.Choice(["readonly", "on-click"], case_sensitive=False))
@@ -30,7 +32,7 @@ def main(action):
         print("󰑋")
     else:
         print("󰨜")
-    
+
     if action == "on-click":
         if recording:
             stop_recording()
