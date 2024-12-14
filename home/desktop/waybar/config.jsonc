@@ -16,6 +16,7 @@
   ],
   "modules-right": [
     "systemd-failed-units",
+    "custom/separator",
     "memory",
     "custom/separator",
     "wireplumber",

@@ -43,6 +43,7 @@
       bottles
       devenv
       uv
+      code-cursor
     ];
   };
 
