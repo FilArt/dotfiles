@@ -11,8 +11,11 @@
   "modules-center": [
     "clock#time",
     "clock#date",
+    "custom/separator",
+    "custom/notification",
   ],
   "modules-right": [
+    "systemd-failed-units",
     "memory",
     "custom/separator",
     "wireplumber",
@@ -34,13 +37,6 @@
   "hyprland/workspaces": {
     "on-scroll-up": "hyprctl dispatch workspace -1",
     "on-scroll-down": "hyprctl dispatch workspace +1",
-    "persistent-workspaces": {
-      "1": [],
-      "2": [],
-      "3": [],
-      "4": [],
-      "5": []
-    }
   },
   "hyprland/window": {
     "format": "{}",
@@ -74,6 +70,26 @@
       "Authenticate": "  Authenticate"
     }
   },
+  "custom/notification": {
+    "tooltip": false,
+    "format": "{} {icon}",
+    "format-icons": {
+      "notification": "󱅫",
+      "none": "󰂚",
+      "dnd-notification": "󰂛",
+      "dnd-none": "󰂛",
+      "inhibited-notification": "󰂜",
+      "inhibited-none": "󰂜",
+      "dnd-inhibited-notification": "󰪑",
+      "dnd-inhibited-none": "󰪑"
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "sleep 0.1 && swaync-client -t -sw",
+    "on-click-right": "sleep 0.1 && swaync-client -d -sw",
+    "escape": true,
+  },
   "clock#time": {
     "format": "󱑂 {:%H:%M}",
     "tooltip": false,
@@ -101,12 +117,12 @@
     "max-length": 7
   },
   "wireplumber": {
-    "format": "{icon}{volume}%",
-    "format-muted": "",
+    "format": "{icon} {volume}%",
+    "format-muted": "󰖁",
     "format-icons": [
-      "",
-      " ",
-      " "
+      "󰕿",
+      "󰖀",
+      "󰕾",
     ],
     "states": {
       "warning": 33,
@@ -117,8 +133,8 @@
   },
   "pulseaudio#microphone": {
     "format": "{format_source}",
-    "format-source": " {volume}%",
-    "format-source-muted": " ",
+    "format-source": "󰍬 {volume}%",
+    "format-source-muted": "󰍭",
     "on-click": "pamixer --default-source -t",
     "on-click-right": "pavucontrol -t 4",
     "on-scroll-up": "pamixer --default-source -i 5",

@@ -134,7 +134,3 @@ tooltip label {
 #memory.critical {
     color: @critical;
 }
-
-#clock {
-    border-radius: 0;
-}
