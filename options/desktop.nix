@@ -33,16 +33,16 @@
   xdg.icons.enable = true;
   xdg.mime.enable = true;
 
-  xdg.portal = {
-    enable = true;
-    config = {
-      qtile = {
-        default = [ "wlr" "gtk" ];
-      };
-    };
-    extraPortals = [
-      pkgs.xdg-desktop-portal-wlr
-      pkgs.xdg-desktop-portal-gtk
-    ];
-  };
+  # xdg.portal = {
+  #   enable = true;
+  #   config = {
+  #     qtile = {
+  #       default = [ "wlr" "gtk" ];
+  #     };
+  #   };
+  #   extraPortals = [
+  #     pkgs.xdg-desktop-portal-wlr
+  #     pkgs.xdg-desktop-portal-gtk
+  #   ];
+  # };
 }

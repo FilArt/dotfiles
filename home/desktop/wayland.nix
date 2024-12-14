@@ -9,6 +9,7 @@
     pamixer
     rofi-wayland-unwrapped
     wlr-randr
+    satty
   ];
 
   services.swaync.enable = true;

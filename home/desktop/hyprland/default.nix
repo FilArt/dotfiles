@@ -12,6 +12,7 @@ in
       pyprland
       hyprlock
       python3
+      hyprpolkitagent
     ];
 
   programs.kitty.enable = true; # required for the default Hyprland config

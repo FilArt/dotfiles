@@ -17,7 +17,6 @@
       ncdu
       direnv
       pavucontrol
-      light
       slack
       nixpkgs-fmt
       alsa-utils
@@ -31,22 +30,18 @@
       python3Packages.ipython
       mypy
       nemo-with-extensions
-      screenfetch
-      blanket
       btop
       htop-vim
       vlc
-      # wf-recorder
       lazydocker
-      satty
       jetbrains-toolbox
       bottles
       devenv
       uv
       code-cursor
+      pasystray
+      network-manager-applet
     ];
   };
-
-  services.network-manager-applet.enable = true;
   services.gnome-keyring.enable = true;
 }

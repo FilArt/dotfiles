@@ -19,13 +19,6 @@ let
   };
 in
 {
-  systemd.user.targets.tray = {
-    Unit = {
-      Description = "Home Manager System Tray";
-      After = [ "display-manager.service" ];
-    };
-  };
-
   systemd.user.services.gdrive_mount = createMountService "gdrive" "gdrive";
   systemd.user.services.onedrive_mount = createMountService "onedrive" "onedrive";
 }

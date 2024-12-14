@@ -12,5 +12,6 @@
     gvfs.enable = true;
     power-profiles-daemon.enable = true;
     printing.enable = false;
+    upower.enable = true;
   };
 }
