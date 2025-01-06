@@ -31,6 +31,9 @@
       "[css]" = {
         "editor.defaultFormatter" = "vscode.css-language-features";
       };
+      "[shellscript]" = {
+        "editor.defaultFormatter" = "mads-hartmann.bash-ide-vscode";
+      };
     };
   };
 }

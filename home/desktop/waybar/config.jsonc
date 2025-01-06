@@ -98,7 +98,7 @@
     "max-length": 8
   },
   "clock#date": {
-    "format": "󰨳 {:%m/%d/%Y}",
+    "format": "󰨳 {:%d/%m/%Y}",
     "tooltip": false,
     "on-click": "hyprctl dispatch exec gsimplecal"
   },

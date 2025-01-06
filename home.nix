@@ -40,7 +40,7 @@
       uv
       code-cursor
       pasystray
-      network-manager-applet
+      networkmanagerapplet
     ];
   };
   services.gnome-keyring.enable = true;
