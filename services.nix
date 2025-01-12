@@ -1,5 +1,6 @@
 { ... }: {
   services = {
+    blueman.enable = true;
     dnsmasq = {
       enable = true;
       settings.server = [

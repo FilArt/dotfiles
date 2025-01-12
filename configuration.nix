@@ -18,7 +18,15 @@
     useXkbConfig = true; # use xkb.options in tty.
   };
 
-  security.rtkit.enable = true;
+  security = {
+    rtkit.enable = true;
+    pam.services.uwsm.enableGnomeKeyring = true;
+    pam.services.swaylock = { };
+  };
+  hardware = {
+    bluetooth.enable = true;
+    bluetooth.powerOnBoot = true;
+  };
 
   users.users.art = {
     isNormalUser = true;
