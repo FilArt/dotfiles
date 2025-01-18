@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 {
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = [ "amdgpu" "nvidia" ];
   services.xserver.exportConfiguration = true;
   hardware.nvidia = {
     modesetting.enable = true;

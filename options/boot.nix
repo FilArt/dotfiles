@@ -1,5 +1,7 @@
 { pkgs, ... }: {
+  boot.initrd.verbose = false;
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "uas" "sd_mod" ];
+  boot.initrd.kernelModules = [ "amdgpu" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernel.sysctl = {
     "kernel.sysrq" = 1;
@@ -16,7 +18,6 @@
   boot.tmp.cleanOnBoot = true;
   boot.tmp.useTmpfs = true;
   boot.consoleLogLevel = 3;
-  boot.initrd.verbose = false;
   boot.loader = {
     efi.canTouchEfiVariables = true;
     grub = {
