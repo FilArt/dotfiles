@@ -41,6 +41,7 @@
       code-cursor
       pasystray
       networkmanagerapplet
+      alejandra
     ];
   };
   services.gnome-keyring.enable = true;

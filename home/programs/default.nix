@@ -8,7 +8,6 @@
   ./ruff.nix
   ./pass.nix
   ./gpg.nix
-  ./pasystray.nix
   ./git.nix
   ./tmux.nix
   ./browser.nix

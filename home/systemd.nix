@@ -19,6 +19,6 @@ let
   };
 in
 {
-  systemd.user.services.gdrive_mount = createMountService "gdrive" "gdrive";
+  # systemd.user.services.gdrive_mount = createMountService "gdrive" "gdrive";
   systemd.user.services.onedrive_mount = createMountService "onedrive" "onedrive";
 }

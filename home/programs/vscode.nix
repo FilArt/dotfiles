@@ -34,6 +34,7 @@
       "[shellscript]" = {
         "editor.defaultFormatter" = "mads-hartmann.bash-ide-vscode";
       };
+      "nix.formatterPath" = "alejandra";
     };
   };
 }
