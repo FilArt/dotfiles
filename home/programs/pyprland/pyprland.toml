@@ -11,8 +11,8 @@ margin = 0
 
 [scratchpads.musicplayer]
 animation = ""
-command = "spotify"
-class = "spotify"
+command = "kitty --class musicplayer --hold sh -c spotify_player"
+class = "musicplayer"
 lazy = true
 size = "80% 80%"
 margin = 20

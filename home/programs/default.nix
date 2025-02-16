@@ -2,7 +2,6 @@
   # ./pyprland/default.nix
   ./zsh.nix
   ./borgmatic.nix
-  ./neovim.nix
   ./vscode.nix
   ./foot.nix
   ./ruff.nix

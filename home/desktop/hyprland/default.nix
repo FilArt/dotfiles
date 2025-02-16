@@ -1,21 +1,32 @@
-{ config, pkgs, ... }:
-
-let
+{
+  config,
+  pkgs,
+  ...
+}: let
   hyprctl = "${pkgs.hyprland}/bin/hyprctl";
   pkill = "${pkgs.procps}/bin/pkill";
   pypr = "${pkgs.pyprland}/bin/pypr";
   py3 = "${pkgs.python3}/bin/python";
-in
-{
-  home.packages = with pkgs;
-    [
-      pyprland
-      hyprlock
-      python3
-      hyprpolkitagent
-    ];
+in {
+  home.packages = with pkgs; [
+    pyprland
+    hyprlock
+    python3
+    hyprpolkitagent
+  ];
 
-  programs.kitty.enable = true; # required for the default Hyprland config
+  programs.kitty = {
+    enable = true;
+    shellIntegration.enableZshIntegration = true;
+    environment = {
+      TERM = "xterm-256color";
+    };
+    settings = {
+      scrollback_lines = 10000;
+      enable_audio_bell = false;
+      update_check_interval = 0;
+    };
+  };
 
   home.file.".config/hypr/pyprland.toml".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/home/programs/pyprland/pyprland.toml";
   home.file.".config/hypr/hyprland.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/home/desktop/hyprland/hyprland.conf";

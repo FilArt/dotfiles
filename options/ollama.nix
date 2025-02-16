@@ -1,6 +1,5 @@
-{ ... }:
 let
-  enableAI = true;
+  enableAI = false;
 in
 {
   services.ollama = {

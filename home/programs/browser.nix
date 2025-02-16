@@ -1,10 +1,12 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
+  services.psd.enable = true;
   programs.chromium = {
     enable = true;
     package = pkgs.google-chrome;
     commandLineArgs = [
       "--enable-features=VaapiVideoEncoder"
       "--lang=ru-RU"
+      ''--disk-cache-dir="/tmp/chrome-cache"''
     ];
     extensions = [
       "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin

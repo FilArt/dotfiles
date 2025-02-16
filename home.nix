@@ -1,6 +1,10 @@
-{ config, pkgs, lib, ... }:
 {
-  imports = [ ./home ];
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
+  imports = [./home];
 
   programs.home-manager.enable = true;
 
@@ -11,6 +15,7 @@
     homeDirectory = "/home/art";
     stateVersion = "24.05";
     packages = with pkgs; [
+      ripgrep
       vulkan-tools
       telegram-desktop
       tree
@@ -20,7 +25,7 @@
       slack
       nixpkgs-fmt
       alsa-utils
-      spotify
+      spotify-player
       gnumake
       rclone
       openfortivpn

@@ -8,9 +8,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url = "github:hyprwm/Hyprland";
+
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, hyprland, ... }: {
+  outputs = inputs@{ nixpkgs, home-manager, hyprland, nixvim, ... }: {
     nixosConfigurations.art = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
@@ -23,6 +28,8 @@
           home-manager.useUserPackages = true;
           home-manager.users.art = import ./home.nix;
         }
+
+        nixvim.nixosModules.nixvim
       ];
     };
   };

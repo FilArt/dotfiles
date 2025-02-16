@@ -1,4 +1,4 @@
-{ ... }: {
+{
   networking = {
     hostName = "nixos";
     networkmanager = {
@@ -13,6 +13,4 @@
       allowedTCPPorts = [ 42971 ];
     };
   };
-
-
 }
