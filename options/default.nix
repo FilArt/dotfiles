@@ -9,5 +9,5 @@
   ./nvidia.nix
   ./hyprland.nix
   ./ollama.nix
-  ./nixvim.nix
+  ./nixvim
 ]

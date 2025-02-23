@@ -15,22 +15,30 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, hyprland, nixvim, ... }: {
-    nixosConfigurations.art = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = { inherit inputs; };
-      modules = [
-        ./configuration.nix
+  outputs =
+    inputs @ { nixpkgs
+    , home-manager
+    , hyprland
+    , nixvim
+    , ...
+    }: {
+      nixosConfigurations.art = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs;
+        };
+        modules = [
+          ./configuration.nix
 
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.art = import ./home.nix;
-        }
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.art = import ./home.nix;
+          }
 
-        nixvim.nixosModules.nixvim
-      ];
+          nixvim.nixosModules.nixvim
+        ];
+      };
     };
-  };
 }
