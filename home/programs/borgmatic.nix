@@ -30,6 +30,12 @@
             "- /home/art/.vscode"
             "- /home/art/.bun"
             "- /home/art/.npm"
+            "- /home/art/.paradoxlauncher"
+            "- /home/art/.cursor"
+            "- /home/art/.phoronix-test-suite"
+            "- /home/art/.mozilla"
+            "- /home/art/.compose-cache"
+            "- /home/art/.local/share/JetBrains"
             "+ /home/art/.local/share/Trash"
           ];
           repositories = [ "ssh://i82i6syt@i82i6syt.repo.borgbase.com/./repo" ];
@@ -47,8 +53,14 @@
         };
         consistency = {
           checks = [
-            { name = "repository"; frequency = "2 weeks"; }
-            { name = "archives"; frequency = "2 weeks"; }
+            {
+              name = "repository";
+              frequency = "2 weeks";
+            }
+            {
+              name = "archives";
+              frequency = "2 weeks";
+            }
           ];
         };
       };
