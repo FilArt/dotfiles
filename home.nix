@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [./home];
 
   programs.home-manager.enable = true;
@@ -32,7 +27,6 @@
       nodePackages_latest.nodejs
       pinentry
       qbittorrent
-      python3Packages.ipython
       mypy
       nemo-with-extensions
       btop
@@ -47,7 +41,7 @@
       pasystray
       networkmanagerapplet
       alejandra
+      python3Packages.ipython
     ];
   };
-  services.gnome-keyring.enable = true;
 }
