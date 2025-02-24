@@ -6,7 +6,7 @@
     commandLineArgs = [
       "--enable-features=VaapiVideoEncoder"
       "--lang=ru-RU"
-      ''--disk-cache-dir="/tmp/chrome-cache"''
+      ''--disk-cache-dir="/run/user/1000/chrome-cache"''
     ];
     extensions = [
       "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
