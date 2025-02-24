@@ -19,8 +19,8 @@ in {
     globals.maplocalleader = " ";
 
     keymaps = [
-      (mkNormap "<C-s>" ":w<CR>") # Save
-      (mkNormap "<C-S-p>" "require(\"telescope\").extensions.projects.projects{}")
+      (mkNormap "<C-s>" ":w<CR>")
+      (mkNormap "<leader>p" ":Telescope projects<CR>")
 
       (mkNormap "<leader>e" ":Neotree toggle<CR>")
       (mkNormap "<leader>ut" ":UndotreeToggle<CR>")
