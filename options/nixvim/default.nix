@@ -12,31 +12,12 @@
     vimAlias = true;
     withPython3 = true;
 
+    extraConfigLua = ''
+      require('pqf').setup()
+    '';
+
     extraConfigLuaPost = ''
       -- vim: ts=2 sts=2 sw=2 et
     '';
-
-    highlight.Todo = {
-      fg = "Blue";
-      bg = "Yellow";
-    };
-
-    match.TODO = "TODO";
-
-    keymaps = [
-      {
-        mode = "n";
-        key = "<C-t>";
-        action.__raw = ''
-          function()
-            require('telescope.builtin').live_grep({
-              default_text="TODO",
-              initial_mode="normal"
-            })
-          end
-        '';
-        options.silent = true;
-      }
-    ];
   };
 }

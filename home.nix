@@ -12,36 +12,40 @@
     packages = with pkgs; [
       ripgrep
       vulkan-tools
-      telegram-desktop
       tree
       ncdu
-      direnv
       pavucontrol
-      slack
-      nixpkgs-fmt
       alsa-utils
-      spotify-player
       gnumake
       rclone
       openfortivpn
       nodePackages_latest.nodejs
       pinentry
-      qbittorrent
-      mypy
       nemo-with-extensions
       btop
       htop-vim
       vlc
       lazydocker
-      jetbrains-toolbox
-      bottles
-      devenv
-      uv
-      code-cursor
       pasystray
       networkmanagerapplet
+
+      # apps
+      telegram-desktop
+      slack
+      spotify-player
+      qbittorrent
+      bottles
+
+      # coding:
+      direnv
+      mypy
+      jetbrains-toolbox
+      uv
+      devenv
+      code-cursor
       alejandra
       python3Packages.ipython
+      python3Packages.debugpy
     ];
   };
 }

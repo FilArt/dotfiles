@@ -19,11 +19,14 @@ in {
     globals.maplocalleader = " ";
 
     keymaps = [
+      (mkNormap "<C-s>" ":w<CR>") # Save
+      (mkNormap "<C-S-p>" "require(\"telescope\").extensions.projects.projects{}")
+
       (mkNormap "<leader>e" ":Neotree toggle<CR>")
       (mkNormap "<leader>ut" ":UndotreeToggle<CR>")
       (mkNormap "<leader>gg" ":LazyGit<CR>")
       (mkNormap "<leader>/" ":Commentary<CR>")
-      (mkNormap "<leader>bd" ":bdelete<CR>")
+      (mkNormap "<leader>bd" ":BufferClose<CR>")
 
       (mkNormap "<leader>ff" ":Telescope find_files<CR>")
       (mkNormap "<leader>fw" ":Telescope live_grep<CR>")
@@ -35,10 +38,8 @@ in {
       (mkRawmap "<C-k>" "require(\"smart-splits\").move_cursor_up")
       (mkRawmap "<C-j>" "require(\"smart-splits\").move_cursor_down")
 
-      (mkNormap "<Tab>" ":BufferLineCycleNext<CR>")
-      (mkNormap "<S-Tab>" ":BufferLineCyclePrev<CR>")
-      (mkNormap "<S-l>" ":BufferLineCycleNext<CR>")
-      (mkNormap "<S-h>" ":BufferLineCyclePrev<CR>")
+      (mkNormap "<Tab>" ":BufferNext<CR>")
+      (mkNormap "<S-Tab>" ":BufferPrevious<CR>")
     ];
   };
 }

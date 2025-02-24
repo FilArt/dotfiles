@@ -5,10 +5,13 @@
   programs.nixvim.nixpkgs.config.allowUnfree = true;
 
   programs.nixvim.extraPlugins = with pkgs; [
-    vimPlugins.supermaven-nvim
+    vimPlugins.nvim-pqf
   ];
 
   programs.nixvim.plugins = {
+    project-nvim.enable = true;
+    notify.enable = true;
+    barbar.enable = true;
     mini.enable = true;
     mini.modules.move = {
       mappings = {
@@ -23,12 +26,18 @@
         line_up = "<A-k>";
       };
     };
+
     auto-session.enable = true;
 
     direnv.enable = true;
     nvim-autopairs.enable = true;
 
     codeium-nvim.enable = true;
+    codeium-nvim.settings = {
+      virtual_text = {
+        enabled = true;
+      };
+    };
 
     fidget = {enable = true;};
     cmp-nvim-lsp = {enable = true;};
@@ -52,25 +61,14 @@
       "<S-Tab>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
       "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
     };
-    cmp.settings.sources = [
-      # Snippet Engine & its associated nvim-cmp source
-      # https://nix-community.github.io/nixvim/plugins/luasnip/index.html
-      {name = "luasnip";}
-      {name = "buffer";}
-      {
-        name = "codeium";
-      }
-      # Adds other completion capabilites.
-      #  nvim-cmp does not ship with all sources by default. They are split
-      #  into multiple repos for maintenance purposes.
-      # https://nix-community.github.io/nixvim/plugins/cmp-nvim-lsp.html
-      {
-        name = "nvim_lsp";
-      }
-      # https://nix-community.github.io/nixvim/plugins/cmp-path.html
-      {name = "path";}
-    ];
 
+    cmp.settings.sources = [
+      {name = "codeium";}
+      {name = "buffer";}
+      {name = "nvim_lsp";}
+      {name = "path";}
+      {name = "luasnip";}
+    ];
     conform-nvim = {
       enable = true;
       settings = {
@@ -126,6 +124,7 @@
     #    };
     #  };
     # };
+
     dap-python.enable = true;
     dap-ui.enable = true;
     smart-splits.enable = true;
