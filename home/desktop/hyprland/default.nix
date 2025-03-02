@@ -60,15 +60,13 @@ in {
     };
   };
 
-  programs.wpaperd = {
+  services.wpaperd = {
     enable = true;
     settings = {
       default = {
         duration = "30m";
         mode = "center";
         sorting = "ascending";
-      };
-      any = {
         path = "${config.home.homeDirectory}/Pictures/wallpapers";
       };
     };

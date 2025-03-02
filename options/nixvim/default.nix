@@ -3,6 +3,7 @@
     ./options.nix
     ./keymaps.nix
     ./plugins
+    ./commands.nix
   ];
 
   programs.nixvim = {

@@ -10,24 +10,29 @@
     homeDirectory = "/home/art";
     stateVersion = "24.05";
     packages = with pkgs; [
-      ripgrep
       vulkan-tools
-      tree
-      ncdu
-      pavucontrol
-      alsa-utils
-      gnumake
-      rclone
       openfortivpn
       nodePackages_latest.nodejs
-      pinentry
       nemo-with-extensions
       btop
       htop-vim
       vlc
       lazydocker
+
+      # system
+      pinentry
+      pavucontrol
       pasystray
+      alsa-utils
       networkmanagerapplet
+
+      # utils
+      gnumake
+      ripgrep
+      p7zip
+      rclone
+      tree
+      ncdu
 
       # apps
       telegram-desktop

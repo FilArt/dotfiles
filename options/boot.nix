@@ -1,5 +1,6 @@
 { pkgs, ... }: {
   boot = {
+    loader.timeout = 15;
     initrd = {
       verbose = false;
       availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "uas" "sd_mod" ];

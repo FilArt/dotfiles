@@ -72,10 +72,6 @@
     conform-nvim = {
       enable = true;
       settings = {
-        format_on_save = {
-          lspFallback = true;
-          timeoutMs = 500;
-        };
         notify_on_error = true;
         formatters_by_ft = {
           html = ["prettierd" "prettier"];
@@ -89,6 +85,10 @@
           sh = ["shellcheck" "beautysh"];
           yaml = ["yamllint" "yamlfmt"];
           json = ["fixjson"];
+          "_" = [
+            "trim_whitespace"
+            "trim_newlines"
+          ];
         };
       };
     };
@@ -157,6 +157,7 @@
     };
 
     noice.enable = true;
+    nui.enable = true;
 
     commentary.enable = true;
   };
