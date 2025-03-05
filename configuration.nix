@@ -63,6 +63,7 @@
       jq
       cachix
       xwayland-satellite
+      nh
     ];
     sessionVariables.NIXOS_OZONE_WL = "1";
   };

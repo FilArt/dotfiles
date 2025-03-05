@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   programs = {
     gamescope = {
       enable = true;
@@ -22,6 +22,12 @@
     gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
+    };
+
+    nh = {
+      enable = true;
+      clean.enable = false;
+      flake = "/home/art/.config/home-manager";
     };
   };
 }

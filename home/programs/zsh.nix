@@ -1,4 +1,4 @@
-{ config, ... }: {
+{config, ...}: {
   programs.zsh = {
     enable = true;
     oh-my-zsh.enable = true;
@@ -7,6 +7,9 @@
     history = {
       size = 100000;
       path = "${config.xdg.dataHome}/zsh/history";
+    };
+    shellAliases = {
+      switch = "nh os switch -H art /home/art/.config/home-manager";
     };
   };
   programs.starship = {
