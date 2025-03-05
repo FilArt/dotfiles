@@ -1,7 +1,4 @@
-{pkgs, ...}: {
-  environment.systemPackages = with pkgs; [
-    nil
-  ];
+{
   programs.nixvim.plugins = {
     lsp = {
       enable = true;
@@ -13,7 +10,7 @@
         pyright.enable = true;
         marksman.enable = true; # Markdown
         nil_ls.enable = true; # Nix
-        nil_ls.extraOptions.settings.formatting.command = ["alejandra"];
+        nil_ls.settings.formatting.command = ["alejandra"];
         dockerls.enable = true; # Docker
         bashls.enable = true; # Bash
         yamlls.enable = true; # YAML
