@@ -1,7 +1,7 @@
 {pkgs, ...}: {
-  programs.vscode = {
-    enable = true;
-    package = pkgs.vscode.fhs;
+  programs.vscode.enable = true;
+  programs.vscode.package = pkgs.vscode.fhs;
+  programs.vscode.profiles.default = {
     enableUpdateCheck = false;
     extensions = with pkgs.vscode-extensions; [
       ms-vscode-remote.remote-containers
