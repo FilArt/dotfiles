@@ -25,6 +25,7 @@
       pasystray
       alsa-utils
       networkmanagerapplet
+      fuzzel
 
       # utils
       gnumake
