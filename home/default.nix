@@ -1,9 +1,9 @@
-{ ... }: {
-  imports = [
-    ./fonts.nix
-    ./systemd.nix
-    ./xdg.nix
-    ./desktop/default.nix
-  ]
-  ++ import ./programs;
+{
+  imports =
+    [
+      ./systemd.nix
+      ./xdg.nix
+      ./desktop/default.nix
+    ]
+    ++ import ./programs;
 }

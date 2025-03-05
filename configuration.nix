@@ -11,8 +11,8 @@
     ++ import ./options;
 
   time.timeZone = "Europe/Madrid";
-  i18n.defaultLocale = "en_US.UTF-8";
-  i18n.supportedLocales = ["en_US.UTF-8/UTF-8" "ru_RU.UTF-8/UTF-8"];
+  i18n.defaultLocale = "ru_RU.UTF-8";
+  i18n.supportedLocales = ["en_US.UTF-8/UTF-8" "ru_RU.UTF-8/UTF-8" "es_ES.UTF-8/UTF-8"];
   console = {
     font = "${pkgs.terminus_font}/share/consolefonts/ter-u28n.psf.gz";
     useXkbConfig = true; # use xkb.options in tty.
@@ -46,6 +46,7 @@
 
   environment = {
     systemPackages = with pkgs; [
+      xorg.xmodmap
       gcc
       git
       home-manager
@@ -60,8 +61,38 @@
       xorg.xinit
       power-profiles-daemon
       jq
+      cachix
+      xwayland-satellite
     ];
     sessionVariables.NIXOS_OZONE_WL = "1";
+  };
+
+  fonts = {
+    enableDefaultPackages = true;
+    packages = with pkgs; [
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-emoji
+      nerd-fonts.roboto-mono
+      nerd-fonts.jetbrains-mono
+      font-awesome
+      material-design-icons
+      source-han-sans
+      source-han-sans-japanese
+      source-han-serif-japanese
+      roboto
+      roboto-serif
+      openmoji-color
+    ];
+    fontconfig = {
+      enable = true;
+      defaultFonts = {
+        serif = ["Roboto Serif" "Liberation Serif" "DejaVu Serif" "Noto Serif"];
+        sansSerif = ["Roboto" "Libration Sans" "DejaVu Sans" "Noto Sans"];
+        monospace = ["RobotoMono"];
+        emoji = ["OpenMoji Color" "JoyPixels" "Noto Color Emoji"];
+      };
+    };
   };
 
   system = {
