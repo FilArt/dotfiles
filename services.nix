@@ -5,6 +5,7 @@ let
   };
 in
 {
+
   services = {
     ananicy = {
       enable = true;
@@ -53,6 +54,7 @@ in
     power-profiles-daemon.enable = true;
     printing.enable = false;
     upower.enable = true;
+    udev.enable = true;
     udev.extraRules = ''
       # HDD
       ACTION=="add|change", KERNEL=="sd[a-z]*", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="bfq"
@@ -60,6 +62,12 @@ in
       ACTION=="add|change", KERNEL=="sd[a-z]*|mmcblk[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="bfq"
       # NVMe SSD
       ACTION=="add|change", KERNEL=="nvme[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="none"
+    '';
+    # evdev:name:Logitech USB Receiver:dmi:bvnAmericanMegatrendsInternational,LLC.:bvr1.C2:bd08/29/2024:br5.35:svnMicro-StarInternationalCo.,Ltd.:pnMS-7E27:pvr1.0:rvnMicro-StarInternationalCo.,Ltd.:rnPROB650M-P(MS-7E27):rvr1.0:cvnMicro-StarInternationalCo.,Ltd.:ct3:cvr1.0:skuTobefilledbyO.E.M.:
+    udev.extraHwdb = ''
+      evdev:input:b0003v046DpC548e0111*
+       KEYBOARD_KEY_700e4=sysrq
+       KEYBOARD_KEY_700e6=print
     '';
   };
 }
