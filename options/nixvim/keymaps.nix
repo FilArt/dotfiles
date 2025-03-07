@@ -7,7 +7,7 @@
   };
 
   mkNormap = key: action: (mkKeymap "n" key action);
-  # mkInsmap = key: action: (mkKeymap "i" key action);
+  mkInsmap = key: action: (mkKeymap "i" key action);
   mkRawmap = key: rawAction: {
     inherit key;
     mode = "n";
@@ -20,6 +20,7 @@ in {
 
     keymaps = [
       (mkNormap "<C-s>" ":w<CR>")
+      (mkInsmap "<C-s>" ":w<CR>")
       (mkNormap "<leader>p" ":Telescope projects<CR>")
 
       (mkNormap "<leader>e" ":Neotree toggle<CR>")

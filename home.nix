@@ -22,10 +22,8 @@
       # system
       pinentry
       pavucontrol
-      pasystray
       alsa-utils
       networkmanagerapplet
-      fuzzel
 
       # utils
       gnumake
@@ -54,4 +52,13 @@
       python3Packages.debugpy
     ];
   };
+
+  services.dunst = {
+    enable = true;
+    iconTheme.name = "Papirus-Dark";
+    iconTheme.package = pkgs.papirus-icon-theme;
+  };
+  programs.fuzzel.enable = true;
+  services.blueman-applet.enable = true;
+  services.network-manager-applet.enable = true;
 }

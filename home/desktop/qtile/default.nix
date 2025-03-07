@@ -1,16 +1,14 @@
-{ config, pkgs, ... }:
-
-let
-  py3 = "${pkgs.python3}/bin/python";
-in
 {
+  config,
+  pkgs,
+  ...
+}: {
   home.packages = with pkgs; [
     python3
-    hicolor-icon-theme
-    gnome-icon-theme
     gsimplecal
     playerctl
-    dunst
+    morewaita-icon-theme
+    papirus-icon-theme
   ];
   home.file.".config/qtile".source = config.lib.file.mkOutOfStoreSymlink /home/art/.config/home-manager/home/desktop/qtile/config;
 

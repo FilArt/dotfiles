@@ -1,5 +1,5 @@
-{ pkgs, ... }: {
-  home.packages = with pkgs;  [
+{pkgs, ...}: {
+  home.packages = with pkgs; [
     wf-recorder
     cliphist
     wl-clipboard
@@ -11,8 +11,6 @@
     wlr-randr
     satty
   ];
-
-  services.swaync.enable = true;
 
   home.file.".config/rofi/config.rasi".text = ''
     configuration {

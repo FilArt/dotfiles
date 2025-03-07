@@ -222,7 +222,7 @@ layout {
 // See the binds section below for more spawn examples.
 // spawn-at-startup "alacritty" "-e" "fish"
 spawn-at-startup "xwayland-satellite"
-spawn-at-startup "waybar"
+spawn-at-startup "systemctl --user restart waybar dunst network-manager-applet blueman-applet"
 spawn-at-startup "wl-paste" "--type" "text" "--watch" "cliphist" "-max-items" "9999" "store"
 spawn-at-startup "wl-paste" "--type" "image" "--watch" "cliphist" "store"
 
@@ -276,6 +276,7 @@ window-rule {
     // - host Firefox (app-id is "firefox")
     // - Flatpak Firefox (app-id is "org.mozilla.firefox")
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    match app-id=r#"org.pulseaudio.pavucontrol$"#
     open-floating true
 }
 

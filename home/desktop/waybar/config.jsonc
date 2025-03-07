@@ -35,10 +35,6 @@
     "custom/thin_separator",
     "custom/lock",
   ],
-  "hyprland/workspaces": {
-    "on-scroll-up": "hyprctl dispatch workspace -1",
-    "on-scroll-down": "hyprctl dispatch workspace +1",
-  },
   "hyprland/window": {
     "format": "{}",
     "min-length": 5,
@@ -100,7 +96,7 @@
   "clock#date": {
     "format": "󰨳 {:%d/%m/%Y}",
     "tooltip": false,
-    "on-click": "hyprctl dispatch exec gsimplecal"
+    "on-click": "gsimplecal"
   },
   "memory": {
     "on-click": "pypr toggle btop",
@@ -130,7 +126,7 @@
       "critical": 66
     },
     "on-click": "wpctl set-mute @DEFAULT_SINK@ toggle",
-    "on-click-right": "hyprctl dispatch exec [floating] pavucontrol",
+    "on-click-right": "pavucontrol",
   },
   "pulseaudio#microphone": {
     "format": "{format_source}",

@@ -8,18 +8,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url = "github:hyprwm/Hyprland";
-
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     solaar = {
       url = "https://flakehub.com/f/Svenum/Solaar-Flake/*.tar.gz"; # For latest stable version
-      #url = "https://flakehub.com/f/Svenum/Solaar-Flake/0.1.1.tar.gz"; # uncomment line for solaar version 1.1.13
-      #url = "github:Svenum/Solaar-Flake/main"; # Uncomment line for latest unstable version
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    catppuccin.url = "github:catppuccin/nix";
   };
 
   outputs = inputs @ {
@@ -28,6 +25,7 @@
     hyprland,
     nixvim,
     solaar,
+    catppuccin,
     ...
   }: {
     nixosConfigurations.art = nixpkgs.lib.nixosSystem {
@@ -36,9 +34,16 @@
         inherit inputs;
       };
       modules = [
+        catppuccin.nixosModules.catppuccin
+
         home-manager.nixosModules.home-manager
         {
-          home-manager.users.art = import ./home.nix;
+          home-manager.users.art = {
+            imports = [
+              ./home.nix
+              catppuccin.homeManagerModules.catppuccin
+            ];
+          };
         }
 
         nixvim.nixosModules.nixvim

@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   xresources.properties = {
     "Xcursor.size" = 16;
     "Xft.dpi" = 172;
@@ -11,14 +11,14 @@
       text-scaling-factor = 1;
     };
     "org/gnome/mutter" = {
-      experimental-features = [ "scale-monitor-framebuffer" ];
+      experimental-features = ["scale-monitor-framebuffer"];
     };
   };
   qt = {
     enable = true;
-    platformTheme.name = "adwaita";
+    platformTheme.name = "kvantum";
     style = {
-      name = "adwaita-dark";
+      name = "kvantum";
     };
   };
 
@@ -45,4 +45,7 @@
       defaultCursor = "Bibata-Modern-Classic";
     };
   };
+
+  catppuccin.enable = true;
+  catppuccin.flavor = "mocha";
 }
