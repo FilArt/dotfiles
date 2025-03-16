@@ -1,10 +1,10 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   boot = {
     loader.timeout = 15;
     initrd = {
       verbose = false;
-      availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "uas" "sd_mod" ];
-      kernelModules = [ "amdgpu" ];
+      availableKernelModules = ["xhci_pci" "thunderbolt" "nvme" "usb_storage" "uas" "sd_mod"];
+      kernelModules = ["amdgpu"];
     };
     kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_stable;
     kernel.sysctl = {
@@ -17,8 +17,8 @@
       "usbcore.autosuspend=120" # 2 minutes
       "amd_pstate=active"
     ];
-    blacklistedKernelModules = [ "iTCO_wdt" "rtw88_8822bu" ];
-    extraModulePackages = with pkgs.linuxKernel.packages.linux_xanmod_stable; [ rtl88x2bu ];
+    blacklistedKernelModules = ["iTCO_wdt" "rtw88_8822bu"];
+    # extraModulePackages = with pkgs.linuxKernel.packages.linux_xanmod_stable; [ rtl88x2bu ];
     tmp = {
       cleanOnBoot = true;
       useTmpfs = true;
@@ -28,7 +28,7 @@
       efi.canTouchEfiVariables = true;
       grub = {
         enable = true;
-        devices = [ "nodev" ];
+        devices = ["nodev"];
         efiSupport = true;
         useOSProber = true;
       };

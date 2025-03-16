@@ -8,6 +8,7 @@
 
   mkNormap = key: action: (mkKeymap "n" key action);
   mkInsmap = key: action: (mkKeymap "i" key action);
+  mkVimap = key: action: (mkKeymap "v" key action);
   mkRawmap = key: rawAction: {
     inherit key;
     mode = "n";
@@ -27,7 +28,6 @@ in {
       (mkNormap "<leader>ut" ":UndotreeToggle<CR>")
       (mkNormap "<leader>gg" ":LazyGit<CR>")
       (mkNormap "<leader>/" ":Commentary<CR>")
-      (mkNormap "<leader>bd" ":BufferClose<CR>")
 
       (mkNormap "<leader>ff" ":Telescope find_files<CR>")
       (mkNormap "<leader>fw" ":Telescope live_grep<CR>")
@@ -41,6 +41,16 @@ in {
 
       (mkNormap "<Tab>" ":BufferNext<CR>")
       (mkNormap "<S-Tab>" ":BufferPrevious<CR>")
+      (mkNormap "<S-w>" ":BufferClose<CR>")
+
+      (mkNormap "<leader>db" ":lua require(\"dap\").toggle_breakpoint()<CR>")
+      (mkNormap "<leader>de" ":lua require(\"dapui\").eval()<CR>")
+      (mkNormap "<leader>dc" ":lua require(\"dap\").continue()<CR>")
+      (mkNormap "<leader>dn" ":lua require(\"dap\").step_over()<CR>")
+      (mkNormap "<leader>di" ":lua require(\"dap\").step_into()<CR>")
+      (mkNormap "<leader>do" ":lua require(\"dap\").step_out()<CR>")
+      (mkNormap "<leader>dr" ":lua require(\"dap\").repl.open()<CR>")
+      (mkNormap "<leader>dl" ":lua require(\"dap\").run_last()<CR>")
     ];
   };
 }

@@ -23,7 +23,6 @@
       pinentry
       pavucontrol
       alsa-utils
-      networkmanagerapplet
 
       # utils
       gnumake
@@ -43,13 +42,13 @@
       # coding:
       direnv
       mypy
-      jetbrains-toolbox
       uv
       devenv
       code-cursor
       alejandra
       python3Packages.ipython
       python3Packages.debugpy
+      jetbrains.pycharm-professional
     ];
   };
 
@@ -59,6 +58,6 @@
     iconTheme.package = pkgs.papirus-icon-theme;
   };
   programs.fuzzel.enable = true;
-  services.blueman-applet.enable = true;
-  services.network-manager-applet.enable = true;
+  services.blueman-applet.enable = false;
+  services.network-manager-applet.enable = false;
 }

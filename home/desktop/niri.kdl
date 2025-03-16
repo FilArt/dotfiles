@@ -222,9 +222,11 @@ layout {
 // See the binds section below for more spawn examples.
 // spawn-at-startup "alacritty" "-e" "fish"
 spawn-at-startup "xwayland-satellite"
-spawn-at-startup "systemctl --user restart waybar dunst network-manager-applet blueman-applet"
+// spawn-at-startup "sleep 3 && systemctl --user restart waybar dunst network-manager-applet blueman-applet"
 spawn-at-startup "wl-paste" "--type" "text" "--watch" "cliphist" "-max-items" "9999" "store"
 spawn-at-startup "wl-paste" "--type" "image" "--watch" "cliphist" "store"
+spawn-at-startup "soteria"
+spawn-at-startup "~/.bin/job.sh"
 
 environment {
     DISPLAY ":0"

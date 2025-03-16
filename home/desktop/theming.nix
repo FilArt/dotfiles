@@ -25,8 +25,8 @@
   gtk = {
     enable = true;
     theme = {
-      name = "Adwaita-dark";
-      package = pkgs.gnome-themes-extra;
+      name = "Dracula";
+      package = pkgs.dracula-theme;
     };
     iconTheme = {
       name = "Papirus-Dark";

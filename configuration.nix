@@ -1,7 +1,20 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: let
+  locales =
+    lib.unique
+    (builtins.map (l: (lib.replaceStrings ["utf8" "utf-8" "UTF8"] ["UTF-8" "UTF-8" "UTF-8"] l) + "/UTF-8") [
+      "C.UTF-8"
+      "en_US.UTF-8"
+      "ru_RU.UTF-8"
+      "es_ES.UTF-8"
+    ]);
+in {
   imports =
     [
       ./nix.nix
@@ -12,7 +25,10 @@
 
   time.timeZone = "Europe/Madrid";
   i18n.defaultLocale = "ru_RU.UTF-8";
-  i18n.supportedLocales = ["en_US.UTF-8/UTF-8" "ru_RU.UTF-8/UTF-8" "es_ES.UTF-8/UTF-8"];
+  i18n.glibcLocales = pkgs.glibcLocalesUtf8.override {
+    allLocales = false;
+    locales = locales;
+  };
   console = {
     font = "${pkgs.terminus_font}/share/consolefonts/ter-u28n.psf.gz";
     useXkbConfig = true; # use xkb.options in tty.
@@ -64,6 +80,7 @@
       cachix
       xwayland-satellite
       nh
+      soteria # polkit dialog
     ];
     sessionVariables.NIXOS_OZONE_WL = "1";
   };
@@ -76,6 +93,8 @@
       noto-fonts-emoji
       nerd-fonts.roboto-mono
       nerd-fonts.jetbrains-mono
+      nerd-fonts.droid-sans-mono
+      nerd-fonts.fira-code
       font-awesome
       material-design-icons
       source-han-sans
@@ -90,7 +109,7 @@
       defaultFonts = {
         serif = ["Roboto Serif" "Liberation Serif" "DejaVu Serif" "Noto Serif"];
         sansSerif = ["Roboto" "Libration Sans" "DejaVu Sans" "Noto Sans"];
-        monospace = ["RobotoMono"];
+        monospace = ["RobotoMono" "Droid Sans Mono" "Fira Code"];
         emoji = ["OpenMoji Color" "JoyPixels" "Noto Color Emoji"];
       };
     };

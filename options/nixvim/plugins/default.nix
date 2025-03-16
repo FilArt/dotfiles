@@ -8,7 +8,25 @@
     vimPlugins.nvim-pqf
   ];
 
+  programs.nixvim.autoCmd = [
+    {
+      # Disable cmp in neorepl
+      event = ["FileType"];
+      pattern = "neorepl";
+      callback.__raw = ''
+        function()
+          require("cmp").setup.buffer { enabled = false }
+        end
+      '';
+    }
+  ];
+
+  programs.nixvim.editorconfig.enable = true;
+
   programs.nixvim.plugins = {
+    avante.enable = true;
+    avante.settings.provider = "copilot";
+    avante.settings.auto_suggestions_provider = "copilot";
     project-nvim.enable = true;
     notify.enable = true;
     barbar.enable = true;
@@ -30,6 +48,7 @@
     auto-session.enable = true;
 
     direnv.enable = true;
+    direnv.settings.direnv_silent_load = 0;
     nvim-autopairs.enable = true;
 
     codeium-nvim.enable = true;
@@ -125,16 +144,69 @@
     #  };
     # };
 
+    dap.configurations = {
+      manage = [
+        {
+          name = "Debug Django";
+          type = "python";
+          request = "launch";
+          program = ''''${workspaceFolder}/.venv/bin/python manage.py'';
+        }
+      ];
+    };
     dap-python.enable = true;
     dap-ui.enable = true;
+    dap-ui.luaConfig.post = ''
+      local dap, dapui = require("dap"), require("dapui")
+      dap.listeners.before.attach.dapui_config = function()
+        dapui.open()
+      end
+      dap.listeners.before.launch.dapui_config = function()
+        dapui.open()
+      end
+      dap.listeners.before.event_terminated.dapui_config = function()
+        dapui.close()
+      end
+      dap.listeners.before.event_exited.dapui_config = function()
+        dapui.close()
+      end
+    '';
     smart-splits.enable = true;
     undotree.enable = true;
     which-key.enable = true;
+    which-key.settings.spec = [
+      {
+        __unkeyed-1 = "<leader>aa";
+        __unkeyed-2 = "<cmd>AvanteAsk<cr>";
+        icon = "  ";
+        desc = "Open AI Ask";
+      }
+
+      {
+        __unkeyed-1 = "<leader>ac";
+        __unkeyed-2 = "<cmd>AvanteChat<cr>";
+        icon = "  ";
+        desc = "Open AI Chat";
+      }
+
+      {
+        __unkeyed-1 = "<leader>ae";
+        __unkeyed-2 = "<cmd>AvanteEdit<cr>";
+        icon = "  ";
+        desc = "Edit with instruction";
+      }
+    ];
     lastplace.enable = true;
     lazygit.enable = true;
     web-devicons.enable = true;
     bufferline.enable = true;
     lualine.enable = true;
+    lualine.settings.sections.lualine_c = [
+      {
+        __unkeyed-1 = "filename";
+        path = 3;
+      }
+    ];
     treesitter.enable = true;
 
     neo-tree.enable = true;
@@ -156,7 +228,7 @@
       settings.current_line_blame = true;
     };
 
-    noice.enable = true;
+    # noice.enable = true;
     nui.enable = true;
 
     commentary.enable = true;

@@ -5,7 +5,7 @@
     enableUpdateCheck = false;
     extensions = with pkgs.vscode-extensions; [
       ms-vscode-remote.remote-containers
-      ms-python.python
+      # ms-python.python
       charliermarsh.ruff
       jnoortheen.nix-ide
       pkief.material-icon-theme

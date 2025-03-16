@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   programs.borgmatic = {
     enable = true;
     backups = {
@@ -36,12 +36,16 @@
             "- /home/art/.mozilla"
             "- /home/art/.compose-cache"
             "- /home/art/.local/share/JetBrains"
+            "- /home/art/.config/google-chrome-backup*"
+            "- /home/art/.config/hero"
+            "- /home/art/.config/Cursor"
+            "- /home/art/.config/Insomnia"
             "+ /home/art/.local/share/Trash"
           ];
-          repositories = [ "ssh://i82i6syt@i82i6syt.repo.borgbase.com/./repo" ];
+          repositories = ["ssh://i82i6syt@i82i6syt.repo.borgbase.com/./repo"];
           extraConfig = {
             exclude_caches = true;
-            exclude_patterns = [ "*node_modules*" "*.venv*" ];
+            exclude_patterns = ["*node_modules*" "*.venv*"];
             one_file_system = true;
           };
         };

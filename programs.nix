@@ -1,13 +1,12 @@
-{...}: {
+{pkgs, ...}: let
+  oldGamescope = pkgs.gamescope.overrideAttrs (final: prev: {
+    version = "3.12.0";
+  });
+in {
   programs = {
     gamescope = {
       enable = true;
-      capSysNice = true;
-      env = {
-        __NV_PRIME_RENDER_OFFLOAD = "1";
-        __VK_LAYER_NV_optimus = "NVIDIA_only";
-        __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-      };
+      package = oldGamescope;
     };
     steam = {
       enable = true;
@@ -29,5 +28,7 @@
       clean.enable = false;
       flake = "/home/art/.config/home-manager";
     };
+
+    kdeconnect.enable = true;
   };
 }
