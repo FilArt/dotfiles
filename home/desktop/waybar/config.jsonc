@@ -31,7 +31,6 @@
     "custom/thin_separator",
     "custom/video",
     "custom/thin_separator",
-    "custom/hyprsunset",
     "custom/thin_separator",
     "custom/lock",
   ],
@@ -153,14 +152,6 @@
     "on-click": "~/.config/home-manager/home/desktop/hyprland/scripts/recorder.py on-click",
     "format": " {} ",
     "tooltip": false,
-    "restart-interval": 1,
-  },
-  "custom/hyprsunset": {
-    "tooltip": false,
-    "exec": "~/.config/home-manager/home/desktop/hyprland/scripts/sunset.py readonly",
-    "on-scroll-up": "~/.config/home-manager/home/desktop/hyprland/scripts/sunset.py up",
-    "on-scroll-down": "~/.config/home-manager/home/desktop/hyprland/scripts/sunset.py down",
-    "format": "{}°C 󰛨",
     "restart-interval": 1,
   },
   "custom/lock": {
