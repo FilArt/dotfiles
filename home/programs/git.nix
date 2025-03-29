@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{
   programs.git = {
     enable = true;
     userName = "FilArt";
@@ -26,6 +26,11 @@
         enabled = true;
         autoUpdate = true;
       };
+    };
+
+    signing = {
+      key = "2DE73E66DA8DE98E";
+      signByDefault = true;
     };
   };
 }
