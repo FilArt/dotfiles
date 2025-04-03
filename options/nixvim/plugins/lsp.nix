@@ -7,7 +7,6 @@
         cssls.enable = true; # CSS
         html.enable = true; # HTML
         #vuels.enable = true; # Vue
-        pyright.enable = true;
         marksman.enable = true; # Markdown
         nil_ls.enable = true; # Nix
         nil_ls.settings.formatting.command = ["alejandra"];
@@ -15,6 +14,7 @@
         bashls.enable = true; # Bash
         yamlls.enable = true; # YAML
         ruff.enable = true;
+        basedpyright.enable = true;
       };
 
       inlayHints = true;

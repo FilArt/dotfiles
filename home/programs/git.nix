@@ -29,7 +29,6 @@
     };
 
     signing = {
-      key = "2DE73E66DA8DE98E";
       signByDefault = true;
     };
   };

@@ -12,10 +12,6 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    solaar = {
-      url = "https://flakehub.com/f/Svenum/Solaar-Flake/*.tar.gz"; # For latest stable version
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     catppuccin.url = "github:catppuccin/nix";
   };
 
@@ -24,7 +20,6 @@
     home-manager,
     hyprland,
     nixvim,
-    solaar,
     catppuccin,
     ...
   }: {
@@ -47,8 +42,6 @@
         }
 
         nixvim.nixosModules.nixvim
-
-        solaar.nixosModules.solaar
 
         ./configuration.nix
       ];

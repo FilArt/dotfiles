@@ -30,29 +30,11 @@ in {
     locales = locales;
   };
   console = {
-    font = "${pkgs.terminus_font}/share/consolefonts/ter-u28n.psf.gz";
     useXkbConfig = true; # use xkb.options in tty.
   };
 
-  security = {
-    rtkit.enable = true;
-    polkit.enable = true;
-    pam.services.uwsm.enableGnomeKeyring = true;
-  };
-  services.gnome.gnome-keyring.enable = true;
-
-  hardware = {
-    bluetooth = {
-      enable = true;
-      powerOnBoot = true;
-      settings = {
-        General = {
-          Enable = "Source,Sink,Media,Socket";
-          Experimental = true;
-        };
-      };
-    };
-  };
+  security.pam.services.login.enableGnomeKeyring = true;
+  security.rtkit.enable = true;
 
   users.users.art = {
     isNormalUser = true;
@@ -81,6 +63,7 @@ in {
       xwayland-satellite
       nh
       soteria # polkit dialog
+      fd # nvim
     ];
     sessionVariables.NIXOS_OZONE_WL = "1";
   };

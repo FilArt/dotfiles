@@ -1,6 +1,7 @@
-{ lib
-, modulesPath
-, ...
+{
+  lib,
+  modulesPath,
+  ...
 }: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -15,7 +16,7 @@
     "/boot" = {
       device = "/dev/disk/by-uuid/3F09-D6A9";
       fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
+      options = ["fmask=0022" "dmask=0022"];
     };
 
     "/home/art/mnt/hdd" = {
@@ -51,6 +52,6 @@
       enable = true;
       enable32Bit = true;
     };
-    xpadneo.enable = true;
+    bluetooth.enable = true;
   };
 }

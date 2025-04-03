@@ -21,11 +21,13 @@ in {
 
     keymaps = [
       (mkNormap "<C-s>" ":w<CR>")
-      (mkInsmap "<C-s>" ":w<CR>")
-      (mkNormap "<leader>p" ":Telescope projects<CR>")
+      (mkNormap "<Esc>" "<cmd>nohlsearch<CR>")
+      (mkNormap "<leader>p" ":Telescope project<CR>")
 
-      (mkNormap "<leader>e" ":Neotree toggle<CR>")
-      (mkNormap "<leader>ut" ":UndotreeToggle<CR>")
+      (mkNormap "<leader>e" ":NvimTreeToggle<CR>")
+
+      (mkNormap "<leader>r" ":NvimTreeFocus<CR>")
+      (mkNormap "<leader>ut" ":Telescope undo<CR>")
       (mkNormap "<leader>gg" ":LazyGit<CR>")
       (mkNormap "<leader>/" ":Commentary<CR>")
 
@@ -51,6 +53,7 @@ in {
       (mkNormap "<leader>do" ":lua require(\"dap\").step_out()<CR>")
       (mkNormap "<leader>dr" ":lua require(\"dap\").repl.open()<CR>")
       (mkNormap "<leader>dl" ":lua require(\"dap\").run_last()<CR>")
+      (mkNormap "<leader>dt" ":lua require(\"dapui\").toggle()<CR>")
     ];
   };
 }

@@ -4,32 +4,32 @@
   ];
   programs.nixvim.nixpkgs.config.allowUnfree = true;
 
-  programs.nixvim.extraPlugins = with pkgs; [
-    vimPlugins.nvim-pqf
-  ];
-
-  programs.nixvim.autoCmd = [
-    {
-      # Disable cmp in neorepl
-      event = ["FileType"];
-      pattern = "neorepl";
-      callback.__raw = ''
-        function()
-          require("cmp").setup.buffer { enabled = false }
-        end
-      '';
-    }
-  ];
-
   programs.nixvim.editorconfig.enable = true;
 
   programs.nixvim.plugins = {
-    avante.enable = true;
-    avante.settings.provider = "copilot";
-    avante.settings.auto_suggestions_provider = "copilot";
-    project-nvim.enable = true;
+    auto-session.enable = true;
+    autoclose.enable = true;
+    cursorline.enable = true;
+    # AI
+    avante = {
+      enable = true;
+      settings = {
+        provider = "gemini";
+        auto_suggestions_provider = "gemini";
+        highlights = {
+          diff = {
+            current = "DiffText";
+            incoming = "DiffAdd";
+          };
+        };
+        hints = {
+          enabled = true;
+        };
+      };
+    };
+
     notify.enable = true;
-    barbar.enable = true;
+    barbar.enable = true; # tabs
     mini.enable = true;
     mini.modules.move = {
       mappings = {
@@ -45,18 +45,9 @@
       };
     };
 
-    auto-session.enable = true;
-
     direnv.enable = true;
     direnv.settings.direnv_silent_load = 0;
     nvim-autopairs.enable = true;
-
-    codeium-nvim.enable = true;
-    codeium-nvim.settings = {
-      virtual_text = {
-        enabled = true;
-      };
-    };
 
     fidget = {enable = true;};
     cmp-nvim-lsp = {enable = true;};
@@ -64,9 +55,50 @@
     telescope = {
       enable = true;
       extensions = {
-        fzf-native = {
+        fzf-native.enable = true;
+        file-browser.enable = true;
+        frecency.enable = true;
+        media-files.enable = true;
+        project = {
           enable = true;
+          settings = {
+            sync_with_nvim_tree = true;
+            on_project_selected = {
+              __raw = ''
+                function(prompt_bufnr)
+                   local project_actions = require("telescope._extensions.project.actions")
+                   local Path = require('plenary.path')
+                   local dap = require("dap")
+                   local dap_python = require("dap-python")
+                   local actions_state = require("telescope.actions.state")
+
+                   project_actions.change_working_directory(prompt_bufnr, false)
+
+                   -- Check for both .venv and .devenv/state/venv to setup python
+                   local project_root = actions_state.get_selected_entry(prompt_bufnr).value
+                   local python_path = project_root .. "/.venv/bin/python"
+                   if not Path:new(python_path):exists() then
+                     python_path = project_root .. "/.devenv/state/venv/bin/python"
+                   end
+                   if Path:new(python_path):exists() then
+                     dap_python.setup(python_path)
+                   end
+
+                    vim.lsp.enable("basedpyright")
+                    vim.cmd("PyrightSetPythonPath " .. python_path)
+
+                end
+              '';
+            };
+          };
         };
+        ui-select.enable = true;
+        undo.enable = true;
+      };
+      settings = {
+        file_ignore_patterns = [
+          "^__pycache__/"
+        ];
       };
     };
 
@@ -78,71 +110,16 @@
       "<C-f>" = "cmp.mapping.scroll_docs(4)";
       "<CR>" = "cmp.mapping.confirm({ select = true })";
       "<S-Tab>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
-      "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
+      "<A-n>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
     };
 
     cmp.settings.sources = [
-      {name = "codeium";}
+      # {name = "codeium";}
       {name = "buffer";}
       {name = "nvim_lsp";}
       {name = "path";}
       {name = "luasnip";}
     ];
-    conform-nvim = {
-      enable = true;
-      settings = {
-        notify_on_error = true;
-        formatters_by_ft = {
-          html = ["prettierd" "prettier"];
-          css = ["prettierd" "prettier"];
-          javascript = ["prettierd" "prettier"];
-          typescript = ["prettierd" "prettier"];
-          markdown = ["prettierd" "prettier"];
-          python = ["ruff"];
-          nix = ["alejandra"];
-          bash = ["shfmt" "beautysh"];
-          sh = ["shellcheck" "beautysh"];
-          yaml = ["yamllint" "yamlfmt"];
-          json = ["fixjson"];
-          "_" = [
-            "trim_whitespace"
-            "trim_newlines"
-          ];
-        };
-      };
-    };
-
-    # none-ls = {
-    #  enable = true;
-    #  settings = {
-    #    cmd = ["bash -c nvim"];
-    #    debug = true;
-    #  };
-    #  sources = {
-    #    code_actions = {
-    #      statix.enable = true;
-    #      gitsigns.enable = true;
-    #    };
-    #    diagnostics = {
-    #      statix.enable = true;
-    #      deadnix.enable = true;
-    #      pylint.enable = true;
-    #      checkstyle.enable = true;
-    #      mypy.enable = true;
-    #    };
-    #    formatting = {
-    #      alejandra.enable = true;
-    #      shfmt.enable = true;
-    #      prettier = {
-    #        enable = true;
-    #        disableTsServerFormatter = true;
-    #      };
-    #    };
-    #    completion = {
-    #      spell.enable = true;
-    #    };
-    #  };
-    # };
 
     dap.configurations = {
       manage = [
@@ -171,8 +148,24 @@
         dapui.close()
       end
     '';
+
+    visual-multi = {
+      enable = true;
+      settings = {
+        maps = {
+          "Add Cursor Down" = "<A-Down>";
+          "Add Cursor Up" = "<A-Up>";
+          "Mouse Cursor" = "<A-LeftMouse>";
+          "Mouse Word" = "<A-RightMouse>";
+          "Select All" = "<C-A-n>";
+        };
+        mouse_mappings = 1;
+      };
+    };
+
+    wakatime.enable = true;
+
     smart-splits.enable = true;
-    undotree.enable = true;
     which-key.enable = true;
     which-key.settings.spec = [
       {
@@ -209,19 +202,7 @@
     ];
     treesitter.enable = true;
 
-    neo-tree.enable = true;
-    neo-tree.hideRootNode = true;
-
-    lint = {
-      enable = true;
-      lintersByFt = {
-        text = ["vale"];
-        json = ["jsonlint"];
-        markdown = ["vale"];
-        dockerfile = ["hadolint"];
-        python = ["ruff"];
-      };
-    };
+    nvim-tree.enable = true;
 
     gitsigns = {
       enable = true;

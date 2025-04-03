@@ -44,7 +44,6 @@ in {
       ];
     };
     blueman.enable = true;
-    # dnsmasq = { enable = true; settings.server = [ "1.1.1.1" ]; };
     fstrim.enable = true;
     fwupd.enable = true;
     gvfs.enable = true;
@@ -66,6 +65,11 @@ in {
        KEYBOARD_KEY_700e6=print
     '';
 
+    # autologin
     getty.autologinUser = "art";
+    displayManager.autoLogin = {
+      enable = true;
+      user = "art";
+    };
   };
 }
