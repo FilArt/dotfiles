@@ -82,11 +82,9 @@
                    end
                    if Path:new(python_path):exists() then
                      dap_python.setup(python_path)
+                     vim.lsp.enable("basedpyright")
+                     vim.cmd("PyrightSetPythonPath " .. python_path)
                    end
-
-                    vim.lsp.enable("basedpyright")
-                    vim.cmd("PyrightSetPythonPath " .. python_path)
-
                 end
               '';
             };
