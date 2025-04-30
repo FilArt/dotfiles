@@ -4,6 +4,8 @@
   });
 in {
   programs = {
+    nix-ld.enable = true;
+
     gamescope = {
       enable = true;
       package = oldGamescope;
