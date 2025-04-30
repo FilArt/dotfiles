@@ -34,7 +34,7 @@
           home-manager.users.art = {
             imports = [
               ./home.nix
-              catppuccin.homeManagerModules.catppuccin
+              catppuccin.homeModules.catppuccin
             ];
           };
         }
