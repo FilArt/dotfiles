@@ -38,17 +38,18 @@
       spotify-player
       qbittorrent
       bottles
+      streamlink
 
       # coding:
       direnv
       mypy
       uv
       devenv
-      code-cursor
+      # code-cursor
       alejandra
       python3Packages.ipython
       python3Packages.debugpy
-      jetbrains.pycharm-professional
+      # jetbrains.pycharm-professional
     ];
   };
 
