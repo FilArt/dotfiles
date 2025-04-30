@@ -15,6 +15,9 @@
         yamlls.enable = true; # YAML
         ruff.enable = true;
         basedpyright.enable = true;
+        volar.enable = true;
+        volar.tslsIntegration = false;
+        eslint.enable = true;
       };
 
       inlayHints = true;
