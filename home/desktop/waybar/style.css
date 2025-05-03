@@ -33,11 +33,10 @@
 @define-color critical #f38ba8;
 
 * {
-    all: unset;
-    font: 14px "JetBrainsMono NFP";
+    font-family: FontAwesome, "JetBrainsMono NFP", Helvetica, Arial, sans-serif;
+    font-size: 16px;
     min-height: 0;
-    font-weight: bold;
-    font-feature-settings: '"zero", "tnum", "ss01", "ss02", "ss03", "cv01"';
+    font-weight: normal;
     animation-timing-function: steps(12);
     animation-duration: 0.3s;
     transition: all 0.3s cubic-bezier(0.79, 0.33, 0.14, 0.53);
@@ -45,7 +44,11 @@
 
 
 window#waybar {
-    background: none;
+    background-color: rgba(43, 48, 59, 0.5);
+    border-bottom: 3px solid rgba(100, 114, 125, 0.5);
+    color: #ffffff;
+    transition-property: background-color;
+    transition-duration: .5s;
 }
 
 /* === Drop Shadow === */
@@ -115,6 +118,8 @@ tooltip label {
     color: @hover-fg;
     text-shadow: none;
     box-shadow: none;
+
+    background-color: #a37800;
 }
 
 #custom-separator {
@@ -133,4 +138,17 @@ tooltip label {
 
 #memory.critical {
     color: @critical;
+}
+
+#tray {
+    background-color: #2980b9;
+}
+
+#tray>.passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray>.needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: #eb4d4b;
 }

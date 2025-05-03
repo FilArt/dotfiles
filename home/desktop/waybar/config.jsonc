@@ -1,6 +1,6 @@
 {
   "layer": "top",
-  "position": "top",
+  "position": "bottom",
   "mode": "dock",
   "reload_style_on_change": true,
   "gtk-layer-shell": true,
@@ -12,29 +12,19 @@
     "clock#time",
     "clock#date",
     "custom/separator",
-    "custom/notification",
   ],
   "modules-right": [
     "systemd-failed-units",
-    "custom/separator",
     "memory",
-    "custom/separator",
     "wireplumber",
-    "custom/separator",
     "pulseaudio#microphone",
     "custom/separator",
-    "custom/language",
-    "custom/separator",
     "tray",
-    "custom/separator",
     "custom/screenshot",
-    "custom/thin_separator",
     "custom/video",
-    "custom/thin_separator",
-    "custom/thin_separator",
     "custom/lock",
   ],
-  "hyprland/window": {
+  "niri/window": {
     "format": "{}",
     "min-length": 5,
     "max-length": 50,
@@ -66,26 +56,6 @@
       "Authenticate": "  Authenticate"
     }
   },
-  "custom/notification": {
-    "tooltip": false,
-    "format": "{} {icon}",
-    "format-icons": {
-      "notification": "󱅫",
-      "none": "󰂚",
-      "dnd-notification": "󰂛",
-      "dnd-none": "󰂛",
-      "inhibited-notification": "󰂜",
-      "inhibited-none": "󰂜",
-      "dnd-inhibited-notification": "󰪑",
-      "dnd-inhibited-none": "󰪑"
-    },
-    "return-type": "json",
-    "exec-if": "which swaync-client",
-    "exec": "swaync-client -swb",
-    "on-click": "sleep 0.1 && swaync-client -t -sw",
-    "on-click-right": "sleep 0.1 && swaync-client -d -sw",
-    "escape": true,
-  },
   "clock#time": {
     "format": "󱑂 {:%H:%M}",
     "tooltip": false,
@@ -98,8 +68,8 @@
     "on-click": "gsimplecal"
   },
   "memory": {
-    "on-click": "pypr toggle btop",
-    "on-click-right": "pypr toggle htop",
+    "on-click": "kitty --hold sh -c btop",
+    "on-click-right": "kitty --hold sh -c htop",
     "states": {
       "warning": 75,
       "critical": 90
@@ -158,14 +128,5 @@
     "format": " 󰌾 ",
     "tooltip": false,
     "on-click": "hyprlock"
-  },
-  // misc
-  "custom/separator": {
-    "format": " ",
-    "tooltip": false
-  },
-  "custom/thin_separator": {
-    "format": " ",
-    "tooltip": false
   },
 }
