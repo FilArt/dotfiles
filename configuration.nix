@@ -34,6 +34,8 @@ in {
   };
 
   security.pam.services.login.enableGnomeKeyring = true;
+  services.gnome.gnome-keyring.enable = true;
+
   security.rtkit.enable = true;
 
   users.users.art = {
