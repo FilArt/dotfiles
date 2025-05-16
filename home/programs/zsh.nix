@@ -11,6 +11,11 @@
     shellAliases = {
       switch = "nh os switch -H art /home/art/.config/home-manager";
     };
+    loginExtra = ''
+      if uwsm check may-start && uwsm select; then
+      	exec uwsm start default
+      fi
+    '';
   };
   programs.starship = {
     enable = true;
