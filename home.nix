@@ -58,7 +58,12 @@
     iconTheme.name = "Papirus-Dark";
     iconTheme.package = pkgs.papirus-icon-theme;
   };
-  programs.fuzzel.enable = true;
-  services.blueman-applet.enable = false;
-  services.network-manager-applet.enable = false;
+  programs.fuzzel = {
+    enable = true;
+    settings = {
+      main = {
+        launch-prefix = "uwsm app -- ";
+      };
+    };
+  };
 }
