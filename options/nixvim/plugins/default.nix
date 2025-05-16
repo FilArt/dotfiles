@@ -7,7 +7,6 @@
   programs.nixvim.editorconfig.enable = true;
 
   programs.nixvim.plugins = {
-    auto-session.enable = true;
     autoclose.enable = true;
     cursorline.enable = true;
     # AI
