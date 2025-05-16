@@ -6,7 +6,6 @@
         ts_ls.enable = true; # TS/JS
         cssls.enable = true; # CSS
         html.enable = true; # HTML
-        #vuels.enable = true; # Vue
         marksman.enable = true; # Markdown
         nil_ls.enable = true; # Nix
         nil_ls.settings.formatting.command = ["alejandra"];
@@ -16,7 +15,7 @@
         ruff.enable = true;
         basedpyright.enable = true;
         volar.enable = true;
-        volar.tslsIntegration = false;
+        volar.tslsIntegration = true;
         eslint.enable = true;
       };
 
