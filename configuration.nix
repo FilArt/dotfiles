@@ -76,6 +76,7 @@ in {
   fonts = {
     enableDefaultPackages = true;
     packages = with pkgs; [
+      inter-nerdfont
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-emoji
@@ -96,7 +97,7 @@ in {
       enable = true;
       defaultFonts = {
         serif = ["Roboto Serif" "Liberation Serif" "DejaVu Serif" "Noto Serif"];
-        sansSerif = ["Roboto" "Libration Sans" "DejaVu Sans" "Noto Sans"];
+        sansSerif = ["Inter Nerd Font" "Roboto" "Libration Sans" "DejaVu Sans" "Noto Sans"];
         monospace = ["RobotoMono" "Droid Sans Mono" "Fira Code"];
         emoji = ["OpenMoji Color" "JoyPixels" "Noto Color Emoji"];
       };
