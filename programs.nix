@@ -1,14 +1,8 @@
-{pkgs, ...}: let
-  oldGamescope = pkgs.gamescope.overrideAttrs (final: prev: {
-    version = "3.12.0";
-  });
-in {
+{
   programs = {
     nix-ld.enable = true;
-
     gamescope = {
       enable = true;
-      package = oldGamescope;
     };
     steam = {
       enable = true;
