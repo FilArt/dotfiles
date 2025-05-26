@@ -6,7 +6,7 @@
       availableKernelModules = ["xhci_pci" "thunderbolt" "nvme" "usb_storage" "uas" "sd_mod"];
       kernelModules = ["amdgpu"];
     };
-    kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_stable;
+    kernelPackages = pkgs.linuxKernel.packages.linux_zen;
     kernel.sysctl = {
       "kernel.sysrq" = 1;
     };
@@ -15,10 +15,14 @@
       "nowatchdog"
       "nmi_watchdog=0"
       "usbcore.autosuspend=120" # 2 minutes
-      "amd_pstate=active"
+      "amd_pstate=passive"
     ];
-    blacklistedKernelModules = ["iTCO_wdt" "rtw88_8822bu"];
-    # extraModulePackages = with pkgs.linuxKernel.packages.linux_xanmod_stable; [ rtl88x2bu ];
+    # blacklistedKernelModules = ["iTCO_wdt" "rtw88_8822bu"];
+    # kernelModules = ["88x2bu"];
+    # extraModulePackages = [pkgs.linuxKernel.packages.linux_zen.rtl88x2bu];
+    # extraModprobeConfig = ''
+    #   options 88x2bu rtw_switch_usb_mode=1
+    # '';
     tmp = {
       cleanOnBoot = true;
       useTmpfs = true;
