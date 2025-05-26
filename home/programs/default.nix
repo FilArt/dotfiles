@@ -11,4 +11,5 @@
   ./tmux.nix
   ./browser.nix
   ./hyprlandProgs.nix
+  ./helix.nix
 ]
