@@ -39,8 +39,24 @@
   };
 
   xdg.portal = {
-    extraPortals = lib.mkForce [
-      pkgs.xdg-desktop-portal-gtk
-    ];
+    enable = true;
+    extraPortals = with pkgs;
+      lib.mkForce [
+        xdg-desktop-portal-gnome
+        xdg-desktop-portal-gtk
+      ];
+    config = {
+      common = {
+        default = [
+          "gtk"
+        ];
+        "org.freedesktop.impl.portal.Secret" = [
+          "gnome-keyring"
+        ];
+        "org.freedesktop.impl.portal.ScreenCast" = [
+          "gnome"
+        ];
+      };
+    };
   };
 }
