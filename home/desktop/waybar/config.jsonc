@@ -15,6 +15,7 @@
   ],
   "modules-right": [
     "systemd-failed-units",
+    "disk",
     "memory",
     "wireplumber",
     "pulseaudio#microphone",
@@ -55,6 +56,10 @@
       "Timeshift-gtk": "<span foreground='#a6e3a1'> </span> Timeshift",
       "Authenticate": "  Authenticate"
     }
+  },
+  "disk": {
+    "format": "󰋊 {specific_free:0.2f}G",
+    "unit": "GB"
   },
   "clock#time": {
     "format": "󱑂 {:%H:%M}",
