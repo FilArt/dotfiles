@@ -37,7 +37,7 @@
       slack
       spotify-player
       qbittorrent
-      bottles
+      (pkgs.bottles.override {removeWarningPopup = true;})
       streamlink
 
       # coding:
