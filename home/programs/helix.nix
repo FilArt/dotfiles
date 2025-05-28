@@ -19,16 +19,52 @@
             "python"
           ];
         }
+        {
+          name = "vue";
+          language-servers = [
+            "vuels"
+          ];
+          scope = "source.vue";
+          injection-regex = "vue";
+          file-types = ["vue"];
+          roots = ["package.json"];
+          block-comment-tokens = {
+            start = "<!--";
+            end = "-->";
+          };
+          indent = {
+            tab-width = 2;
+            unit = "  ";
+          };
+          formatter = {
+            command = "bun";
+            args = [
+              "run"
+              "prettier"
+              #"--write"
+              "--config"
+              ".prettierrc"
+            ];
+          };
+          auto-format = true;
+        }
       ];
 
-      language-server.python = {
-        command = lib.getExe pkgs.python3Packages.python-lsp-server;
+      language-server = {
+        python = {
+          command = lib.getExe pkgs.python3Packages.python-lsp-server;
+        };
+
+        vuels = {
+          command = lib.getExe pkgs.vue-language-server;
+        };
       };
     };
 
     settings = {
       keys.normal = {
-        C-g = [":write-all" ":new" ":insert-output lazygit" ":buffer-close!" ":redraw" ":reload-all"];
+        A-g = [":write-all" ":new" ":insert-output lazygit" ":buffer-close!" ":redraw" ":reload-all"];
+        A-s = [":w"];
       };
     };
   };
