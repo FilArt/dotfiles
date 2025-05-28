@@ -17,7 +17,10 @@
       btop
       htop-vim
       vlc
+
+      # programming
       lazydocker
+      lazygit
 
       # system
       pinentry
@@ -31,6 +34,7 @@
       rclone
       tree
       ncdu
+      duf
 
       # apps
       telegram-desktop
@@ -40,15 +44,15 @@
       (pkgs.bottles.override {removeWarningPopup = true;})
       streamlink
 
-      # coding:
+      # coding
       direnv
       mypy
       uv
       devenv
       # code-cursor
-      alejandra
+      # alejandra
       python3Packages.ipython
-      python3Packages.debugpy
+      # python3Packages.debugpy
       # jetbrains.pycharm-professional
     ];
   };
