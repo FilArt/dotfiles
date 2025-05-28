@@ -24,6 +24,7 @@ in {
     ++ import ./options;
 
   time.timeZone = "Europe/Madrid";
+  time.hardwareClockInLocalTime = true;
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.glibcLocales = pkgs.glibcLocalesUtf8.override {
     allLocales = false;
