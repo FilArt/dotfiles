@@ -10,6 +10,7 @@
     };
     shellAliases = {
       switch = "nh os switch -H art /home/art/.config/home-manager";
+      df = "duf";
     };
     loginExtra = ''
       if uwsm check may-start && uwsm select; then
