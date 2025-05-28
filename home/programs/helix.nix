@@ -5,6 +5,7 @@
 }: {
   programs.helix = {
     enable = true;
+
     languages = {
       language = [
         {
@@ -22,6 +23,12 @@
 
       language-server.python = {
         command = lib.getExe pkgs.python3Packages.python-lsp-server;
+      };
+    };
+
+    settings = {
+      keys.normal = {
+        C-g = [":write-all" ":new" ":insert-output lazygit" ":buffer-close!" ":redraw" ":reload-all"];
       };
     };
   };
