@@ -12,4 +12,5 @@
   ./browser.nix
   ./hyprlandProgs.nix
   ./helix.nix
+  ./zellij.nix
 ]
