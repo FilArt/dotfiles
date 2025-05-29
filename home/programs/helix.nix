@@ -65,6 +65,9 @@
       keys.normal = {
         A-g = [":write-all" ":new" ":insert-output lazygit" ":buffer-close!" ":redraw" ":reload-all"];
         A-s = [":w"];
+
+        A-j = ["extend_to_line_bounds" "delete_selection" "paste_after"];
+        A-k = ["extend_to_line_bounds" "delete_selection" "move_line_up" "paste_before"];
       };
     };
   };
