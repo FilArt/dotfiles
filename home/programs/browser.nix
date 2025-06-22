@@ -1,10 +1,8 @@
 {pkgs, ...}: {
-  services.psd.enable = true;
   programs.chromium = {
     enable = true;
     package = pkgs.google-chrome;
     commandLineArgs = [
-      "--enable-features=VaapiVideoEncoder"
       "--lang=ru-RU"
       ''--disk-cache-dir="/run/user/1000/chrome-cache"''
     ];
@@ -16,8 +14,8 @@
     ];
     dictionaries = with pkgs.hunspellDictsChromium; [
       en_US
-      es_ES
-      ru_RU
+      # es_ES
+      # ru_RU
     ];
   };
 }

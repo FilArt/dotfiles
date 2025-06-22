@@ -12,6 +12,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     catppuccin.url = "github:catppuccin/nix";
+    helix.url = "github:helix-editor/helix"; # Or add /master for the latest dev version
   };
 
   outputs = inputs @ {
@@ -19,13 +20,11 @@
     home-manager,
     nixvim,
     catppuccin,
+    helix,
     ...
   }: {
     nixosConfigurations.art = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      specialArgs = {
-        inherit inputs;
-      };
       modules = [
         catppuccin.nixosModules.catppuccin
 
@@ -37,12 +36,17 @@
               catppuccin.homeModules.catppuccin
             ];
           };
+          home-manager.extraSpecialArgs = {inherit inputs;};
         }
 
         nixvim.nixosModules.nixvim
 
         ./configuration.nix
       ];
+
+      specialArgs = {
+        inherit inputs;
+      };
     };
   };
 }
