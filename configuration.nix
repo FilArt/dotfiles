@@ -66,7 +66,6 @@ in {
       xwayland-satellite
       nh
       soteria # polkit dialog
-      fd # nvim
     ];
     sessionVariables = {
       NIXOS_OZONE_WL = "1";

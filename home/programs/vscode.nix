@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  programs.vscode.enable = true;
+  programs.vscode.enable = false;
   programs.vscode.package = pkgs.vscode.fhs;
   programs.vscode.profiles.default = {
     enableUpdateCheck = false;
