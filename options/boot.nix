@@ -38,5 +38,4 @@
       };
     };
   };
-  time.hardwareClockInLocalTime = true;
 }
