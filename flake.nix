@@ -7,10 +7,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     catppuccin.url = "github:catppuccin/nix";
     helix.url = "github:helix-editor/helix"; # Or add /master for the latest dev version
   };
@@ -18,7 +14,6 @@
   outputs = inputs @ {
     nixpkgs,
     home-manager,
-    nixvim,
     catppuccin,
     helix,
     ...
@@ -38,8 +33,6 @@
           };
           home-manager.extraSpecialArgs = {inherit inputs;};
         }
-
-        nixvim.nixosModules.nixvim
 
         ./configuration.nix
       ];
