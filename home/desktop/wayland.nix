@@ -7,7 +7,7 @@
     swappy
     slurp
     pamixer
-    rofi-wayland-unwrapped
+    rofi-unwrapped
     wlr-randr
     satty
   ];
@@ -23,6 +23,6 @@
       show-icons: true;
     }
 
-    @import "${pkgs.rofi-wayland-unwrapped}/share/rofi/themes/Adapta-Nokto.rasi"
+    @import "${pkgs.rofi-unwrapped}/share/rofi/themes/Adapta-Nokto.rasi"
   '';
 }

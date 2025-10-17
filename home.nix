@@ -59,8 +59,6 @@
 
   services.dunst = {
     enable = true;
-    iconTheme.name = "Papirus-Dark";
-    iconTheme.package = pkgs.papirus-icon-theme;
   };
   programs.fuzzel = {
     enable = true;

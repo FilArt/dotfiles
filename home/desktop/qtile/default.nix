@@ -5,10 +5,9 @@
 }: {
   home.packages = with pkgs; [
     python3
-    gsimplecal
+    gsimplecal # move it from qtile (i use it in waybar also)
     playerctl
     morewaita-icon-theme
-    papirus-icon-theme
   ];
   home.file.".config/qtile".source = config.lib.file.mkOutOfStoreSymlink /home/art/.config/home-manager/home/desktop/qtile/config;
 
