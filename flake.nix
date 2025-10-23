@@ -36,10 +36,6 @@
 
         ./configuration.nix
       ];
-
-      specialArgs = {
-        inherit inputs;
-      };
     };
   };
 }
