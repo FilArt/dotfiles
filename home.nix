@@ -66,6 +66,7 @@
       };
     };
   };
+
   programs.fuzzel = {
     enable = true;
     settings = {
@@ -73,5 +74,16 @@
         launch-prefix = "uwsm app -- ";
       };
     };
+  };
+
+  programs.bash = {
+    enable = true;
+    profileExtra = ''
+      export EDITOR=helix
+      export PATH="$HOME/.local/bin:$PATH"
+    '';
+    initExtra = ''
+      alias ll='ls -lah'
+    '';
   };
 }
