@@ -1,13 +1,6 @@
 {
   programs.git = {
     enable = true;
-    userName = "FilArt";
-    userEmail = "filart97@gmail.com";
-    aliases = {
-      ci = "commit";
-      co = "checkout";
-      s = "status";
-    };
     includes = [
       {
         condition = "gitdir:~/roi/";
@@ -19,17 +12,22 @@
         };
       }
     ];
-    extraConfig = {
+    settings = {
+      user = {
+        name = "FilArt";
+        email = "filart97@gmail.com";
+      };
+      aliases = {
+        ci = "commit";
+        co = "checkout";
+        s = "status";
+      };
       init.defaultBranch = "main";
       fetch.prune = true;
       rerere = {
         enabled = true;
         autoUpdate = true;
       };
-    };
-
-    signing = {
-      signByDefault = true;
     };
   };
 }
