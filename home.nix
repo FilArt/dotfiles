@@ -57,8 +57,14 @@
     ];
   };
 
-  services.dunst = {
-    enable = true;
+  services = {
+    # dunst.enable = true;
+    mako = {
+      enable = true;
+      settings = {
+        on-notify = "exec ${pkgs.mpv}/bin/mpv $HOME/Music/noty.wav";
+      };
+    };
   };
   programs.fuzzel = {
     enable = true;
