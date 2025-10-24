@@ -250,8 +250,6 @@ spawn-at-startup "uwsm" "app" "-s" "s" "--" "wl-paste" "--type" "text" "--watch"
 spawn-at-startup "uwsm" "app" "-s" "s" "--" "wl-paste" "--type" "image" "--watch" "cliphist" "store"
 spawn-at-startup "uwsm" "app" "-s" "b" "--" "soteria"
 spawn-at-startup "uwsm" "app" "-s" "b" "--" "waybar"
-spawn-at-startup "uwsm" "app" "-s" "b" "--" "qbittorrent"
-// spawn-at-startup "~/.bin/job.sh"
 
 environment {
     DISPLAY ":0"
