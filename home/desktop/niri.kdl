@@ -390,7 +390,7 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+T { spawn "uwsm" "app" "--" "kitty"; }
+    Mod+T { spawn "uwsm" "app" "--" "kitty" "--hold" "zsh" "-c" "zellij"; }
     Mod+D { spawn "fuzzel"; }
     Mod+V { spawn "sh" "-c" "cliphist list | fuzzel -d -w 100 -l 30 | cliphist decode | wl-copy"; }
     Mod+E { spawn "uwsm" "app" "--" "nemo"; }

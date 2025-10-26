@@ -32,6 +32,7 @@ in {
   };
   console = {
     useXkbConfig = true; # use xkb.options in tty.
+    font = "LatArCyrHeb-32";
   };
 
   security.pam.services.login.enableGnomeKeyring = true;
