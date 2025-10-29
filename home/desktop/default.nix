@@ -15,8 +15,6 @@
 
     file = {
       ".config/niri/config.kdl".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/home/desktop/niri.kdl";
-
-      ".local/bin/launch_waybar.sh".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/home/desktop/scripts/launch_waybar.sh";
     };
   };
 }
