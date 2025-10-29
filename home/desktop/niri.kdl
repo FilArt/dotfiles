@@ -249,7 +249,7 @@ spawn-at-startup "uwsm" "app" "-s" "b" "--" "xwayland-satellite"
 spawn-at-startup "uwsm" "app" "-s" "s" "--" "wl-paste" "--type" "text" "--watch" "cliphist" "-max-items" "9999" "store"
 spawn-at-startup "uwsm" "app" "-s" "s" "--" "wl-paste" "--type" "image" "--watch" "cliphist" "store"
 spawn-at-startup "uwsm" "app" "-s" "b" "--" "soteria"
-spawn-at-startup "uwsm" "app" "-s" "b" "--" "waybar"
+spawn-at-startup "uwsm" "app" "-s" "b" "--" "launch_waybar.sh"
 
 environment {
     DISPLAY ":0"

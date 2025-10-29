@@ -7,14 +7,16 @@
     ./wayland.nix
   ];
 
-  home.sessionVariables = {
-    EDITOR = "hx";
-    TERMINAL = "kitty";
+  home = {
+    sessionVariables = {
+      EDITOR = "hx";
+      TERMINAL = "kitty";
+    };
+
+    file = {
+      ".config/niri/config.kdl".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/home/desktop/niri.kdl";
+
+      ".local/bin/launch_waybar.sh".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/home/desktop/scripts/launch_waybar.sh";
+    };
   };
-
-  home.file.".config/niri/config.kdl".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/home/desktop/niri.kdl";
-
-  home.file.".zprofile".text = ''
-    export GEMINI_API_KEY=$(cat ~/.gemini_api_key)
-  '';
 }
