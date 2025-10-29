@@ -8,6 +8,7 @@
         unbind = [
           "Alt j"
           "Alt k"
+          "Alt o"
         ];
       };
     };
