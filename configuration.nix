@@ -80,7 +80,7 @@ in {
       inter-nerdfont
       noto-fonts
       noto-fonts-cjk-sans
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       nerd-fonts.roboto-mono
       nerd-fonts.jetbrains-mono
       nerd-fonts.droid-sans-mono
@@ -88,8 +88,7 @@ in {
       font-awesome
       material-design-icons
       source-han-sans
-      source-han-sans-japanese
-      source-han-serif-japanese
+      source-han-serif
       roboto
       roboto-serif
       openmoji-color
