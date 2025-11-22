@@ -122,16 +122,6 @@ tooltip label {
     background-color: #a37800;
 }
 
-#custom-separator {
-    background: none;
-    padding: 0;
-}
-
-#custom-thin_separator {
-    background: none;
-    padding: 0;
-}
-
 #memory.warning {
     color: @warning;
 }
