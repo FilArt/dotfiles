@@ -23,7 +23,7 @@
       lazygit
 
       # system
-      pinentry # dialogs
+      pinentry-gnome3 # dialogs
       pavucontrol
       alsa-utils
 
