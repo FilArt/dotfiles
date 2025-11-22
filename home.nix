@@ -23,7 +23,7 @@
       lazygit
 
       # system
-      pinentry
+      pinentry # dialogs
       pavucontrol
       alsa-utils
 
@@ -42,7 +42,6 @@
       spotify-player
       qbittorrent
       (pkgs.bottles.override {removeWarningPopup = true;})
-      streamlink
 
       # coding
       direnv
