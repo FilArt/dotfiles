@@ -14,8 +14,6 @@
       openfortivpn
       nodePackages_latest.nodejs
       nemo-with-extensions
-      btop
-      htop-vim
       vlc
 
       # programming
@@ -34,7 +32,6 @@
       rclone
       tree
       ncdu
-      duf
 
       # apps
       telegram-desktop
@@ -45,14 +42,10 @@
 
       # coding
       direnv
-      mypy
-      uv
       devenv
-      # code-cursor
-      # alejandra
-      python3Packages.ipython
-      # python3Packages.debugpy
-      # jetbrains.pycharm-professional
+
+      playerctl # used in niri.kdl
+      gsimplecal # used in waybar
     ];
   };
 
