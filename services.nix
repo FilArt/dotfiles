@@ -34,6 +34,8 @@ in {
         (mkRule "Hyprland" "LowLatency_RT")
         (mkRule "qtile" "LowLatency_RT")
         (mkRule "rofi" "LowLatency_RT")
+        (mkRule "niri" "LowLatency_RT")
+
         # term
         (mkRule "wezterm-gui" "Doc-View")
         (mkRule "kitty" "Doc-View")
