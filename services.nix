@@ -68,12 +68,6 @@ in {
        KEYBOARD_KEY_700e6=print
     '';
 
-    # autologin
-    getty.autologinUser = "art";
-    # displayManager.autoLogin = {
-    #   enable = true;
-    #   user = "art";
-    # };
     kmscon = {
       enable = true;
       hwRender = true;
