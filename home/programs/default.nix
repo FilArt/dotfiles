@@ -1,6 +1,5 @@
 [
   ./zsh.nix
-  ./vscode.nix
   ./foot.nix
   ./ruff.nix
   ./pass.nix
