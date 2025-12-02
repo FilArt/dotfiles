@@ -121,8 +121,8 @@
     "tooltip": false,
   },
   "custom/video": {
-    "exec": "~/.config/home-manager/home/desktop/hyprland/scripts/recorder.py readonly",
-    "on-click": "~/.config/home-manager/home/desktop/hyprland/scripts/recorder.py on-click",
+    "exec": "~/.config/home-manager/home/desktop/scripts/recorder.py readonly",
+    "on-click": "~/.config/home-manager/home/desktop/scripts/recorder.py on-click",
     "format": " {} ",
     "tooltip": false,
     "restart-interval": 1,
