@@ -1,4 +1,9 @@
-{config, ...}: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   programs.zsh = {
     enable = true;
     oh-my-zsh.enable = true;
@@ -10,7 +15,7 @@
     };
     shellAliases = {
       switch = "nh os switch -H art /home/art/.config/home-manager";
-      df = "duf";
+      df = lib.getExe pkgs.duf;
     };
     loginExtra = ''
       if uwsm check may-start && uwsm select; then
@@ -28,17 +33,14 @@
         disabled = false;
         show_always = true;
       };
-      hostname = {
-        ssh_only = false;
-        ssh_symbol = "🌐 ";
-        format = "on [$hostname](bold red) ";
-        trim_at = ".local";
-        disabled = false;
-      };
+      hostname.disabled = true;
       add_newline = true;
       aws.disabled = true;
       gcloud.disabled = true;
       line_break.disabled = false;
+      scan_timeout = 10;
+      command_timeout = 100;
+      dotnet.disabled = true;
     };
   };
 }

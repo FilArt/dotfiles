@@ -1,12 +1,12 @@
 [
-  ./zsh.nix
-  ./foot.nix
-  ./ruff.nix
-  ./pass.nix
-  ./gpg.nix
-  ./git.nix
-  ./tmux.nix
   ./browser.nix
+  ./git.nix
+  ./gpg.nix
   ./helix.nix
+  ./terminal.nix
+  ./pass.nix
+  ./ruff.nix
+  ./tmux.nix
   ./zellij.nix
+  ./zsh.nix
 ]

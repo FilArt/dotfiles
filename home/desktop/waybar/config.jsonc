@@ -71,11 +71,11 @@
     "on-click": "gsimplecal"
   },
   "memory": {
-    "on-click": "kitty --hold sh -c btop",
-    "on-click-right": "kitty --hold sh -c htop",
+    "on-click": "alacritty -e nix-shell -p btop --run btop",
+    "on-click-right": "alacritty -e nix-shell -p htop-vim --run htop",
     "states": {
-      "warning": 75,
-      "critical": 90
+      "warning": 50,
+      "critical": 75
     },
     "format": "󰘚 {percentage}%",
     "format-critical": "󰀦 {percentage}%",

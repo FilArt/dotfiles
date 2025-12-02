@@ -40,6 +40,7 @@ in {
         (mkRule "wezterm-gui" "Doc-View")
         (mkRule "kitty" "Doc-View")
         (mkRule "foot" "Doc-View")
+        (mkRule "alacritty" "Doc-View")
 
         # other
         (mkRule "wpaperd" "BG_CPUIO")
