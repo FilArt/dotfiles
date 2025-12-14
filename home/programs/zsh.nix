@@ -37,6 +37,8 @@
       scan_timeout = 10;
       command_timeout = 100;
       dotnet.disabled = true;
+      nodejs.disabled = true;
+      package.disabled = true;
     };
   };
 }
