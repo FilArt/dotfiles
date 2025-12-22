@@ -37,11 +37,21 @@
       ];
     };
 
-    "/home/art/mnt/ssd" = {
-      device = "/dev/disk/by-uuid/60F220E9F220C55E";
-      fsType = "ntfs";
+    "/srv/media" = {
+      device = "/dev/disk/by-uuid/85cf6d5c-2083-4aee-87d3-ad2490dbca78";
+      fsType = "ext4";
+      options = [
+        "nofail"
+        "x-systemd.automount"
+        "noatime"
+      ];
     };
   };
+
+  systemd.tmpfiles.rules = [
+    "d /srv/media/jellyfin 0775 jellyfin jellyfin -"
+    "d /srv/media/torrents 0775 art users -"
+  ];
 
   networking.useDHCP = lib.mkDefault true;
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

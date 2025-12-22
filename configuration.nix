@@ -43,7 +43,7 @@ in {
   users.users.art = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = ["wheel" "networkmanager" "docker" "video" "audio"];
+    extraGroups = ["wheel" "networkmanager" "docker" "video" "audio" "jellyfin"];
   };
 
   environment = {

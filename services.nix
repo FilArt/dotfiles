@@ -85,5 +85,12 @@ in {
         initial_session = default_session;
       };
     };
+
+    jellyfin = {
+      enable = true;
+      openFirewall = true;
+    };
   };
+
+  users.users.jellyfin.extraGroups = ["video" "render"];
 }
