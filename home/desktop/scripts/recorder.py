@@ -1,4 +1,5 @@
-#!/home/art/.config/home-manager/hm-python/.venv/bin/python
+#! /usr/bin/env nix-shell
+#! nix-shell -i python3 -p python3Packages.click
 
 import subprocess
 
@@ -13,8 +14,10 @@ def recording_on():
 
 
 def start_recording():
-    cmd = """wf-recorder --geometry "$(slurp)" -f ~/Videos/"$(date +'%Y-%m-%d_%H-%M-%S')".mkv"""
-    subprocess.run(cmd, shell=True)
+    slurp = subprocess.run("slurp", capture_output=True, text=True).stdout.strip()
+    if slurp:
+        cmd = f"""wf-recorder --geometry "{slurp}" -f ~/Videos/"$(date +'%Y-%m-%d_%H-%M-%S')".mkv"""
+        subprocess.run(cmd, shell=True)
 
 
 def stop_recording():

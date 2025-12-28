@@ -9,6 +9,16 @@
     };
     catppuccin.url = "github:catppuccin/nix";
     helix.url = "github:helix-editor/helix"; # Or add /master for the latest dev version
+
+    dms = {
+      url = "github:AvengeMedia/DankMaterialShell?rev=b1632a0a0355b752e7bdbc589ec4c91305e5ed31";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {

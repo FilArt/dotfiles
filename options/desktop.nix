@@ -12,16 +12,7 @@
     displayManager.lightdm.enable = lib.mkForce false;
   };
 
-  programs.niri.enable = true;
-
-  programs.uwsm.enable = true;
-  programs.uwsm.waylandCompositors = {
-    niri = {
-      prettyName = "Niri";
-      comment = "A scrollable-tiling Wayland compositor managed by UWSM";
-      binPath = "/run/current-system/sw/bin/niri-session";
-    };
-  };
+  services.displayManager.gdm.enable = true;
 
   xdg.portal = {
     enable = true;
