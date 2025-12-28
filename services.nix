@@ -67,24 +67,6 @@ in {
        KEYBOARD_KEY_700e6=print
     '';
 
-    kmscon = {
-      enable = true;
-      hwRender = true;
-      useXkbConfig = true;
-      extraOptions = "--font-dpi=192";
-      autologinUser = "art";
-    };
-    greetd = {
-      enable = true;
-      settings = rec {
-        default_session = {
-          command = "${pkgs.greetd}/bin/agreety --cmd \"uwsm start niri-uwsm.desktop\"";
-          user = "art";
-        };
-        initial_session = default_session;
-      };
-    };
-
     jellyfin = {
       enable = true;
       openFirewall = true;
