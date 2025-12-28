@@ -19,7 +19,7 @@
       options = ["fmask=0022" "dmask=0022"];
     };
 
-    "/home/art/mnt/hdd" = {
+    "/srv/media/hdd" = {
       device = "/dev/disk/by-uuid/7423da92-0ea2-430d-bb30-8d02f438679c";
       fsType = "btrfs";
       options = [
