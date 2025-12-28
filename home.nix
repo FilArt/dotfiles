@@ -21,7 +21,7 @@
     binds = {
       # spawn
       "Mod+E".action.spawn = ["nemo"];
-      "Mod+T".action.spawn = ["$TERMINAL"];
+      "Mod+Z".action.spawn = ["kitty" "--hold" "zsh" "-c" "zellij"];
 
       "Mod+Shift+E".action.quit.skip-confirmation = true;
 
