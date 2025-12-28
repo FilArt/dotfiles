@@ -46,7 +46,6 @@ in {
         (mkRule "wpaperd" "BG_CPUIO")
       ];
     };
-    blueman.enable = true;
     fstrim.enable = true;
     fwupd.enable = true;
     gvfs.enable = true;
