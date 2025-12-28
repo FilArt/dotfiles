@@ -14,6 +14,8 @@
 
   services.displayManager.gdm.enable = true;
 
+  programs.niri.enable = true;
+
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs;
