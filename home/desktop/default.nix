@@ -1,6 +1,6 @@
 {
   imports = [
     ./theming.nix
-    ./wayland.nix
+    ./niri.nix
   ];
 }
