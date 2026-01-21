@@ -74,6 +74,8 @@ in {
     localBinInPath = true;
   };
 
+  environment.etc.hosts.mode = "0666";
+
   fonts = {
     enableDefaultPackages = true;
     packages = with pkgs; [
