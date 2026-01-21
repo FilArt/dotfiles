@@ -62,9 +62,6 @@
       enable = true;
       enable32Bit = true;
     };
-    bluetooth = {
-      enable = true;
-      powerOnBoot = false;
-    };
+    bluetooth.enable = true;
   };
 }
