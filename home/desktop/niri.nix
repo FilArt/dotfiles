@@ -3,9 +3,10 @@
   pkgs,
   ...
 }: let
-  grim = "${pkgs.grim}/bin/grim";
-  slurp = "${pkgs.slurp}/bin/slurp";
-  swappy = "${pkgs.swappy}/bin/swappy";
+  grim = "${pkgs.grim}/bin/grim -t ppm";
+  slurp = "${pkgs.slurp}/bin/slurp -d";
+  wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
+  satty = "${pkgs.satty}/bin/satty -f - --copy-command=${wl-copy} --actions-on-escape=\"save-to-clipboard,exit\" --disable-notifications";
 in {
   imports = [
     inputs.dms.homeModules.dank-material-shell
@@ -26,7 +27,14 @@ in {
         "Mod+Shift+S".action.spawn = [
           "sh"
           "-c"
-          "${grim} -g $(${slurp}) - | ${swappy} -f"
+          "${grim} -g \"$(${slurp})\" - | ${satty}"
+        ];
+        "Mod+Shift+J".action.spawn = [
+          "kitty"
+          "--hold"
+          "zsh"
+          "-c"
+          "journalctl -f"
         ];
 
         "Mod+1".action.focus-workspace = 1;
