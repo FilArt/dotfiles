@@ -26,6 +26,8 @@
       # programming
       lazydocker
       lazygit
+      python3
+      antigravity
 
       # system
       pinentry-gnome3 # dialogs
