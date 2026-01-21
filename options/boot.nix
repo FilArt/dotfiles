@@ -6,7 +6,7 @@
       availableKernelModules = ["xhci_pci" "thunderbolt" "nvme" "usb_storage" "uas" "sd_mod"];
       kernelModules = ["amdgpu"];
     };
-    kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+    # kernelPackages = pkgs.linuxKernel.packages.linux_zen;
     kernel.sysctl = {
       "kernel.sysrq" = 1;
     };
