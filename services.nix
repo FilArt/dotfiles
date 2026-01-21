@@ -4,6 +4,7 @@
   };
 in {
   services = {
+    blueman.enable = true;
     ananicy = {
       enable = true;
       package = pkgs.ananicy-cpp;
