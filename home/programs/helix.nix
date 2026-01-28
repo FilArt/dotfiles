@@ -7,9 +7,9 @@
   programs.helix = {
     enable = true;
     package = inputs.helix.packages.${pkgs.system}.default;
-
     extraPackages = [
       pkgs.basedpyright
+      pkgs.wl-clipboard
     ];
 
     languages = {
@@ -60,6 +60,10 @@
     };
 
     settings = {
+      editor = {
+        clipboard-provider = "wayland";
+      };
+
       keys.normal = {
         A-g = [":write-all" ":new" ":insert-output lazygit" ":buffer-close!" ":redraw" ":reload-all"];
         A-s = [":w"];
