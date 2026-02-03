@@ -3,7 +3,7 @@
     enable = true;
     profiles = {
       gg = {
-        name = "gg";
+        isDefault = true;
       };
     };
   };

@@ -9,4 +9,5 @@
   ./tmux.nix
   ./zellij.nix
   ./zsh.nix
+  ./thunderbird.nix
 ]

@@ -16,8 +16,21 @@ in {
 
   programs.niri = {
     enable = true;
-    settings.environment."NIXOS_OZONE_WL" = "1";
     settings = {
+      environment."NIXOS_OZONE_WL" = "1";
+
+      window-rules = [
+        {
+          clip-to-geometry = true;
+          geometry-corner-radius = {
+            bottom-left = 5.0;
+            bottom-right = 5.0;
+            top-left = 5.0;
+            top-right = 5.0;
+          };
+        }
+      ];
+
       binds = {
         # spawn
         "Mod+E".action.spawn = ["nemo"];
