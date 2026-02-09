@@ -52,6 +52,8 @@
       # coding
       direnv
       devenv
+
+      inputs.codex-cli-nix.packages.${pkgs.system}.default
     ];
   };
 

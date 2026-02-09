@@ -19,6 +19,8 @@
       url = "github:sodiboo/niri-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    codex-cli-nix.url = "github:sadjow/codex-cli-nix";
   };
 
   outputs = inputs @ {
