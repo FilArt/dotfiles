@@ -26,5 +26,10 @@
     };
 
     kdeconnect.enable = true;
+
+    direnv = {
+      enable = true;
+      enableZshIntegration = true;
+    };
   };
 }
