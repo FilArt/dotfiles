@@ -15,7 +15,7 @@
       path = "${config.xdg.dataHome}/zsh/history";
     };
     shellAliases = {
-      switch = "nh os switch -H art /home/art/.config/home-manager";
+      switch = "nh os switch";
       df = lib.getExe pkgs.duf;
       duf = lib.getExe pkgs.duf;
     };
