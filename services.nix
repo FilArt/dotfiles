@@ -72,6 +72,17 @@ in {
       enable = true;
       openFirewall = true;
     };
+
+    ollama = {
+      enable = true;
+      package = pkgs.ollama-cuda;
+      loadModels = [
+        "qwen3-coder-next"
+      ];
+      environmentVariables = {
+        OLLAMA_CONTEXT_LENGTH = "8000";
+      };
+    };
   };
 
   users.users.jellyfin.extraGroups = ["video" "render"];
