@@ -83,6 +83,8 @@ in {
         OLLAMA_CONTEXT_LENGTH = "8000";
       };
     };
+
+    accounts-daemon.enable = true; # for dms
   };
 
   users.users.jellyfin.extraGroups = ["video" "render"];

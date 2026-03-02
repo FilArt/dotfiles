@@ -12,6 +12,7 @@ in {
     inputs.dms.homeModules.dank-material-shell
     inputs.dms.homeModules.niri
     inputs.niri.homeModules.niri
+    inputs.dms-plugin-registry.modules.default
   ];
 
   nixpkgs.overlays = [inputs.niri.overlays.niri];
@@ -121,14 +122,20 @@ in {
     };
     enableSystemMonitoring = true;
     enableAudioWavelength = true;
+    enableVPN = true; # VPN management widget
+    enableDynamicTheming = true; # Wallpaper-based theming (matugen)
+    enableCalendarEvents = true; # Calendar integration (khal)
+    enableClipboardPaste = true; # Pasting items from the clipboard (wtype)
 
     plugins = {
-      DockerManager = {
-        src = pkgs.fetchFromGitHub {
-          owner = "LuckShiba";
-          repo = "DmsDockerManager";
-          rev = "v1.2.0";
-          sha256 = "sha256-VoJCaygWnKpv0s0pqTOmzZnPM922qPDMHk4EPcgVnaU=";
+      dockerManager.enable = true;
+
+      mediaPlayer = {
+        enable = true;
+
+        # You can only define settings here if using the home-manager module
+        settings = {
+          preferredSource = "spotify";
         };
       };
     };
