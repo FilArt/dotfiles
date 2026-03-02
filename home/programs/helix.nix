@@ -6,10 +6,11 @@
 }: {
   programs.helix = {
     enable = true;
-    package = inputs.helix.packages.${pkgs.system}.default;
+    package = inputs.helix.packages.${pkgs.stdenv.hostPlatform.system}.default;
     extraPackages = [
       pkgs.basedpyright
       pkgs.wl-clipboard
+      pkgs.typescript-language-server
     ];
 
     languages = {

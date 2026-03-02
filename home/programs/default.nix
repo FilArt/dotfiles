@@ -4,7 +4,6 @@
   ./gpg.nix
   ./helix.nix
   ./terminal.nix
-  ./pass.nix
   ./ruff.nix
   ./tmux.nix
   ./zellij.nix

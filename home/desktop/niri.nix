@@ -14,8 +14,11 @@ in {
     inputs.niri.homeModules.niri
   ];
 
+  nixpkgs.overlays = [inputs.niri.overlays.niri];
+
   programs.niri = {
     enable = true;
+    package = pkgs.niri-unstable;
     settings = {
       environment."NIXOS_OZONE_WL" = "1";
 
@@ -98,11 +101,26 @@ in {
   programs.dank-material-shell = {
     enable = true;
     niri = {
-      enableKeybinds = true; # Sets static preset keybinds
+      # enableKeybinds = true; # Sets static preset keybinds
       enableSpawn = true; # Auto-start DMS with niri and cliphist, if enabled
+      includes = {
+        enable = true;
+        override = true;
+        originalFileName = "hm";
+        filesToInclude = [
+          "alttab"
+          "binds"
+          "colors"
+          "layout"
+          "outputs"
+          "wpblur"
+          "cursor"
+        ];
+      };
     };
     enableSystemMonitoring = true;
     enableAudioWavelength = true;
+
     plugins = {
       DockerManager = {
         src = pkgs.fetchFromGitHub {

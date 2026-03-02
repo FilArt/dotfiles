@@ -47,21 +47,11 @@ in {
 
   environment = {
     systemPackages = with pkgs; [
-      xorg.xmodmap
-      gcc
       git
       home-manager
       wget
       networkmanager
-      docker
       nvtopPackages.full
-      pciutils
-      lshw
-      mesa-demos
-      inxi
-      xorg.xinit
-      power-profiles-daemon
-      jq
       cachix
       xwayland-satellite
       nh
@@ -84,7 +74,6 @@ in {
       noto-fonts-cjk-sans
       noto-fonts-color-emoji
       nerd-fonts.roboto-mono
-      nerd-fonts.jetbrains-mono
       nerd-fonts.droid-sans-mono
       nerd-fonts.fira-code
       font-awesome

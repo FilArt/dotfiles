@@ -52,7 +52,9 @@
       # coding
       devenv
 
-      inputs.codex-cli-nix.packages.${pkgs.system}.default
+      inputs.codex-cli-nix.packages.${stdenv.hostPlatform.system}.default
+      # inputs.opencode.packages.${stdenv.hostPlatform.system}.default
+      opencode # TODO replace it with the above then fixed
     ];
   };
 
@@ -62,4 +64,6 @@
       alias ll='ls -lah'
     '';
   };
+
+  programs.alacritty.enable = true;
 }
