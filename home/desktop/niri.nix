@@ -37,7 +37,8 @@ in {
       binds = {
         # spawn
         "Mod+E".action.spawn = ["nemo"];
-        "Mod+Z".action.spawn = ["kitty" "--hold" "zsh" "-c" "zellij"];
+        "Mod+Z".action.spawn = ["kitty" "zsh" "-c" "zellij"];
+        "Mod+A".action.spawn = ["alacritty" "-e" "zsh" "-c" "zellij"];
 
         "Mod+Shift+E".action.quit.skip-confirmation = true;
         "Mod+Shift+S".action.spawn = [
