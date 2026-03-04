@@ -55,6 +55,9 @@
       inputs.codex-cli-nix.packages.${stdenv.hostPlatform.system}.default
       # inputs.opencode.packages.${stdenv.hostPlatform.system}.default
       opencode # TODO replace it with the above then fixed
+
+      # dms
+      dsearch
     ];
   };
 

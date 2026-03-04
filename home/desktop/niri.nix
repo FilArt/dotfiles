@@ -21,8 +21,6 @@ in {
     enable = true;
     package = pkgs.niri-unstable;
     settings = {
-      environment."NIXOS_OZONE_WL" = "1";
-
       window-rules = [
         {
           clip-to-geometry = true;
@@ -35,11 +33,20 @@ in {
         }
       ];
 
+      input = {
+        keyboard = {
+          xkb = {
+            layout = "us,ru";
+            options = "grp:caps_toggle";
+          };
+        };
+      };
+
       binds = {
         # spawn
         "Mod+E".action.spawn = ["nemo"];
-        "Mod+Z".action.spawn = ["kitty" "zsh" "-c" "zellij"];
-        "Mod+A".action.spawn = ["alacritty" "-e" "zsh" "-c" "zellij"];
+        # "Mod+Z".action.spawn = ["kitty" "zsh" "-c" "zellij"];
+        "Mod+Z".action.spawn = ["alacritty" "-e" "zsh" "-c" "zellij"];
 
         "Mod+Shift+E".action.quit.skip-confirmation = true;
         "Mod+Shift+S".action.spawn = [
@@ -104,7 +111,7 @@ in {
     enable = true;
     niri = {
       # enableKeybinds = true; # Sets static preset keybinds
-      enableSpawn = true; # Auto-start DMS with niri and cliphist, if enabled
+      enableSpawn = false; # Auto-start DMS with niri and cliphist, if enabled
       includes = {
         enable = true;
         override = true;
@@ -120,12 +127,6 @@ in {
         ];
       };
     };
-    enableSystemMonitoring = true;
-    enableAudioWavelength = true;
-    enableVPN = true; # VPN management widget
-    enableDynamicTheming = true; # Wallpaper-based theming (matugen)
-    enableCalendarEvents = true; # Calendar integration (khal)
-    enableClipboardPaste = true; # Pasting items from the clipboard (wtype)
 
     plugins = {
       dockerManager.enable = true;
