@@ -1,0 +1,12 @@
+[
+  ./direnv.nix
+  ./dconf.nix
+  ./gamemode.nix
+  ./gamescope.nix
+  ./gnupg.nix
+  ./kdeconnect.nix
+  ./nh.nix
+  ./nix-ld.nix
+  ./steam.nix
+  ./zsh.nix
+]

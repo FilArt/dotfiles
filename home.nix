@@ -60,13 +60,4 @@
       dsearch
     ];
   };
-
-  programs.bash = {
-    enable = true;
-    initExtra = ''
-      alias ll='ls -lah'
-    '';
-  };
-
-  programs.alacritty.enable = true;
 }

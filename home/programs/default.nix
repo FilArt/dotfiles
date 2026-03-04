@@ -1,4 +1,6 @@
 [
+  ./alacritty.nix
+  ./bash.nix
   ./browser.nix
   ./git.nix
   ./gpg.nix
