@@ -1,0 +1,4 @@
+interface:
+  display_name: "NixOS Hardware Tuning"
+  short_description: "Review and tune NixOS hardware settings"
+  default_prompt: "Use $nixos-hardware-tuning-agent to audit my config and suggest hardware tuning improvements for zram, GPU, PipeWire, and power settings."
