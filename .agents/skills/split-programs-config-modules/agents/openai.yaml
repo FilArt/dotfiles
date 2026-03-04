@@ -1,0 +1,4 @@
+interface:
+  display_name: "Split Programs Config"
+  short_description: "Refactor programs settings into modules"
+  default_prompt: "Use $split-programs-config-modules to split monolithic programs config into focused modules and wire imports."
