@@ -54,8 +54,6 @@
 
       inputs.codex-cli-nix.packages.${stdenv.hostPlatform.system}.default
 
-      # dms
-      dsearch
       inputs.opencode.packages.${stdenv.hostPlatform.system}.default
     ];
   };
