@@ -15,7 +15,7 @@
       "nowatchdog"
       "nmi_watchdog=0"
       "usbcore.autosuspend=120" # 2 minutes
-      "amd_pstate=passive"
+      "amd_pstate=active"
     ];
     # blacklistedKernelModules = ["iTCO_wdt" "rtw88_8822bu"];
     # kernelModules = ["88x2bu"];
