@@ -41,6 +41,8 @@
       rclone
       tree
       ncdu
+      usbutils
+      v4l-utils
 
       # apps
       telegram-desktop
