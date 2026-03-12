@@ -26,25 +26,14 @@ in {
         (mkRule "go" "BG_CPUIO")
         (mkRule "nix" "BG_CPUIO")
         (mkRule "nix-daemon" "BG_CPUIO")
-        # editors
-        (mkRule "pycharm" "Doc-View")
-        (mkRule "cursor" "Doc-View")
+        (mkRule "zellij" "BG_CPUIO")
         # browser
-        (mkRule "chrome" "Doc-View")
-        # wm
-        (mkRule "Hyprland" "LowLatency_RT")
-        (mkRule "qtile" "LowLatency_RT")
-        (mkRule "rofi" "LowLatency_RT")
-        (mkRule "niri" "LowLatency_RT")
 
         # term
-        (mkRule "wezterm-gui" "Doc-View")
-        (mkRule "kitty" "Doc-View")
         (mkRule "foot" "Doc-View")
         (mkRule "alacritty" "Doc-View")
 
         # other
-        (mkRule "wpaperd" "BG_CPUIO")
       ];
     };
     fstrim.enable = true;

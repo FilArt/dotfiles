@@ -17,10 +17,6 @@ in {
 
   nixpkgs.overlays = [inputs.niri.overlays.niri];
 
-  programs.dsearch = {
-    enable = true;
-  };
-
   programs.niri = {
     enable = true;
     package = pkgs.niri-unstable;
