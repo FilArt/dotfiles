@@ -16,6 +16,7 @@
     };
     shellAliases = {
       switch = "nh os switch";
+      archie-switch = "nh os switch . -H archie --target-host archie";
       df = lib.getExe pkgs.duf;
       duf = lib.getExe pkgs.duf;
     };

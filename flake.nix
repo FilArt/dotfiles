@@ -8,6 +8,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     catppuccin.url = "github:catppuccin/nix";
     helix.url = "github:helix-editor/helix/master";
 
@@ -33,6 +37,7 @@
   outputs = inputs @ {
     nixpkgs,
     home-manager,
+    disko,
     catppuccin,
     helix,
     ...
@@ -56,6 +61,16 @@
         }
 
         ./configuration.nix
+      ];
+    };
+
+    nixosConfigurations.archie = nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        inherit inputs;
+      };
+      modules = [
+        disko.nixosModules.disko
+        ./hosts/archie
       ];
     };
   };
