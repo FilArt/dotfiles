@@ -50,8 +50,6 @@ in {
       ACTION=="add|change", KERNEL=="sd[a-z]*|mmcblk[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="bfq"
       # NVMe SSD
       ACTION=="add|change", KERNEL=="nvme[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="none"
-      # Logitech UVC webcam: keep it awake even with global USB autosuspend enabled.
-      ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="046d", ATTR{idProduct}=="0825", TEST=="power/control", ATTR{power/control}="on"
     '';
     udev.extraHwdb = ''
       evdev:input:b0003v046DpC548e0111*
@@ -65,7 +63,7 @@ in {
     };
 
     ollama = {
-      enable = true;
+      # enable = true;
       package = pkgs.ollama-cuda;
       loadModels = [
         "qwen3-coder-next"
