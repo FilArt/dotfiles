@@ -6,6 +6,8 @@
   imports = [
     ../../nix.nix
     ./hardware-configuration.nix
+    ./hosting.nix
+    ./todoart.nix
   ];
 
   networking.hostName = "archie";
@@ -87,6 +89,7 @@
     enable = true;
     allowPing = true;
     allowedTCPPorts = [6022];
+    logRefusedConnections = false;
   };
 
   services.fail2ban = {
@@ -101,20 +104,7 @@
     };
   };
 
-  programs.zsh = {
-    enable = true;
-    ohMyZsh = {
-      enable = true;
-      plugins = [
-        "git"
-        "sudo"
-        "colored-man-pages"
-        "command-not-found"
-      ];
-    };
-    autosuggestions.enable = true;
-    syntaxHighlighting.enable = true;
-  };
+  programs.zsh.enable = true;
 
   environment.systemPackages = with pkgs; [
     curl
@@ -123,6 +113,11 @@
     htop
     tmux
   ];
+
+  archie.todoart = {
+    enable = true;
+    domain = "todo-api.artfil.site";
+  };
 
   system.stateVersion = "25.11";
 }

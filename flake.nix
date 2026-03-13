@@ -30,6 +30,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    todoart-api = {
+      url = "path:/home/art/Projects/todoart/api";
+      flake = false;
+    };
+
     codex-cli-nix.url = "github:sadjow/codex-cli-nix";
     opencode.url = "github:anomalyco/opencode";
   };
@@ -70,6 +75,15 @@
       };
       modules = [
         disko.nixosModules.disko
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.users.archie = {
+            imports = [
+              ./hosts/archie/home.nix
+            ];
+          };
+          home-manager.extraSpecialArgs = {inherit inputs;};
+        }
         ./hosts/archie
       ];
     };

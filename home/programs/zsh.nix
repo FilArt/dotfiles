@@ -4,23 +4,17 @@
   pkgs,
   ...
 }: {
-  programs.zsh = {
-    enable = true;
-    dotDir = "${config.xdg.configHome}/zsh";
-    oh-my-zsh.enable = true;
-    autosuggestion.enable = true;
-    syntaxHighlighting.enable = true;
-    history = {
-      size = 100000;
-      path = "${config.xdg.dataHome}/zsh/history";
-    };
-    shellAliases = {
-      switch = "nh os switch";
-      archie-switch = "nh os switch . -H archie --target-host archie";
-      df = lib.getExe pkgs.duf;
-      duf = lib.getExe pkgs.duf;
-    };
+  imports = [
+    ./zsh-shared.nix
+  ];
+
+  programs.zsh.shellAliases = {
+    switch = "nh os switch";
+    archie-switch = "nh os switch . -H archie --target-host archie";
+    df = lib.getExe pkgs.duf;
+    duf = lib.getExe pkgs.duf;
   };
+
   programs.starship = {
     enable = true;
     settings = {

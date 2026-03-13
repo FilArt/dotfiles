@@ -357,7 +357,8 @@
         "home-manager": "home-manager",
         "niri": "niri",
         "nixpkgs": "nixpkgs_4",
-        "opencode": "opencode"
+        "opencode": "opencode",
+        "todoart-api": "todoart-api"
       }
     },
     "rust-overlay": {
@@ -394,6 +395,19 @@
         "owner": "nix-systems",
         "repo": "default",
         "type": "github"
+      }
+    },
+    "todoart-api": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1773423475,
+        "narHash": "sha256-jztYd7LkvkdWcrd1tM0GlgThxbl21EiA4caeZDq8Zbs=",
+        "path": "/home/art/Projects/todoart/api",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/art/Projects/todoart/api",
+        "type": "path"
       }
     },
     "xwayland-satellite-stable": {
