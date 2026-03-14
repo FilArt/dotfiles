@@ -5,7 +5,8 @@
   inputs,
   ...
 }: let
-  inherit (lib)
+  inherit
+    (lib)
     literalExpression
     mkEnableOption
     mkIf
@@ -14,7 +15,7 @@
     ;
 
   cfg = config.archie.todoart;
-  todoartApiPackage = import inputs.todoart-api {inherit pkgs;};
+  todoartApiPackage = import "${inputs.todoart-api}/api" {inherit pkgs;};
 in {
   options.archie.todoart = {
     enable = mkEnableOption "TodoArt FastAPI backend on the archie host";
@@ -73,7 +74,6 @@ in {
       inherit (cfg) environmentFile port serverAliases;
       user = "todoart";
       group = "todoart";
-      environment.TODOART_DB_PATH = "/var/lib/todoart/todoart.db";
       execStart = "${lib.getExe cfg.package} --host 127.0.0.1 --port ${toString cfg.port}";
       serviceConfig.StateDirectory = "todoart";
     };

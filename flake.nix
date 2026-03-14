@@ -31,7 +31,7 @@
     };
 
     todoart-api = {
-      url = "path:/home/art/Projects/todoart/api";
+      url = "github:FilArt/todoart";
       flake = false;
     };
 
