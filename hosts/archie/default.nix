@@ -117,6 +117,7 @@
   archie.todoart = {
     enable = true;
     domain = "todo-api.artfil.site";
+    environmentFile = "/var/lib/secrets/todoart-api.env";
   };
 
   system.stateVersion = "25.11";
