@@ -38,6 +38,8 @@
     codex-cli-nix.url = "github:sadjow/codex-cli-nix";
     opencode.url = "github:anomalyco/opencode";
     devenv.url = "github:cachix/devenv";
+
+    autofirma-nix.url = "github:nix-community/autofirma-nix";
   };
 
   outputs = inputs @ {
@@ -46,6 +48,7 @@
     disko,
     catppuccin,
     helix,
+    autofirma-nix,
     ...
   }: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
@@ -67,6 +70,8 @@
         }
 
         ./configuration.nix
+
+        autofirma-nix.nixosModules.default
       ];
     };
 
