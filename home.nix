@@ -52,8 +52,7 @@
       (pkgs.bottles.override {removeWarningPopup = true;})
 
       # coding
-      devenv
-
+      inputs.devenv.packages.${stdenv.hostPlatform.system}.default
       inputs.codex-cli-nix.packages.${stdenv.hostPlatform.system}.default
 
       inputs.opencode.packages.${stdenv.hostPlatform.system}.default
