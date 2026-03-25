@@ -1,5 +1,8 @@
 {
-  home.sessionVariables.TERMINAL = "kitty";
+  home.sessionVariables = {
+    TERMINAL = "alacritty";
+    EDITOR = "hx";
+  };
 
   programs.foot = {
     enable = true;
