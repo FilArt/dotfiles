@@ -1,9 +1,12 @@
 {
-  pkgs,
-  lib,
+  config,
   inputs,
+  lib,
+  pkgs,
   ...
-}: {
+}: let
+  helixUtils = "${config.xdg.configHome}/helix/utils";
+in {
   programs.helix = {
     enable = true;
     package = inputs.helix.packages.${pkgs.stdenv.hostPlatform.system}.default;
@@ -74,6 +77,14 @@
 
         A-w = [":bc"];
 
+        space.g = {
+          f = "changed_file_picker";
+          r = ":reset-diff-change";
+          b = ":run-shell-command ${helixUtils}/blame_line_pretty.sh %{buffer_name} %{cursor_line}";
+          B = ":open %sh{${helixUtils}/blame_file_pretty.sh %{buffer_name} %{cursor_line}}";
+          h = ":run-shell-command ${helixUtils}/git-hunk.sh %{buffer_name} %{cursor_line} 3";
+        };
+
         space.l = {
           e = [
             ":sh bun run eslint %{buffer_name} --fix"
@@ -81,6 +92,23 @@
           ];
         };
       };
+    };
+  };
+
+  xdg.configFile = {
+    "helix/utils/blame_file_pretty.sh" = {
+      source = ./utils/blame_file_pretty.sh;
+      executable = true;
+    };
+
+    "helix/utils/blame_line_pretty.sh" = {
+      source = ./utils/blame_line_pretty.sh;
+      executable = true;
+    };
+
+    "helix/utils/git-hunk.sh" = {
+      source = ./utils/git-hunk.sh;
+      executable = true;
     };
   };
 }

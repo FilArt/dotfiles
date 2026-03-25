@@ -4,7 +4,7 @@
   ./browser.nix
   ./git.nix
   ./gpg.nix
-  ./helix.nix
+  ./helix
   ./terminal.nix
   ./ruff.nix
   ./tmux.nix
