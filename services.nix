@@ -27,13 +27,6 @@ in {
         (mkRule "nix" "BG_CPUIO")
         (mkRule "nix-daemon" "BG_CPUIO")
         (mkRule "zellij" "BG_CPUIO")
-        # browser
-
-        # term
-        (mkRule "foot" "Doc-View")
-        (mkRule "alacritty" "Doc-View")
-
-        # other
       ];
     };
     fstrim.enable = true;
