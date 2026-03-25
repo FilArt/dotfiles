@@ -11,7 +11,14 @@ in {
     enable = true;
     package = inputs.helix.packages.${pkgs.stdenv.hostPlatform.system}.default;
     extraPackages = [
+      pkgs.bash-language-server
       pkgs.basedpyright
+      pkgs.markdown-oxide
+      pkgs.nil
+      pkgs.shfmt
+      pkgs.taplo
+      pkgs.vscode-langservers-extracted
+      pkgs.yaml-language-server
       pkgs.wl-clipboard
       pkgs.typescript-language-server
     ];
@@ -22,6 +29,33 @@ in {
           name = "nix";
           auto-format = true;
           formatter.command = lib.getExe pkgs.alejandra;
+          language-servers = [
+            "nil"
+          ];
+        }
+        {
+          name = "json";
+          language-servers = [
+            "vscode-json-language-server"
+          ];
+        }
+        {
+          name = "toml";
+          language-servers = [
+            "taplo"
+          ];
+        }
+        {
+          name = "yaml";
+          language-servers = [
+            "yaml-language-server"
+          ];
+        }
+        {
+          name = "markdown";
+          language-servers = [
+            "markdown-oxide"
+          ];
         }
         {
           name = "python";
@@ -31,6 +65,14 @@ in {
           auto-format = true;
           formatter.command = lib.getExe pkgs.ruff;
           formatter.args = ["format" "-"];
+        }
+        {
+          name = "bash";
+          language-servers = [
+            "bash-language-server"
+          ];
+          auto-format = true;
+          formatter.command = lib.getExe pkgs.shfmt;
         }
         {
           name = "vue";
@@ -53,8 +95,47 @@ in {
       ];
 
       language-server = {
+        "bash-language-server" = {
+          command = lib.getExe pkgs.bash-language-server;
+          args = [
+            "start"
+          ];
+        };
+
+        nil = {
+          command = lib.getExe pkgs.nil;
+        };
+
         python = {
           command = lib.getExe pkgs.basedpyright;
+        };
+
+        "vscode-json-language-server" = {
+          command = lib.getExe' pkgs.vscode-langservers-extracted "vscode-json-language-server";
+          args = [
+            "--stdio"
+            "--only"
+            "json"
+          ];
+        };
+
+        "yaml-language-server" = {
+          command = lib.getExe pkgs.yaml-language-server;
+          args = [
+            "--stdio"
+          ];
+        };
+
+        "markdown-oxide" = {
+          command = lib.getExe pkgs.markdown-oxide;
+        };
+
+        taplo = {
+          command = lib.getExe pkgs.taplo;
+          args = [
+            "lsp"
+            "stdio"
+          ];
         };
 
         vuels = {
@@ -65,7 +146,33 @@ in {
 
     settings = {
       editor = {
+        auto-pairs = true;
+        bufferline = "multiple";
         clipboard-provider = "wayland";
+        cursorline = true;
+        end-of-line-diagnostics = "hint";
+        gutters = [
+          "diagnostics"
+          "spacer"
+          "line-numbers"
+          "spacer"
+          "diff"
+        ];
+        line-number = "relative";
+        rulers = [
+          80
+          100
+        ];
+        soft-wrap = {
+          enable = true;
+        };
+        indent-guides = {
+          render = true;
+        };
+        lsp = {
+          display-inlay-hints = true;
+          auto-signature-help = true;
+        };
       };
 
       keys.normal = {
@@ -76,6 +183,20 @@ in {
         A-k = ["extend_to_line_bounds" "delete_selection" "move_line_up" "paste_before"];
 
         A-w = [":bc"];
+
+        space = {
+          f = "file_picker";
+          F = "file_picker_in_current_directory";
+          b = "buffer_picker";
+          s = "lsp_or_syntax_symbol_picker";
+          S = "lsp_or_syntax_workspace_symbol_picker";
+          d = "diagnostics_picker";
+          D = "workspace_diagnostics_picker";
+          a = "code_action";
+          r = "rename_symbol";
+          k = "hover";
+          "/" = "global_search";
+        };
 
         space.g = {
           f = "changed_file_picker";
